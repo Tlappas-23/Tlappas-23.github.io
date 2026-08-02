@@ -418,7 +418,7 @@ dl.decisions dd { color: var(--muted); font-size: 0.92rem; margin-top: 0.15rem; 
 /* Scroll reveal. The hidden state only applies when site.js adds the
    js class, so content is never invisible without JavaScript, and
    reduced-motion readers see everything immediately. */
-html.js .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.55s ease, transform 0.55s ease; }
+html.js .reveal { opacity: 0; transform: translateY(10px); transition: opacity 0.4s ease, transform 0.4s ease; }
 html.js .reveal.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   html.js .reveal { opacity: 1; transform: none; transition: none; }
