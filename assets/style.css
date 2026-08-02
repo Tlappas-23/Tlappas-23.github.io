@@ -90,6 +90,16 @@ h1, h2, h3, h4 { text-wrap: balance; letter-spacing: -0.015em; }
   text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.8rem;
 }
 
+/* Selection behavior. Dragging across the page should highlight and copy
+   the words, not paint the layout. Containers are non-selectable and every
+   text element opts back in, so the highlight never floods section
+   backgrounds or margins, and copy and paste picks up only the text you
+   actually dragged over. */
+main, .topbar, .site-footer { -webkit-user-select: none; user-select: none; }
+h1, h2, h3, h4, p, li, dt, dd, span, a, code, td, th, caption, figcaption, summary,
+.foot-legal { -webkit-user-select: text; user-select: text; }
+::selection { background: var(--accent); color: var(--bg); }
+
 /* Sticky site header. Identical on every page; the current page's nav
    link carries aria-current and gets the accent underline. */
 .topbar {
