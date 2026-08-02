@@ -609,6 +609,13 @@
         <p>Serving is separated from modeling: predictions are precomputed to Parquet and seeded into PostgreSQL, so the async FastAPI layer answers dashboard queries without a model in the request path. The frontend is a 15-page Next.js application deployed on Vercel, with the API and database on Render.</p>
       </div>
 
+      <div class="case-block reveal">
+        <span class="sublabel">The Transfer Index: built in Excel on purpose</span>
+        <p>The transfer projections began life outside ProspectIQ as the Basketball Transfer Index, a standalone system built entirely in a 24-sheet Excel workbook. That was a deliberate choice, not a limitation. The audience is coaching staffs who need to see why a projection says what it says, so every weight, multiplier, error cell, and intermediate step is inspectable on the sheet, and four model iterations are preserved side by side in the workbook. Nothing hides in a black box, and nothing can be invented: a projection can only come from cells you can point at.</p>
+        <p>The architecture is a two-stage model fit with Excel Solver (GRG Nonlinear) against the sum of absolute errors, with no backpropagation anywhere. Stage one fits per-stat lookup tables for three contexts of a transfer: the change in conference tier, the change in team rank (nine buckets), and the move between team playing styles. Stage two blends those three predictions per stat with three non-negative weights constrained to sum to one. The learned weights are themselves scouting insight: scoring translation leans almost entirely on the conference-tier jump (0.87), while assists (0.83) and blocks (0.99) are driven by the style of team a player lands on. In machine learning terms it is stacked generalization, three base learners under a constrained meta-learner per stat, fit gradient-free on 745 real transfers.</p>
+        <p>The team styles behind the third predictor come from a hand-built cluster analysis: 2,501 team-seasons z-scored on pace, activity, assist-to-turnover ratio, and shot selection, threshold-coded, then manually consolidated into six playing styles that feed a six-by-six style-transition matrix. The system was later serialized into ProspectIQ's transfer API and backtested there on 3,110 historical transfers across five seasons: scoring projections land within 3.11 points per 40 on average, call the direction of change correctly 66.4% of the time, and beat the no-change baseline by 12.2%, with the one stat that fails its baseline (blocks) documented as a known issue rather than hidden.</p>
+      </div>
+
       <div class="stats reveal" role="list" aria-label="Key results">
         <div class="stat" role="listitem"><span class="n">147K+</span><span class="l">college player-seasons analyzed</span></div>
         <div class="stat" role="listitem"><span class="n">0.685</span><span class="l">cross-validated ROC-AUC on NBA stick prediction</span></div>
@@ -633,7 +640,7 @@
           <ul>
             <li>Two models, two jobs: a binary XGBoost model predicts sticking in the NBA (CV ROC-AUC 0.685 on an outcome dominated by non-NBA careers), and a five-class softprob model assigns career tiers at 70.2% adjacent accuracy.</li>
             <li>Two data sources with different season conventions (Ball Don't Lie and CollegeBasketballData) are aligned through dedicated season-offset utilities, one of the unglamorous correctness problems that decides whether everything downstream is right.</li>
-            <li>Transfer portal projections use a two-stage fitted model documented in its own methodology note, with role scenarios for how a player projects at a new school.</li>
+            <li>Transfer portal projections carry the Excel-born two-stage Solver fit into production: the workbook's fitted tables and blend weights are serialized into the API, with role scenarios for how a player projects at a new school and a methodology note documenting the full lineage.</li>
             <li>A player similarity engine runs cosine similarity over 54,000 players for comparable-player scouting.</li>
             <li>An audit script verifies the full system in seconds, and seven Jupyter notebooks make the validation reproducible end to end.</li>
           </ul>
