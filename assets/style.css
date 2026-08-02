@@ -407,12 +407,9 @@ dl.decisions dd { color: var(--muted); font-size: 0.92rem; margin-top: 0.15rem; 
 }
 .used-in { font-family: var(--mono); font-size: 0.68rem; color: var(--faint); margin-top: 0.8rem; }
 
-/* Contact page body: buttons first, then what I can share on request. */
+/* Contact page body: the buttons, then one line on what is available. */
 .contact-body { max-width: 47rem; }
 .contact-body p { color: var(--muted); margin-top: 0.8rem; }
-.contact-body ul { list-style: none; margin-top: 1rem; display: grid; gap: 0.5rem; }
-.contact-body ul li { position: relative; padding-left: 1.2rem; font-size: 0.95rem; }
-.contact-body ul li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 0.35rem; height: 0.35rem; border-radius: 50%; background: var(--accent); }
 
 /* Scroll reveal. The hidden state only applies when site.js adds the
    js class, so content is never invisible without JavaScript, and
