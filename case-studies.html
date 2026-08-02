@@ -72,7 +72,7 @@
 
       <div class="case-block reveal">
         <span class="sublabel">Executive summary</span>
-        <p>The project turns scattered, incompatible international data into a defensible answer to a signing decision. Three vendors' feeds, none sharing a schema, are reconciled into one clean history covering NBA and four European league careers, and everything downstream is built on that foundation. Version 2 learned per-stat INTL to NBA translations empirically and validated each against a naive baseline with leave-one-out prediction error. Version 3 rebuilt the pipeline around a joint hierarchical Bayesian translation model with a hand-rolled Gibbs sampler, hardened the ingestion (103 to 118 training transitions, 392 to 431 ranked players), let the data choose the archetypes, and replaced the point ranking with an upside probability computed from posterior draws. Both versions end in a written scouting report; v3 also reports, openly, what it changed about v2's conclusions.</p>
+        <p>The project turns scattered, incompatible international data into a defensible answer to a signing decision. Three separately delivered data feeds with inconsistent conventions are reconciled into one clean history covering NBA and four European league careers, and everything downstream is built on that foundation. Version 2 learned per-stat INTL to NBA translations empirically and validated each against a naive baseline with leave-one-out prediction error. Version 3 rebuilt the pipeline around a joint hierarchical Bayesian translation model with a hand-rolled Gibbs sampler, hardened the ingestion (103 to 118 training transitions, 392 to 431 ranked players), let the data choose the archetypes, and replaced the point ranking with an upside probability computed from posterior draws. Both versions end in a written scouting report; v3 also reports, openly, what it changed about v2's conclusions.</p>
       </div>
 
       <div class="case-block reveal">
@@ -82,8 +82,8 @@
 
       <div class="case-block reveal">
         <span class="sublabel">Approach</span>
-        <p>v2: three vendors' JSON feeds are reconciled into per-40, true-shooting, and usage features across NBA and four European league histories. Careers collapse into minutes-weighted league runs, yielding qualifying INTL to NBA transitions. For each stat, two translation forms (stat only, stat plus age) compete on leave-one-out error against the naive assumption that stats carry over unchanged; winners' correlations become reliability weights, players cluster into three archetypes, and the board ranks an age-adjusted composite.</p>
-        <p>v3: ingestion is hardened first, because sample size is the scarcest resource: normalized name keys and same-season league ordering recover 15 additional transitions, and aggregating split seasons recovers 39 pool players. One joint hierarchical Bayesian model replaces ten separate fits: translation slopes partially pool across stats, age enters every stat with a shared prior, and a latent per-player factor captures cross-stat translation quality, all fit with a hand-rolled, all-conjugate Gibbs sampler. A Gaussian mixture chooses k=4 archetypes by BIC with soft memberships, and targets are sorted by the probability that a player's translated composite clears the pool's top-decile bar, computed from 1,000 posterior draws per player. Both pipelines are single deterministic scripts with fixed seeds.</p>
+        <p>v2: three JSON feeds are reconciled into per-40, true-shooting, and usage features across NBA and four European league histories. Careers collapse into minutes-weighted league runs, yielding qualifying INTL to NBA transitions. For each stat, two translation forms (stat only, stat plus age) compete on leave-one-out error against the naive assumption that stats carry over unchanged; winners' correlations become reliability weights, players cluster into three archetypes, and the board ranks an age-adjusted composite.</p>
+        <p>v3: ingestion is hardened first, because sample size is the scarcest resource: normalized name keys and same-season league ordering recover 15 additional transitions, and aggregating split seasons recovers 39 pool players. One joint hierarchical Bayesian model replaces ten separate fits: translation slopes partially pool across stats, age enters every stat with a shared prior, and a latent per-player factor captures cross-stat translation quality, all fit with a hand-rolled, all-conjugate Gibbs sampler. A Gaussian mixture chooses k=4 archetypes by BIC with soft memberships, and targets are sorted by the probability that a player's translated composite clears the pool's top-decile bar, computed from 1,000 posterior draws per player. Both pipelines are deterministic and seeded end to end.</p>
       </div>
 
       <div class="stats reveal" role="list" aria-label="Key results">
@@ -109,12 +109,12 @@
               <tr><td class="num">6</td><td>Gaffney Bozeman</td><td class="num">0.54</td><td class="num">v3 #2 · P(upside) 0.68</td></tr>
               <tr><td class="num">7</td><td>Ntilikina Higgins</td><td class="num">0.52</td><td class="num">v3 #3 · P(upside) 0.57</td></tr>
               <tr><td class="num">8</td><td>Kwan Poirier</td><td class="num">0.43</td><td class="num">v3 #7 · P(upside) 0.51</td></tr>
-              <tr><td class="num">9</td><td>Yakuba Shirley</td><td class="num">0.43</td><td class="drop">v3 #40 · P(upside) 0.02</td></tr>
+              <tr><td class="num">9</td><td>Yakuba Shirley</td><td class="num">0.43</td><td class="drop">v3 #39 · P(upside) 0.02</td></tr>
               <tr><td class="num">10</td><td>Poythress Wigginton</td><td class="num">0.41</td><td class="num">v3 #14 · P(upside) 0.22</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="table-note">Computed from both branches' board CSVs using each version's own target filters (playing-time standout, age 30 and under, no prior NBA experience). Target lists: 43 players in v2, 50 in v3; Spearman rank correlation 0.56 across the 38 shared players. Player names are randomized in the source dataset.</p>
+        <p class="table-note">Computed from both branches' board CSVs using each version's own target filters (playing-time standout, age 30 and under, no prior NBA experience). Target lists: 43 players in v2, 50 in v3; Spearman rank correlation 0.73 across the 38 shared players. Player names are randomized in the source dataset.</p>
 
         <div class="table-scroll">
           <table class="data">
@@ -139,7 +139,7 @@
       <div class="case-block reveal">
         <span class="sublabel">Results</span>
         <ul class="findings">
-          <li><strong>The re-evaluation overturned the board.</strong> v2's #1 (composite 1.02) and #3 targets fail v3's stricter playing-time legitimacy accounting entirely, and v2's #9 collapses to rank 40 with P(upside) 0.02. A 19-year-old enters the v3 top ten on upside probability that a point ranking missed.</li>
+          <li><strong>The re-evaluation overturned the board.</strong> v2's #1 (composite 1.02) and #3 targets fail v3's stricter playing-time legitimacy accounting entirely, and v2's #9 collapses to rank 39 with P(upside) 0.02. A 19-year-old enters the v3 top ten on upside probability that a point ranking missed.</li>
           <li><strong>Validation held or improved on a larger sample.</strong> With 15% more training transitions, usage error fell 50% versus naive and scoring 36%; three-point volume still fails its baseline and stays flagged.</li>
           <li><strong>Sampler quality is checked, not assumed.</strong> Split-half slope drift across 1,000 kept posterior draws is 0.009, and every ingestion exclusion is printed as a logged decision.</li>
           <li><strong>Known limitations are stated in the README.</strong> Including one inherited inconsistency, kept deliberately: 3PM/40 fails the MAE gate yet keeps composite weight 0.16 because weights come from CV correlation. It is documented, with the fix described, rather than silently patched after delivery.</li>
@@ -210,7 +210,7 @@
             <div class="stack-row"><span class="k">Modeling</span><span class="v">Hand-rolled all-conjugate Gibbs sampler, Gaussian mixture archetypes (BIC selection), per-stat OLS baselines</span></div>
             <div class="stack-row"><span class="k">Data science</span><span class="v">pandas, NumPy, statsmodels, scikit-learn</span></div>
             <div class="stack-row"><span class="k">Visualization</span><span class="v">Matplotlib</span></div>
-            <div class="stack-row"><span class="k">Reproducibility</span><span class="v">Deterministic single-script pipelines, fixed seeds, logged exclusions, versioned branches (main = v2, v3)</span></div>
+            <div class="stack-row"><span class="k">Reproducibility</span><span class="v">Deterministic seeded pipelines, logged exclusions, versioned branches (main = v2, v3)</span></div>
           </div>
         </div>
       </details>
