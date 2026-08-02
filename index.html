@@ -41,7 +41,7 @@
         <div>
           <span class="label">Data Science · Analytics Engineering · Software Engineering</span>
           <h1>Validated models, shipped as working systems.</h1>
-          <p class="hero-lede">I am Thomas Lappas, a data scientist and analytics engineer with a master's in business analytics. The problems I work on are general ones: <strong>how performance measured in one context translates to another</strong>, <strong>where a market is mispricing its options</strong>, <strong>how much of an outcome is circumstance rather than quality</strong>, and <strong>what it takes for a model to run in production unattended</strong>. I study them through basketball: a stat line moving between leagues is a domain-shift problem, the transfer portal is a market with undervalued assets, schedule luck is an attribution problem, and a daily prediction platform is production ML. Swap the domain and the same questions show up in pricing, credit, hiring, and forecasting.</p>
+          <p class="hero-lede">I am Thomas Lappas, a data scientist and analytics engineer with a master's in business analytics from Villanova University. The problems I work on are general ones: <strong>how performance measured in one context translates to another</strong>, <strong>where a market is mispricing its options</strong>, <strong>how much of an outcome is circumstance rather than quality</strong>, and <strong>what it takes for a model to run in production unattended</strong>. I study them through basketball: a stat line moving between leagues is a domain-shift problem, the transfer portal is a market with undervalued assets, schedule luck is an attribution problem, and a daily prediction platform is production ML. Swap the domain and the same questions show up in pricing, credit, hiring, and forecasting.</p>
           <p class="hero-lede" style="margin-top: 0.9rem;">Every model I build competes against a naive baseline before it earns trust, every evaluation is designed so it cannot leak, and the strongest results ship as deployed products rather than notebooks. I also match the tool to the job: the original transfer index was a neural-network-style model built entirely in Excel, its weights fit with Solver instead of backpropagation, so every calculation stays visible and auditable with nothing hidden in a black box.</p>
           <div class="btn-row">
             <a class="btn btn-primary" href="case-studies.html">Read the case studies</a>
@@ -127,14 +127,53 @@
     </div>
   </section>
 
-  <!-- Engineering philosophy: six principles, each checkable against
-       a case study rather than a slogan. -->
+  <!-- Graduate foundations: the types of work from the Villanova M.S. in
+       Business Analytics, with real numbers from the actual coursework.
+       The capstone client stays unnamed under a student NDA. -->
+  <section class="section" aria-labelledby="grad-h">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="label">Foundations</span>
+        <h2 id="grad-h">What the master's covered</h2>
+        <p>The basketball work sits on a Villanova M.S. in Business Analytics that ran the full analytics stack, with every project graded on the model and on the business communication around it. Most assignments were solved in R and Python side by side.</p>
+      </div>
+      <div class="phil-grid">
+        <div class="phil reveal">
+          <h3>Data mining and machine learning</h3>
+          <p>A warm-lead prediction final compared logistic regression, CART, random forest, AdaBoost, and XGBoost on identical splits, then picked the winner in dollars: a threshold-optimization loop over the confusion matrix chose the cutoff that maximized campaign profit at $233,000 (XGBoost, AUC 0.916), not the one that maximized accuracy.</p>
+        </div>
+        <div class="phil reveal">
+          <h3>Optimization</h3>
+          <p>A six-month production plan formulated as a 72-variable linear program in Excel Solver, with sensitivity analysis priced in dollars: a half-hour cut in assembly time was worth $165,000. The same Solver fluency later fit the transfer index.</p>
+        </div>
+        <div class="phil reveal">
+          <h3>Simulation</h3>
+          <p>A discrete-event Simio model of airport check-in and security, 20+ scenarios at 50 replications each, cutting modeled passenger flow time from 68 minutes to under 18 with two added security stations and one kiosk.</p>
+        </div>
+        <div class="phil reveal">
+          <h3>SQL and data modeling</h3>
+          <p>A purchase-pattern analysis of 155,676 grocery orders in raw SQL Server: reorder behavior, peak ordering windows, and market-basket lift, ending in shelf, inventory, and promotion recommendations.</p>
+        </div>
+        <div class="phil reveal">
+          <h3>Forecasting and text mining</h3>
+          <p>Bike-share ridership forecast three ways, regression, ARIMA, and neural networks with tuned hyperparameters, plus social-media text pipelines with tokenization, TF-IDF, and sentiment scoring.</p>
+        </div>
+        <div class="phil reveal">
+          <h3>Consulting capstone</h3>
+          <p>For a national consumer research firm's survey of about 4,000 US respondents, joined Census population data, engineered the features, and clustered consumers into three actionable segments, delivered as a business report and dashboard to a real client.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Engineering philosophy: nine principles, each checkable against
+       a case study or the graduate work rather than a slogan. -->
   <section class="section" aria-labelledby="phil-h">
     <div class="wrap">
       <div class="section-head reveal">
         <span class="label">Engineering Philosophy</span>
         <h2 id="phil-h">Principles the projects actually follow</h2>
-        <p>Each of these is a claim you can check against the case studies, not a slogan.</p>
+        <p>Each of these is a claim you can check against the case studies or the graduate work above, not a slogan.</p>
       </div>
       <div class="phil-grid">
         <div class="phil reveal">
@@ -160,6 +199,18 @@
         <div class="phil reveal">
           <h3>Write down the trade-offs</h3>
           <p>Design decisions are documented with what was given up: Compose-only runtime, a single production writer, duplicated feature storage. Known-limitations sections state what the models cannot see, including one inherited inconsistency kept for continuity and flagged openly.</p>
+        </div>
+        <div class="phil reveal">
+          <h3>Judge models in business units</h3>
+          <p>The graduate data mining final chose its classification cutoff by looping over thresholds to maximize campaign profit in dollars, and optimization sensitivity was reported the same way. AUC is a diagnostic; the decision is measured in what the business actually counts.</p>
+        </div>
+        <div class="phil reveal">
+          <h3>Communicate to the decision-maker</h3>
+          <p>Every graduate project ended in an executive summary with recommendations, and the habit carried: the conference study answers every question twice, once technically and once in plain language, because a model nobody understands funds no decision.</p>
+        </div>
+        <div class="phil reveal">
+          <h3>Leave out what does not belong</h3>
+          <p>A school-marketing targeting model deliberately excluded race and ethnicity on ethical grounds, even though the fields were available and predictive work would have accepted them. What a model is not allowed to see is a design decision too.</p>
         </div>
       </div>
     </div>
