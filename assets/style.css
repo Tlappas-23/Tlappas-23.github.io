@@ -239,10 +239,9 @@ section[id], article[id] { scroll-margin-top: 4.5rem; }
 .toc a:hover { border-color: var(--accent); color: var(--accent-ink); }
 
 /* Fixed study navigator for the case studies page. It only appears
-   once the right gutter is wide enough to hold it without crowding
-   the text column; the study on screen gets the accent. */
+   once the right gutter clears the full-width tables and figures; the study on screen gets the accent. */
 .side-toc { display: none; }
-@media (min-width: 88rem) {
+@media (min-width: 97rem) {
   .side-toc {
     display: flex; flex-direction: column; gap: 0.6rem;
     position: fixed; right: 2.2rem; top: 50%; transform: translateY(-50%); z-index: 10;
