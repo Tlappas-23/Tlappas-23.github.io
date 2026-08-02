@@ -180,7 +180,7 @@
         <div class="deep-body">
           <h3>Technical highlights</h3>
           <ul>
-            <li>One joint model instead of ten fits: translation slopes partially pool across stats, per-stat age effects share a prior, and a latent per-player factor captures "translates better or worse than his stats say," fit with an all-conjugate Gibbs sampler written from scratch, no MCMC library.</li>
+            <li>One joint model instead of ten fits: translation slopes partially pool across stats, per-stat age effects share a prior, and a latent per-player factor captures "translates better or worse than their stats say," fit with an all-conjugate Gibbs sampler written from scratch, no MCMC library.</li>
             <li>Fold-identical three-way CV: hierarchical Bayes, per-stat OLS, and the naive baseline are scored on the same seeded folds, so the comparison is apples to apples by construction.</li>
             <li>Data-chosen archetypes: BIC selects k=4 over v2's assumed k=3; memberships are soft, so combo profiles are graded against a blended peer group, a membership-entropy column flags straddlers, and a mixture-density pass flags "unicorns" that fit no archetype.</li>
             <li>Hardened ingestion as a modeling contribution: normalized name keys (accents, hyphens, suffixes) and same-season league ordering grew the training sample 15%; ambiguous duplicate names get no birth date rather than a guessed one.</li>
