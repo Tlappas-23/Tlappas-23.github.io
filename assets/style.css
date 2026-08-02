@@ -198,6 +198,13 @@ section[id], article[id] { scroll-margin-top: 4.5rem; }
 /* Featured work cards on the home page. One card per case study:
    domain tag, one-line pitch, a real stat, and a link to the study. */
 .work-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); gap: 1.1rem; margin-top: 2rem; }
+/* Five cards in three columns leaves a hole, so on wide screens the
+   two second-row cards center instead of hugging the left edge. */
+@media (min-width: 62rem) {
+  .work-grid { grid-template-columns: repeat(6, 1fr); }
+  .work-card { grid-column: span 2; }
+  .work-card:nth-child(4) { grid-column: 2 / span 2; }
+}
 .work-card {
   display: block; border: 1px solid var(--line); border-radius: 12px; background: var(--surface);
   padding: 1.3rem 1.4rem; text-decoration: none; color: var(--ink);
