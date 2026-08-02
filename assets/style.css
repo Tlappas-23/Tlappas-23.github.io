@@ -238,6 +238,21 @@ section[id], article[id] { scroll-margin-top: 4.5rem; }
 }
 .toc a:hover { border-color: var(--accent); color: var(--accent-ink); }
 
+/* Fixed study navigator for the case studies page. It only appears
+   once the right gutter is wide enough to hold it without crowding
+   the text column; the study on screen gets the accent. */
+.side-toc { display: none; }
+@media (min-width: 88rem) {
+  .side-toc {
+    display: flex; flex-direction: column; gap: 0.6rem;
+    position: fixed; right: 2.2rem; top: 50%; transform: translateY(-50%); z-index: 10;
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.05em;
+  }
+  .side-toc a { color: var(--faint); text-decoration: none; padding: 0.15rem 0; }
+  .side-toc a:hover { color: var(--accent-ink); }
+  .side-toc a.active { color: var(--accent); font-weight: 600; }
+}
+
 .case { border-top: 1px solid var(--line); padding: 4rem 0 4.5rem; }
 .case-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.6rem; margin-bottom: 1.2rem; }
 .tag {
