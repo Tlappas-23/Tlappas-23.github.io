@@ -609,18 +609,36 @@
         <p>Serving is separated from modeling: predictions are precomputed to Parquet and seeded into PostgreSQL, so the async FastAPI layer answers dashboard queries without a model in the request path. The frontend is a 15-page Next.js application deployed on Vercel, with the API and database on Render.</p>
       </div>
 
+      <!-- Two separate models live in this study: the college career model and
+           the transfer index. Each gets its own data and results block so
+           their numbers never mix. -->
       <div class="case-block reveal">
-        <span class="sublabel">The Transfer Index: built in Excel on purpose</span>
+        <span class="sublabel">College model: data and results</span>
+        <p>These numbers belong to the college career model alone: the XGBoost stick and tier models trained on the full college player-season history.</p>
+      </div>
+      <div class="stats reveal" role="list" aria-label="College model results">
+        <div class="stat" role="listitem"><span class="n">147K+</span><span class="l">college player-seasons analyzed</span></div>
+        <div class="stat" role="listitem"><span class="n">0.685</span><span class="l">cross-validated ROC-AUC on NBA stick prediction</span></div>
+        <div class="stat" role="listitem"><span class="n">70.2%</span><span class="l">adjacent-tier accuracy on the five-class model</span></div>
+        <div class="stat" role="listitem"><span class="n">5</span><span class="l">career tiers: Star, Starter, Rotation, Roster, Out</span></div>
+      </div>
+
+      <div class="case-block reveal">
+        <span class="sublabel">The Transfer Index: a separate model, built in Excel on purpose</span>
         <p>The transfer projections began life outside ProspectIQ as the Basketball Transfer Index, a standalone system built entirely in a 24-sheet Excel workbook. That was a deliberate choice, not a limitation. The audience is coaching staffs who need to see why a projection says what it says, so every weight, multiplier, error cell, and intermediate step is inspectable on the sheet, and four model iterations are preserved side by side in the workbook. Nothing hides in a black box, and nothing can be invented: a projection can only come from cells you can point at.</p>
         <p>The architecture is a two-stage model fit with Excel Solver (GRG Nonlinear) against the sum of absolute errors, with no backpropagation anywhere. Stage one fits per-stat lookup tables for three contexts of a transfer: the change in conference tier, the change in team rank (nine buckets), and the move between team playing styles. Stage two blends those three predictions per stat with three non-negative weights constrained to sum to one. The learned weights are themselves scouting insight: scoring translation leans almost entirely on the conference-tier jump (0.87), while assists (0.83) and blocks (0.99) are driven by the style of team a player lands on. In machine learning terms it is stacked generalization, three base learners under a constrained meta-learner per stat, fit gradient-free on 745 real transfers.</p>
         <p>The team styles behind the third predictor come from a hand-built cluster analysis: 2,501 team-seasons z-scored on pace, activity, assist-to-turnover ratio, and shot selection, threshold-coded, then manually consolidated into six playing styles that feed a six-by-six style-transition matrix. The system was later serialized into ProspectIQ's transfer API and backtested there on 3,110 historical transfers across five seasons: scoring projections land within 3.11 points per 40 on average, call the direction of change correctly 66.4% of the time, and beat the no-change baseline by 12.2%, with the one stat that fails its baseline (blocks) documented as a known issue rather than hidden.</p>
       </div>
 
-      <div class="stats reveal" role="list" aria-label="Key results">
-        <div class="stat" role="listitem"><span class="n">147K+</span><span class="l">college player-seasons analyzed</span></div>
-        <div class="stat" role="listitem"><span class="n">0.685</span><span class="l">cross-validated ROC-AUC on NBA stick prediction</span></div>
-        <div class="stat" role="listitem"><span class="n">70.2%</span><span class="l">adjacent-tier accuracy on the five-class model</span></div>
-        <div class="stat" role="listitem"><span class="n">40+</span><span class="l">API endpoints across 13 routers serving the product</span></div>
+      <div class="case-block reveal">
+        <span class="sublabel">Transfer index: data and results</span>
+        <p>These numbers belong to the transfer index alone: fit in the workbook, then backtested after serialization into the API.</p>
+      </div>
+      <div class="stats reveal" role="list" aria-label="Transfer index results">
+        <div class="stat" role="listitem"><span class="n">745</span><span class="l">real transfers the two-stage Solver fit learned from</span></div>
+        <div class="stat" role="listitem"><span class="n">3,110</span><span class="l">historical transfers in the five-season backtest</span></div>
+        <div class="stat" role="listitem"><span class="n">3.11</span><span class="l">pts/40 average error on backtested scoring projections</span></div>
+        <div class="stat" role="listitem"><span class="n">66.4%</span><span class="l">scoring direction of change called correctly, 12.2% over the no-change baseline</span></div>
       </div>
 
       <div class="case-block reveal">
