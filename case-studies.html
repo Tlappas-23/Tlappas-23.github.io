@@ -67,12 +67,12 @@
 
       <div class="qa reveal">
         <p class="q">What does a EuroLeague stat line really mean in NBA terms?</p>
-        <p class="a"><strong>Learned from the 118 players who actually made the jump:</strong> scoring and usage translate strongly with age priced in, rebounds and assists carry over nearly one for one, and three-point volume fails validation in both versions. The v3 re-evaluation adds the harder lesson: a board is only as good as its test, and under a stricter one, five of v2's top ten targets did not survive.</p>
+        <p class="a"><strong>Learned from the 118 players who actually made the jump:</strong> scoring and usage translate strongly with age priced in, rebounds and assists carry over nearly one for one, and three-point volume fails validation in both versions. The v3 re-evaluation adds the harder lesson: a board is only as good as its test, and under a stricter one, five of v2's top ten fell out of the top ten, with the #1 and #3 targets removed from the board entirely.</p>
       </div>
 
       <div class="case-block reveal">
         <span class="sublabel">Executive summary</span>
-        <p>Version 2 learned per-stat INTL to NBA translations empirically and validated each against a naive baseline with leave-one-out prediction error. Version 3 rebuilt the pipeline around a joint hierarchical Bayesian translation model with a hand-rolled Gibbs sampler, hardened the ingestion (103 to 118 training transitions, 392 to 431 ranked players), let the data choose the archetypes, and replaced the point ranking with an upside probability computed from posterior draws. Both versions end in a written scouting report; v3 also reports, openly, what it changed about v2's conclusions.</p>
+        <p>The project turns scattered, incompatible international data into a defensible answer to a signing decision. Three vendors' feeds, none sharing a schema, are reconciled into one clean history covering NBA and four European league careers, and everything downstream is built on that foundation. Version 2 learned per-stat INTL to NBA translations empirically and validated each against a naive baseline with leave-one-out prediction error. Version 3 rebuilt the pipeline around a joint hierarchical Bayesian translation model with a hand-rolled Gibbs sampler, hardened the ingestion (103 to 118 training transitions, 392 to 431 ranked players), let the data choose the archetypes, and replaced the point ranking with an upside probability computed from posterior draws. Both versions end in a written scouting report; v3 also reports, openly, what it changed about v2's conclusions.</p>
       </div>
 
       <div class="case-block reveal">
@@ -247,6 +247,7 @@
       <div class="case-block reveal">
         <span class="sublabel">Business context</span>
         <p>Teams complain about schedule difficulty, media narratives assign blame to it, and internal win projections need to correct for it. The analytical question is attribution: separating what the schedule did to a team from what the team was going to do anyway. Attribution questions punish sloppy features, because a bad team's losses look like schedule effect to any feature that correlates with being bad.</p>
+        <p>The density half solves operational problems of its own. Counting 4-in-6 stretches and back-to-back clusters shows a staff where the fatigue windows are, which feeds rest and rotation planning, and the significance tests say which schedule complaints deserve a data-backed response and which are exactly what random variation produces.</p>
       </div>
 
       <div class="case-block reveal">
