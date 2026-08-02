@@ -307,7 +307,20 @@ ul.findings strong { font-weight: 600; }
 /* Data tables, used for the v2 vs v3 comparison. Numbers are tabular
    and .drop flags anything that failed a test. Tables scroll inside
    their own container so the page never scrolls sideways. */
-.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); margin: 1rem 0 0.6rem; }
+.table-scroll {
+  overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; margin: 1rem 0 0.6rem;
+  /* Scroll hint: a soft shadow sits at whichever edge still has table
+     to see, and fades away once the table is fully scrolled that way. */
+  background:
+    linear-gradient(90deg, var(--surface) 35%, rgba(255, 255, 255, 0)) 0 0,
+    linear-gradient(270deg, var(--surface) 35%, rgba(255, 255, 255, 0)) 100% 0,
+    radial-gradient(farthest-side at 0 50%, color-mix(in srgb, var(--ink) 16%, transparent), transparent) 0 0,
+    radial-gradient(farthest-side at 100% 50%, color-mix(in srgb, var(--ink) 16%, transparent), transparent) 100% 0,
+    var(--surface);
+  background-repeat: no-repeat;
+  background-size: 3.5rem 100%, 3.5rem 100%, 1.1rem 100%, 1.1rem 100%, auto;
+  background-attachment: local, local, scroll, scroll, local;
+}
 table.data { border-collapse: collapse; width: 100%; min-width: 34rem; font-size: 0.88rem; }
 table.data caption { text-align: left; padding: 0.9rem 1.1rem 0.2rem; font-weight: 600; font-size: 0.92rem; }
 table.data th {
