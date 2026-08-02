@@ -606,7 +606,7 @@
       <div class="case-block reveal">
         <span class="sublabel">Approach</span>
         <p>The evaluation design assumes the model will try to cheat and removes its opportunities. Training uses seasons through 2018, probability calibration uses 2019 to 2021, and testing uses 2022 and later, so every reported number comes from eras the model never saw. Class imbalance is handled with SMOTE strictly inside cross-validation folds. From roughly 210 candidate features, LASSO selects 49 (66 in the final set) spanning box score production, peak metrics, shot profiles, recruiting pedigree, and conference context. Isotonic regression calibrates the output probabilities, blended 70/30 with the raw model.</p>
-        <p>Serving is separated from modeling: predictions are precomputed to Parquet and seeded into PostgreSQL, so the async FastAPI layer answers dashboard queries without a model in the request path. The frontend is a 15-page Next.js application deployed on Vercel, with the API and database on Render.</p>
+        <p>Serving is separated from modeling: predictions are precomputed to Parquet and seeded into PostgreSQL, so the async FastAPI layer answers dashboard queries without a model in the request path. The frontend is a 36-page Next.js application deployed on Vercel, with the API and database on Render.</p>
       </div>
 
       <!-- Two separate models live in this study: the college career model and
@@ -647,7 +647,7 @@
           <li><strong>Honest, era-split evaluation.</strong> Train through 2018, calibrate on 2019 to 2021, test on 2022 and later. The reported numbers come from seasons the model never saw.</li>
           <li><strong>Calibrated probabilities, not raw scores.</strong> Isotonic regression blended with the raw model output, so a 30% Star probability means what it says when a transfer target list drives real recruiting decisions.</li>
           <li><strong>Explainable to a scout.</strong> SHAP values on every projection turn "the model likes him" into which specific parts of the profile carry the projection.</li>
-          <li><strong>Built as a product.</strong> 15 frontend pages, 13 API routers, transfer portal and NIL tooling, a similarity engine over 54,000 players, and reproducible validation notebooks behind every methodology claim.</li>
+          <li><strong>Built as a product.</strong> 36 frontend pages, 14 API routers, transfer portal and NIL tooling, a similarity engine over 54,000+ player-seasons, and reproducible validation notebooks behind every methodology claim.</li>
         </ul>
       </div>
 
@@ -659,8 +659,8 @@
             <li>Two models, two jobs: a binary XGBoost model predicts sticking in the NBA (CV ROC-AUC 0.685 on an outcome dominated by non-NBA careers), and a five-class softprob model assigns career tiers at 70.2% adjacent accuracy.</li>
             <li>Two data sources with different season conventions (Ball Don't Lie and CollegeBasketballData) are aligned through dedicated season-offset utilities, one of the unglamorous correctness problems that decides whether everything downstream is right.</li>
             <li>Transfer portal projections carry the Excel-born two-stage Solver fit into production: the workbook's fitted tables and blend weights are serialized into the API, with role scenarios for how a player projects at a new school and a methodology note documenting the full lineage.</li>
-            <li>A player similarity engine runs cosine similarity over 54,000 players for comparable-player scouting.</li>
-            <li>An audit script verifies the full system in seconds, and seven Jupyter notebooks make the validation reproducible end to end.</li>
+            <li>A player similarity engine ranks comparables by weighted distance in z-scored stat space across 54,000+ qualified player-seasons.</li>
+            <li>An audit script verifies the full system, and a dozen validation notebooks make the methodology reproducible end to end.</li>
           </ul>
 
           <h3>Architecture</h3>
@@ -671,8 +671,8 @@
             <span class="node">XGBoost training + isotonic calibration</span><span class="arr">→</span>
             <span class="node">Tiered predictions (Parquet)</span><span class="arr">→</span>
             <span class="node">PostgreSQL 16 seed</span><span class="arr">→</span>
-            <span class="node">Async FastAPI, 13 routers</span><span class="arr">→</span>
-            <span class="node">Next.js product, 15 pages</span>
+            <span class="node">Async FastAPI, 14 routers</span><span class="arr">→</span>
+            <span class="node">Next.js product, 36 pages</span>
           </div>
 
           <h3>Key engineering decisions</h3>
