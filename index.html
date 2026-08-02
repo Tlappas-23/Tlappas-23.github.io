@@ -1,4 +1,10 @@
 <!doctype html>
+<!--
+  Home page. Its job is to answer "why hire me" in one screen:
+  who I am, how I work, and five case studies that back it up.
+  Styles are shared in assets/style.css; every page carries the same
+  header and footer so navigation never moves under the reader.
+-->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -12,6 +18,7 @@
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
+<!-- Site header, identical on every page. aria-current marks this page in the nav. -->
 <header class="topbar">
   <div class="topbar-inner">
     <a class="topbar-name" href="index.html">Thomas Lappas</a>
@@ -26,6 +33,8 @@
 
 <main id="main">
 
+  <!-- Hero: my positioning in one headline and one paragraph. The primary
+       action is reading the case studies; contact links come second. -->
   <section class="hero">
     <div class="wrap">
       <div class="hero-grid">
@@ -47,6 +56,7 @@
         <div class="avatar" role="img" aria-label="Monogram placeholder for a professional photo"><span>TL</span></div>
       </div>
 
+      <!-- Four verified totals from the projects, set like a box score. -->
       <div class="glance" role="list" aria-label="At a glance">
         <div role="listitem"><span class="n">5</span><span class="l">case studies, from single-script models to deployed platforms</span></div>
         <div role="listitem"><span class="n">147K+</span><span class="l">college player-seasons modeled in ProspectIQ</span></div>
@@ -56,6 +66,8 @@
     </div>
   </section>
 
+  <!-- Featured work: one card per case study with a real headline stat.
+       Each card links to the full study on the case studies page. -->
   <section class="section" aria-labelledby="work-h">
     <div class="wrap">
       <div class="section-head reveal">
@@ -103,6 +115,7 @@
     </div>
   </section>
 
+  <!-- About: the standard I hold my own work to, with receipts. -->
   <section class="section" aria-labelledby="about-h">
     <div class="wrap">
       <div class="section-head reveal">
@@ -117,6 +130,8 @@
     </div>
   </section>
 
+  <!-- Engineering philosophy: six principles, each checkable against
+       a case study rather than a slogan. -->
   <section class="section" aria-labelledby="phil-h">
     <div class="wrap">
       <div class="section-head reveal">
@@ -153,6 +168,7 @@
     </div>
   </section>
 
+  <!-- Closing call to action. Email is the fastest way to reach me, so it leads. -->
   <section class="section" aria-labelledby="cta-h">
     <div class="wrap reveal">
       <span class="label">Get in touch</span>
@@ -166,6 +182,7 @@
 
 </main>
 
+<!-- Site footer, identical on every page: identity, navigation, contact. -->
 <footer class="site-footer">
   <div class="wrap foot-inner">
     <div>

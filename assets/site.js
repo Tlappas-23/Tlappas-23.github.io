@@ -1,6 +1,8 @@
-/* Scroll-reveal: progressive enhancement only.
-   Elements stay fully visible when JS is off, motion is reduced,
-   or IntersectionObserver is unavailable. */
+/* Scroll reveal for elements tagged .reveal.
+   Progressive enhancement only: if JavaScript is off, the reader
+   prefers reduced motion, or IntersectionObserver is unavailable,
+   everything stays fully visible. Each element reveals once and is
+   then unobserved so there is no ongoing work. */
 document.documentElement.classList.add("js");
 (function () {
   var els = document.querySelectorAll(".reveal");

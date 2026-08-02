@@ -1,9 +1,13 @@
 /* ============================================================
-   Thomas Lappas · portfolio
-   Shared stylesheet for all pages.
-   Theming: tokens on :root; dark values via prefers-color-scheme,
-   overridable in both directions by [data-theme] on the root.
+   Shared stylesheet for every page of my portfolio.
+   Design tokens come first, then components in the order they
+   appear on the pages. Both themes live here: dark values follow
+   the system preference, and either theme can be forced by setting
+   data-theme on the root element.
    ============================================================ */
+
+/* Design tokens. Every color and typeface on the site reads off these
+   variables, so the light and dark themes stay in sync by construction. */
 
 :root {
   --bg: #FAFAFB;
@@ -54,7 +58,8 @@
   --accent-soft: rgba(190, 84, 32, 0.07);
 }
 
-/* ---------- base ---------- */
+/* Base. Type scale, link styling, and a visible focus state.
+   Smooth scrolling turns off when the reader prefers reduced motion. */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
@@ -85,7 +90,8 @@ h1, h2, h3, h4 { text-wrap: balance; letter-spacing: -0.015em; }
   text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.8rem;
 }
 
-/* ---------- header ---------- */
+/* Sticky site header. Identical on every page; the current page's nav
+   link carries aria-current and gets the accent underline. */
 .topbar {
   position: sticky; top: 0; z-index: 20;
   background: color-mix(in srgb, var(--bg) 88%, transparent);
@@ -106,7 +112,8 @@ h1, h2, h3, h4 { text-wrap: balance; letter-spacing: -0.015em; }
 .topbar-nav a:hover { color: var(--ink); }
 .topbar-nav a[aria-current="page"] { color: var(--ink); font-weight: 600; box-shadow: inset 0 -2px 0 var(--accent); }
 
-/* ---------- footer ---------- */
+/* Site footer. Identity, site navigation, and contact links,
+   repeated on every page so the reader is never stranded. */
 .site-footer { border-top: 1px solid var(--line); margin-top: 5rem; padding: 2.5rem 0; }
 .foot-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1.5rem 3rem; }
 .foot-name { font-weight: 650; }
@@ -117,12 +124,14 @@ h1, h2, h3, h4 { text-wrap: balance; letter-spacing: -0.015em; }
 .foot-links { display: flex; flex-direction: column; gap: 0.3rem; }
 .foot-legal { margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid var(--line); font-size: 0.78rem; color: var(--faint); }
 
-/* ---------- page head (subpages) ---------- */
+/* Page intro used on the case studies, skills, and contact pages:
+   an eyebrow label, the page title, and a one-paragraph summary. */
 .page-head { padding: 4rem 0 1rem; }
 .page-head h1 { font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 700; margin-top: 0.6rem; letter-spacing: -0.025em; }
 .page-head .dek { color: var(--muted); max-width: 47rem; margin-top: 0.8rem; font-size: 1.08rem; }
 
-/* ---------- hero (home) ---------- */
+/* Home hero. My positioning statement plus a photo placeholder,
+   with one soft radial accent in the corner and nothing flashier. */
 .hero { position: relative; padding: 5.5rem 0 3.5rem; overflow: hidden; }
 .hero::before {
   content: ""; position: absolute; inset: 0; pointer-events: none;
@@ -154,7 +163,8 @@ h1, h2, h3, h4 { text-wrap: balance; letter-spacing: -0.015em; }
 .btn-ghost { border-color: var(--line); color: var(--ink); background: var(--surface); }
 .btn-ghost:hover { border-color: var(--accent); color: var(--accent-ink); }
 
-/* ---------- glance strip ---------- */
+/* At-a-glance strip. Four verified numbers set like a box score:
+   hairline rules above and below, tabular figures, quiet labels. */
 .glance {
   border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
   display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
@@ -166,13 +176,15 @@ h1, h2, h3, h4 { text-wrap: balance; letter-spacing: -0.015em; }
 }
 .glance .l { font-size: 0.8rem; color: var(--muted); }
 
-/* ---------- sections ---------- */
+/* Generic section rhythm and headings. scroll-margin keeps anchor
+   jumps clear of the sticky header. */
 section[id], article[id] { scroll-margin-top: 4.5rem; }
 .section { padding: 4.5rem 0 1rem; }
 .section-head h2 { font-size: clamp(1.7rem, 3vw, 2.2rem); font-weight: 700; margin-top: 0.6rem; }
 .section-head p { color: var(--muted); max-width: 46rem; margin-top: 0.7rem; }
 
-/* ---------- featured work cards (home) ---------- */
+/* Featured work cards on the home page. One card per case study:
+   domain tag, one-line pitch, a real stat, and a link to the study. */
 .work-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); gap: 1.1rem; margin-top: 2rem; }
 .work-card {
   display: block; border: 1px solid var(--line); border-radius: 12px; background: var(--surface);
@@ -189,14 +201,16 @@ section[id], article[id] { scroll-margin-top: 4.5rem; }
 }
 .work-card .go { font-size: 0.85rem; font-weight: 600; color: var(--accent-ink); display: block; margin-top: 0.7rem; }
 
-/* ---------- about / philosophy ---------- */
+/* About paragraphs and the engineering-philosophy grid. Principles are
+   short claims, each one checkable against a case study. */
 .about-grid { display: grid; gap: 1.1rem; max-width: 48rem; margin-top: 1.6rem; }
 .about-grid p strong { font-weight: 600; }
 .phil-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); gap: 2rem 2.5rem; margin-top: 2rem; }
 .phil h3 { font-size: 1.05rem; font-weight: 650; margin-bottom: 0.4rem; }
 .phil p { font-size: 0.93rem; color: var(--muted); }
 
-/* ---------- case studies ---------- */
+/* Case studies. Jump-link chips, per-study tag rows, and the shared
+   layout every study follows so readers always know where they are. */
 .toc { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.6rem 0 0.5rem; }
 .toc a {
   font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.05em;
@@ -218,6 +232,8 @@ section[id], article[id] { scroll-margin-top: 4.5rem; }
 .case h2 { font-size: clamp(1.6rem, 3vw, 2.15rem); font-weight: 700; }
 .case .dek { color: var(--muted); font-size: 1.06rem; margin-top: 0.55rem; max-width: 47rem; }
 
+/* The question block that opens each study: the question the project
+   answers, then the answer the work actually supports. */
 .qa {
   margin: 2.1rem 0; max-width: 47rem; padding: 1.35rem 1.5rem;
   border-left: 3px solid var(--accent); background: var(--accent-soft); border-radius: 0 10px 10px 0;
@@ -233,6 +249,8 @@ section[id], article[id] { scroll-margin-top: 4.5rem; }
   background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 0.08em 0.35em;
 }
 
+/* Key-results strip inside each study, same box-score treatment
+   as the home page glance strip. */
 .stats {
   border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
   display: grid; grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
@@ -252,7 +270,9 @@ ul.findings li::before {
 }
 ul.findings strong { font-weight: 600; }
 
-/* ---------- data tables ---------- */
+/* Data tables, used for the v2 vs v3 comparison. Numbers are tabular
+   and .drop flags anything that failed a test. Tables scroll inside
+   their own container so the page never scrolls sideways. */
 .table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); margin: 1rem 0 0.6rem; }
 table.data { border-collapse: collapse; width: 100%; min-width: 34rem; font-size: 0.88rem; }
 table.data caption { text-align: left; padding: 0.9rem 1.1rem 0.2rem; font-weight: 600; font-size: 0.92rem; }
@@ -267,7 +287,9 @@ table.data td.num { font-family: var(--mono); font-variant-numeric: tabular-nums
 table.data td.drop { color: var(--accent-ink); font-weight: 600; }
 .table-note { font-family: var(--mono); font-size: 0.72rem; color: var(--faint); max-width: 47rem; line-height: 1.55; }
 
-/* ---------- figures ---------- */
+/* Figures. Charts sit on a white panel in both themes because the
+   images are generated with light backgrounds; captions say exactly
+   what the chart is and where it came from. */
 figure { margin: 2.4rem 0 0; }
 .fig-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 1.2rem; margin-top: 2.4rem; }
 .fig-grid figure { margin: 0; }
@@ -278,7 +300,8 @@ figure { margin: 2.4rem 0 0; }
 .fig-panel img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 figcaption { font-family: var(--mono); font-size: 0.73rem; color: var(--muted); margin-top: 0.7rem; line-height: 1.55; max-width: 47rem; }
 
-/* ---------- architecture flow ---------- */
+/* Architecture flows. Pipeline stages as labeled nodes with arrows;
+   the row wraps on small screens instead of overflowing. */
 .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 0.4rem 0 0.5rem; }
 .flow .node {
   font-family: var(--mono); font-size: 0.72rem; line-height: 1.45;
@@ -287,7 +310,9 @@ figcaption { font-family: var(--mono); font-size: 0.73rem; color: var(--muted); 
 }
 .flow .arr { color: var(--faint); font-size: 0.85rem; }
 
-/* ---------- deep dive ---------- */
+/* Expandable technical deep dive at the end of each study: highlights,
+   architecture, decisions, challenges, future work, and the stack.
+   Native details/summary, so it works without JavaScript. */
 details.deep {
   border: 1px solid var(--line); border-radius: 12px; background: var(--surface);
   margin-top: 2.4rem; overflow: hidden;
@@ -323,7 +348,8 @@ dl.decisions dd { color: var(--muted); font-size: 0.92rem; margin-top: 0.15rem; 
 
 .fineprint { font-size: 0.78rem; color: var(--faint); margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid var(--line); max-width: 47rem; }
 
-/* ---------- skills ---------- */
+/* Skills page. Groups as cards, skills as plain chips. No skill bars
+   or percentages anywhere; each group names where it is used. */
 .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1.1rem; margin-top: 2rem; }
 .skill-group { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); padding: 1.2rem 1.3rem; }
 .skill-group h2 { font-size: 0.95rem; font-weight: 650; margin-bottom: 0.75rem; }
@@ -335,21 +361,24 @@ dl.decisions dd { color: var(--muted); font-size: 0.92rem; margin-top: 0.15rem; 
 }
 .used-in { font-family: var(--mono); font-size: 0.68rem; color: var(--faint); margin-top: 0.8rem; }
 
-/* ---------- contact ---------- */
+/* Contact page body: buttons first, then what I can share on request. */
 .contact-body { max-width: 47rem; }
 .contact-body p { color: var(--muted); margin-top: 0.8rem; }
 .contact-body ul { list-style: none; margin-top: 1rem; display: grid; gap: 0.5rem; }
 .contact-body ul li { position: relative; padding-left: 1.2rem; font-size: 0.95rem; }
 .contact-body ul li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 0.35rem; height: 0.35rem; border-radius: 50%; background: var(--accent); }
 
-/* ---------- reveal ---------- */
+/* Scroll reveal. The hidden state only applies when site.js adds the
+   js class, so content is never invisible without JavaScript, and
+   reduced-motion readers see everything immediately. */
 html.js .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.55s ease, transform 0.55s ease; }
 html.js .reveal.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   html.js .reveal { opacity: 1; transform: none; transition: none; }
 }
 
-/* ---------- responsive ---------- */
+/* Small screens. The hero stacks, the avatar shrinks and moves up,
+   and spacing tightens. */
 @media (max-width: 46rem) {
   .hero { padding: 3.5rem 0 2.5rem; }
   .hero-grid { grid-template-columns: 1fr; gap: 1.8rem; }
