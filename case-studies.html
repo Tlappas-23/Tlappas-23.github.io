@@ -489,14 +489,14 @@
 
       <div class="case-block reveal">
         <span class="sublabel">Approach</span>
-        <p>The architecture makes invalid states hard to reach. One scheduler container is the only production writer, so there are no competing update paths. The public API is strictly read-only, so external traffic cannot corrupt state. Every feature-generation run is pinned to a <code>run_id</code>, so any prediction can be traced to the exact feature snapshot that produced it, and historical records survive backfills untouched. The repository documents each of these decisions together with what was deliberately given up.</p>
+        <p>The architecture makes invalid states hard to reach. One scheduler container owns the daily write cycle, so normal operation has a single update path. The public API is strictly read-only, so external traffic cannot corrupt state. Every feature-generation run is pinned to a <code>run_id</code>, so any prediction can be traced to the exact feature snapshot that produced it, and historical records survive backfills untouched. The repository documents each of these decisions together with what was deliberately given up.</p>
       </div>
 
       <div class="case-block reveal">
         <span class="sublabel">Architecture</span>
         <div class="flow" role="img" aria-label="Data flow: external API to scheduler to ingestion to feature snapshots to predictions to grading to PostgreSQL, served by a read-only FastAPI API with Redis rate limiting and a Next.js UI">
           <span class="node">Ball Don't Lie API</span><span class="arr">→</span>
-          <span class="node">Scheduler, 06:00 UTC</span><span class="arr">→</span>
+          <span class="node">Scheduler, daily UTC run</span><span class="arr">→</span>
           <span class="node">Ingestion: games, stats, odds</span><span class="arr">→</span>
           <span class="node">Feature snapshots, run_id pinned</span><span class="arr">→</span>
           <span class="node">Predictions v1 + v2</span><span class="arr">→</span>
@@ -509,7 +509,7 @@
 
       <div class="stats reveal" role="list" aria-label="Key properties">
         <div class="stat" role="listitem"><span class="n">7</span><span class="l">services orchestrated by one compose file</span></div>
-        <div class="stat" role="listitem"><span class="n">06:00</span><span class="l">UTC daily automated pipeline run</span></div>
+        <div class="stat" role="listitem"><span class="n">Daily</span><span class="l">automated pipeline run at a configured UTC hour</span></div>
         <div class="stat" role="listitem"><span class="n">60 min</span><span class="l">pre-tipoff window where predictions are blocked</span></div>
         <div class="stat" role="listitem"><span class="n">2</span><span class="l">model versions predicted and graded side by side</span></div>
       </div>
@@ -531,14 +531,14 @@
           <ul>
             <li>Guardrails as configuration: every threshold (freshness, missing-game rate, failure rate, tipoff grace) is an explicit, documented setting with its trade-off stated, not a constant buried in code.</li>
             <li>Late score corrections are expected: grading re-checks the previous seven days because the NBA occasionally revises final scores after the fact.</li>
-            <li>Integrity in the analytics: ROI calculations are restricted to pre-tipoff odds snapshots, so historical performance cannot benefit from information that did not exist at decision time.</li>
-            <li>A full product surface behind feature flags: auth, email verification, premium gating, and billing routes mount only when enabled, so the same codebase runs open or gated.</li>
+            <li>Integrity in the analytics: historical ROI is computed only from pre-tipoff odds snapshots, so reported performance cannot benefit from information that did not exist at decision time.</li>
+            <li>A full product surface behind feature flags: auth, email verification, premium gating, and billing are feature-flagged and disabled by default, so the same codebase runs open or gated.</li>
           </ul>
 
           <h3>Key engineering decisions</h3>
           <dl class="decisions">
             <dt>Why Docker Compose as the only supported runtime?</dt>
-            <dd>Identical service versions across environments and atomic startup ordering (db, schema-init, backend, scheduler). The flexibility given up was flexibility the project did not want.</dd>
+            <dd>Identical service versions across environments and atomic startup ordering (db, then schema-init, then the services that depend on them). The flexibility given up was flexibility the project did not want.</dd>
             <dt>Why a single writer?</dt>
             <dd>One scheduler owns the daily cycle, which eliminates race conditions between competing update paths and makes partial failure detectable: if ingestion fails, predictions are never generated from incomplete data.</dd>
             <dt>Why a read-only public API?</dt>
@@ -562,13 +562,13 @@
             <div class="stack-row"><span class="k">Backend</span><span class="v">Python pipeline services, FastAPI public API</span></div>
             <div class="stack-row"><span class="k">Frontend</span><span class="v">Next.js 16, React 19, TypeScript</span></div>
             <div class="stack-row"><span class="k">Data</span><span class="v">PostgreSQL 15, Alembic migrations, Redis 7</span></div>
-            <div class="stack-row"><span class="k">Infrastructure</span><span class="v">Docker Compose, Caddy reverse proxy, Makefile workflows</span></div>
+            <div class="stack-row"><span class="k">Infrastructure</span><span class="v">Docker Compose, Makefile workflows</span></div>
             <div class="stack-row"><span class="k">Operations</span><span class="v">Scheduled orchestration, monitoring endpoint, pipeline status reporting, backfill scripts</span></div>
           </div>
         </div>
       </details>
 
-      <p class="fineprint">Game and odds data ingested from the Ball Don't Lie API. The repository includes launch readiness, performance optimization, and documentation verification reports alongside the operational docs.</p>
+      <p class="fineprint">Game and odds data ingested from the Ball Don't Lie API. The repository includes launch readiness, performance optimization, and documentation verification reports alongside the operational docs. This study describes the repository snapshot; the deployed instance has continued to evolve past it, including a third model version.</p>
     </div>
   </article>
 
