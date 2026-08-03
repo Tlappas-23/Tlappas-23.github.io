@@ -649,6 +649,11 @@
         <div class="stat" role="listitem"><span class="n">5</span><span class="l">career tiers: Star, Starter, Rotation, Roster, Out</span></div>
       </div>
 
+      <figure class="reveal">
+        <div class="fig-panel"><img src="assets/prospectiq-rankings.png" alt="ProspectIQ college rankings board: 1,233 qualified players in the 2024-25 season sorted by pro potential, led by Cooper Flagg at 84 percent Star probability, with position, tier, and probability filters." width="1600" height="1031" loading="lazy"></div>
+        <figcaption>From the deployed app: the college rankings board, every qualified player sorted by calibrated Star probability.</figcaption>
+      </figure>
+
       <div class="case-block reveal">
         <span class="sublabel">The Transfer Index: a separate model, built in Excel on purpose</span>
         <p>The transfer projections began life outside ProspectIQ as the Basketball Transfer Index, a neural-network-inspired framework built entirely in Excel: layered weights fit by an optimizer, with Solver standing in for backpropagation. That was a deliberate choice, not a limitation. The audience is coaching staffs who need to see why a projection says what it says, so every weight, multiplier, error cell, and intermediate step is inspectable on the sheet, and four model iterations are preserved side by side in the workbook. Nothing hides in a black box, and nothing can be invented: a projection can only come from cells you can point at.</p>
@@ -667,9 +672,25 @@
         <div class="stat" role="listitem"><span class="n">66.4%</span><span class="l">scoring direction of change called correctly, 12.2% over the no-change baseline</span></div>
       </div>
 
+      <figure class="reveal">
+        <div class="fig-panel"><img src="assets/prospectiq-transfer-validation.png" alt="ProspectIQ model summary page showing real transfer examples with projected versus actual production, including per-stat errors on points, rebounds, and assists for nine transfers." width="1600" height="1078" loading="lazy"></div>
+        <figcaption>From the deployed app: transfer projections next to what actually happened, with the error shown per stat rather than hidden.</figcaption>
+      </figure>
+
       <div class="case-block reveal">
         <span class="sublabel">Scouting reports and coaching tendencies</span>
         <p>The scouting layer is its own build on CollegeBasketballData feeds, not a view of the projection model. Team reports assemble game logs, rolling form, shot charts classified into court zones, and per-player breakdowns from play-by-play, and a game-analysis view reconstructs score timelines, runs, and assist networks. The coaching-tendencies engine reads substitution behavior out of play-by-play, and every tendency it reports is a specific observed pattern, starting with when a coach makes the first sub, written to be read by a coach rather than a data scientist.</p>
+      </div>
+
+      <div class="fig-grid reveal">
+        <figure>
+          <div class="fig-panel"><img src="assets/prospectiq-scouting.png" alt="ProspectIQ team scouting report: season stat strip with rolling windows, shot profile, ball security and fouls, rebounding and defense, key threats, exploitable players, and cold streaks." width="1600" height="1009" loading="lazy"></div>
+          <figcaption>From the deployed app: a team scouting report, from shot profile to exploitable rotations and cold streaks.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/prospectiq-tendencies.png" alt="ProspectIQ coaching tendencies view: per-player behavior shifts in losses such as earlier second fouls and higher turnover rates, each labeled chronic, repeated-historical, or developing based on held-out validation." width="1600" height="1031" loading="lazy"></div>
+          <figcaption>From the deployed app: player tells in losses, each pattern labeled by whether it actually repeats out of sample.</figcaption>
+        </figure>
       </div>
 
       <div class="case-block reveal">
