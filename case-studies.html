@@ -604,7 +604,7 @@
         <span class="repo-note">private · access on request</span>
       </div>
       <h2 class="reveal">ProspectIQ</h2>
-      <p class="dek reveal">Calibrated five-tier NBA career projections for 147,000+ college player-seasons, explained with SHAP and used to rank the college population and surface undervalued transfer targets. <strong>The transfer portal is asset mispricing in disguise</strong>, handled with calibrated projection models, because an undervalued-player list is only useful if its probabilities can be trusted.</p>
+      <p class="dek reveal">One deployed platform, four scouting products, each on its own engine: college player rankings trained on 147,000+ player-seasons, transfer portal projections from the Excel-fit transfer index, scouting reports and coaching tendencies built on CBBD play-by-play, and production-based NIL valuation. <strong>The transfer portal is asset mispricing in disguise</strong>, handled with calibrated projection models, because an undervalued-player list is only useful if its probabilities can be trusted.</p>
 
       <div class="qa reveal">
         <p class="q">Which college players will stick in the NBA, and why?</p>
@@ -613,7 +613,19 @@
 
       <div class="case-block reveal">
         <span class="sublabel">Executive summary</span>
-        <p>ProspectIQ ranks the entire NCAA by projected NBA career outcome and puts those projections to work where they pay off most: finding undervalued transfer targets. XGBoost models trained on 147,000+ college player-seasons produce a calibrated probability that a player reaches a rotation-level NBA career and a five-tier classification, with SHAP turning every projection into scouting language. The models feed a deployed application: college player rankings, player pages with shot charts, transfer portal projections with role scenarios, NIL valuations, a similarity engine, and team scouting dashboards.</p>
+        <p>ProspectIQ is four scouting products sharing one database, API, and frontend. The flagship is the college ranking model: XGBoost trained on 147,000+ college player-seasons produces a calibrated probability that a player reaches a rotation-level NBA career and a five-tier classification, with SHAP turning every projection into scouting language. Around it, the transfer index carries its own Excel-fit engine, the scouting surface builds team reports and coaching tendencies from CBBD play-by-play, and the NIL evaluator allocates conference-scaled budgets by production. A similarity engine over 54,000+ player-seasons ties the products together.</p>
+      </div>
+
+      <!-- The four products, each with its own engine and data core, so
+           the platform reads as what it is: four projects wrapped into one. -->
+      <div class="case-block reveal">
+        <span class="sublabel">Four products, one platform</span>
+        <ul class="findings">
+          <li><strong>College player rankings.</strong> XGBoost stick and tier models trained on 147,000+ college player-seasons, calibrated and SHAP-explained: a draft board, season rankings, and full player pages with shot charts.</li>
+          <li><strong>Transfer Index.</strong> The Excel-born two-stage Solver model, serialized into the API: portal projections with role scenarios and a transfer finder, backtested on 3,110 historical transfers.</li>
+          <li><strong>Scouting reports and coaching tendencies.</strong> Its own engine built on CBBD data: team reports from game logs, play-by-play metrics, and shot charts, plus coach-readable substitution tendencies.</li>
+          <li><strong>NIL evaluation.</strong> A production-based allocator: a per-player production value index distributes conference-scaled budgets across a roster.</li>
+        </ul>
       </div>
 
       <div class="case-block reveal">
