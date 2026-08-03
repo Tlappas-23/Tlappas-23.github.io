@@ -261,7 +261,8 @@ section[id], article[id] { scroll-margin-top: 4.5rem; }
 }
 .tag-domain { color: var(--accent-ink); border-color: color-mix(in srgb, var(--accent) 35%, var(--line)); background: var(--accent-soft); }
 .repo-link { font-family: var(--mono); font-size: 0.74rem; margin-left: auto; white-space: nowrap; }
-.repo-note { font-family: var(--mono); font-size: 0.68rem; color: var(--faint); white-space: nowrap; }
+/* When a study has two access links, only the first pushes right. */
+.repo-link + .repo-link { margin-left: 0; }
 .case h2 { font-size: clamp(1.6rem, 3vw, 2.15rem); font-weight: 700; }
 .case .dek { color: var(--muted); font-size: 1.06rem; margin-top: 0.55rem; max-width: 47rem; }
 
