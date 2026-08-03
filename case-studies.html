@@ -586,9 +586,10 @@
     </div>
   </article>
 
-  <!-- Case study 5: ProspectIQ. Calibrated NCAA-wide career projections,
-       used to rank the college population and surface undervalued
-       transfer targets. -->
+  <!-- Case study 5: ProspectIQ. Four products in one platform: college
+       player rankings, the transfer index, scouting reports and coaching
+       tendencies, and NIL distribution. Each product gets its own section
+       and keeps its own numbers. -->
   <article class="case" id="prospectiq">
     <div class="wrap">
       <div class="case-tags reveal">
@@ -603,8 +604,8 @@
       <p class="dek reveal">One deployed platform, four scouting products, each on its own engine: college player rankings trained on 147,000+ player-seasons, transfer portal projections from the Excel-fit transfer index, scouting reports and coaching tendencies built on CBBD play-by-play, and production-based NIL valuation. <strong>The transfer portal is asset mispricing in disguise</strong>, handled with calibrated projection models, because an undervalued-player list is only useful if its probabilities can be trusted.</p>
 
       <div class="qa reveal">
-        <p class="q">Which college players will stick in the NBA, and why?</p>
-        <p class="a"><strong>A calibrated probability for every college player-season</strong>, classified into five career tiers (Star, Starter, Rotation, Roster, Out), with SHAP explanations showing exactly which parts of a player's profile drive the projection.</p>
+        <p class="q">Which college players are worth a roster spot, a portal offer, or an NIL dollar, and why?</p>
+        <p class="a"><strong>Four products, one answer each.</strong> Calibrated five-tier career projections rank every college player-season, the transfer index projects how production moves between programs, the scouting layer turns play-by-play into team reports and coaching tendencies, and the NIL evaluator distributes conference-scaled budgets by production.</p>
       </div>
 
       <div class="case-block reveal">
@@ -626,18 +627,17 @@
 
       <div class="case-block reveal">
         <span class="sublabel">Business context</span>
-        <p>In the transfer portal and NIL era, thousands of players change schools every year, and the programs that win the portal are the ones that spot undervalued players before the market does. Human scouting cannot cover that surface uniformly, and portal decisions now carry real budgets. The need is a system that ranks the full college population consistently, surfaces players whose projection exceeds their market profile, states its confidence honestly, and explains itself well enough that a scout can argue with it.</p>
+        <p>A college program's decision surface is wider than any one model: who to recruit and keep, who to target when thousands of players enter the portal every year, how to prepare for the next opponent, and how to spend an NIL budget that now carries real money. Human scouting cannot cover that surface uniformly. The need is one system that ranks the full college population consistently, projects portal moves with probabilities that can be trusted, turns raw game data into coach-readable reports, ties NIL spending to production, and explains itself well enough that a scout can argue with it.</p>
       </div>
 
       <div class="case-block reveal">
-        <span class="sublabel">Approach</span>
+        <span class="sublabel">College model: approach</span>
         <p>The evaluation design assumes the model will try to cheat and removes its opportunities. Training uses seasons through 2018, probability calibration uses 2019 to 2021, and testing uses 2022 and later, so every reported number comes from eras the model never saw. Class imbalance is handled with SMOTE strictly inside cross-validation folds. From roughly 210 candidate features, LASSO selects 49 (66 in the final set) spanning box score production, peak metrics, shot profiles, recruiting pedigree, and conference context. Isotonic regression calibrates the output probabilities, blended 70/30 with the raw model.</p>
-        <p>Serving is separated from modeling: predictions are precomputed to Parquet and seeded into PostgreSQL, so the async FastAPI layer answers dashboard queries without a model in the request path. The frontend is a 36-page Next.js application deployed on Vercel, with the API and database on Render.</p>
       </div>
 
-      <!-- Two separate models live in this study: the college career model and
-           the transfer index. Each gets its own data and results block so
-           their numbers never mix. -->
+      <!-- The four products keep separate numbers: the college model and the
+           transfer index each get their own data and results blocks, and the
+           scouting and NIL layers are described without borrowed metrics. -->
       <div class="case-block reveal">
         <span class="sublabel">College model: data and results</span>
         <p>These numbers belong to the college career model alone: the XGBoost stick and tier models trained on the full college player-season history.</p>
@@ -668,6 +668,21 @@
       </div>
 
       <div class="case-block reveal">
+        <span class="sublabel">Scouting reports and coaching tendencies</span>
+        <p>The scouting layer is its own build on CollegeBasketballData feeds, not a view of the projection model. Team reports assemble game logs, rolling form, shot charts classified into court zones, and per-player breakdowns from play-by-play, and a game-analysis view reconstructs score timelines, runs, and assist networks. The coaching-tendencies engine reads substitution behavior out of play-by-play, and every tendency it reports is a specific observed pattern, starting with when a coach makes the first sub, written to be read by a coach rather than a data scientist.</p>
+      </div>
+
+      <div class="case-block reveal">
+        <span class="sublabel">NIL evaluation</span>
+        <p>The NIL layer treats valuation as a budget-distribution problem rather than a price guess. Every player carries a production value index computed from their stat profile, team budgets are scaled to conference strength, and the budget is distributed across the roster in proportion to production, with escalation for class year and trajectory. The output is a defensible starting point for an NIL conversation: where a roster's production actually sits, and how a budget should tilt in response.</p>
+      </div>
+
+      <div class="case-block reveal">
+        <span class="sublabel">One platform serving all four</span>
+        <p>Serving is separated from modeling: predictions are precomputed to Parquet and seeded into PostgreSQL, so the async FastAPI layer answers dashboard queries without a model in the request path. The frontend is a 36-page Next.js application deployed on Vercel, with the API and database on Render.</p>
+      </div>
+
+      <div class="case-block reveal">
         <span class="sublabel">Results</span>
         <ul class="findings">
           <li><strong>Honest, era-split evaluation.</strong> Train through 2018, calibrate on 2019 to 2021, test on 2022 and later. The reported numbers come from seasons the model never saw.</li>
@@ -686,6 +701,7 @@
             <li>Two data sources with different season conventions (Ball Don't Lie and CollegeBasketballData) are aligned through dedicated season-offset utilities, one of the unglamorous correctness problems that decides whether everything downstream is right.</li>
             <li>Transfer portal projections carry the Excel-born two-stage Solver fit into production: the workbook's fitted tables and blend weights are serialized into the API, with role scenarios for how a player projects at a new school and a methodology note documenting the full lineage.</li>
             <li>A player similarity engine ranks comparables by weighted distance in z-scored stat space across 54,000+ qualified player-seasons.</li>
+            <li>The scouting and NIL layers run as their own engines on the shared core: team reports, shot charts, and substitution tendencies computed from CBBD play-by-play, and a production-value allocator that scales NIL budgets to conference strength.</li>
             <li>An audit script verifies the full system, and a dozen validation notebooks make the methodology reproducible end to end.</li>
           </ul>
 
