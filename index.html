@@ -54,7 +54,6 @@
             <li><strong>Schedule luck is attribution.</strong><span>A leakage-free counterfactual, because team quality stays fixed while only the schedule varies.</span></li>
             <li><strong>A daily prediction product is production reliability.</strong><span>Guardrails, lineage, and monitoring, because an unattended model is only as good as the pipeline feeding it.</span></li>
           </ul>
-          <p class="hero-lede" style="margin-top: 1.6rem;">Every model I build competes against a naive baseline before it earns trust, every evaluation is designed so it cannot leak, and the strongest results ship as deployed products rather than notebooks. I also match the tool to the job: the original transfer index was a neural-network-style model built entirely in Excel, its weights fit with Solver instead of backpropagation, so every calculation stays visible and auditable with nothing hidden in a black box.</p>
           <div class="btn-row">
             <a class="btn btn-primary" href="case-studies.html">Read the case studies</a>
             <a class="btn btn-ghost" href="mailto:thomas.lappas1010@gmail.com">Email</a>
@@ -136,6 +135,7 @@
         <p>A promising model has a good metric. A trustworthy one has survived an honest attempt to break it: out-of-sample evaluation, competition against a naive baseline, permutation tests, calibration checks. My projects are built around that distinction, and it shows in the details: a stat that failed its baseline test was excluded from a scouting composite rather than quietly kept, and a headline split that rested on 16 games was reported as noise, because it was.</p>
         <p>The same standard applies to systems. A pipeline that silently produces stale predictions is worse than one that stops and says why. The platforms in the case studies are built to refuse bad data: freshness enforcement, missing-data circuit breakers, point-in-time feature lineage, and monitoring that checks whether the model is still expressing uncertainty.</p>
         <p>I work across the full stack because analysis that cannot be served is not finished: Python and SQL for modeling, FastAPI and PostgreSQL for serving, Next.js and TypeScript for the product surface, Docker for keeping all of it reproducible.</p>
+        <p>Matching the tool to the audience is part of the same standard. The original transfer index was a neural-network-style model built entirely in Excel, its weights fit with Solver instead of backpropagation, so a coaching staff could audit every calculation on the sheet. It now lives inside <a href="case-studies.html#prospectiq">the ProspectIQ platform</a>, serialized into the transfer API.</p>
       </div>
     </div>
   </section>
