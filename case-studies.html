@@ -89,7 +89,7 @@
 
       <div class="case-block reveal">
         <span class="sublabel">Executive summary</span>
-        <p>The project turns scattered, incompatible international data into a defensible answer to a signing decision. Three separately delivered data feeds with inconsistent conventions are reconciled into one clean history covering NBA and four European league careers, and everything downstream is built on that foundation. Version 2 learned per-stat INTL to NBA translations empirically and validated each against a naive baseline with leave-one-out prediction error. Version 3 rebuilt the pipeline around a joint hierarchical Bayesian translation model with a hand-rolled Gibbs sampler, hardened the ingestion (103 to 118 training transitions, 392 to 431 ranked players), let the data choose the archetypes, and replaced the point ranking with an upside probability computed from posterior draws. Both versions end in a written scouting report; v3 also reports, openly, what it changed about v2's conclusions.</p>
+        <p>The project turns scattered, incompatible international data into a defensible answer to a signing decision. Three vendor data feeds with inconsistent conventions are reconciled into one clean history covering NBA and four European league careers, and everything downstream is built on that foundation. Version 2 learned per-stat INTL to NBA translations empirically and validated each against a naive baseline with leave-one-out prediction error. Version 3 rebuilt the pipeline around a joint hierarchical Bayesian translation model with a hand-rolled Gibbs sampler, hardened the ingestion (103 to 118 training transitions, 392 to 431 ranked players), let the data choose the archetypes, and replaced the point ranking with an upside probability computed from posterior draws. Both versions end in a written scouting report; v3 also reports, openly, what it changed about v2's conclusions.</p>
       </div>
 
       <div class="case-block reveal">
@@ -159,7 +159,7 @@
           <li><strong>The re-evaluation overturned the board.</strong> v2's #1 (composite 1.02) and #3 targets fail v3's stricter playing-time legitimacy accounting entirely, and v2's #9 collapses to rank 39 with P(upside) 0.02. A 19-year-old enters the v3 top ten on upside probability that a point ranking missed.</li>
           <li><strong>Validation held or improved on a larger sample.</strong> With 15% more training transitions, usage error fell 50% versus naive and scoring 36%; three-point volume still fails its baseline and stays flagged.</li>
           <li><strong>Sampler quality is checked, not assumed.</strong> Split-half slope drift across 1,000 kept posterior draws is 0.009, and every ingestion exclusion is printed as a logged decision.</li>
-          <li><strong>Known limitations are stated in the README.</strong> Including one inherited inconsistency, kept deliberately: 3PM/40 fails the MAE gate yet keeps composite weight 0.16 because weights come from CV correlation. It is documented, with the fix described, rather than silently patched after delivery.</li>
+          <li><strong>Known limitations are stated in the README.</strong> Including one inherited inconsistency, kept deliberately: 3PM/40 fails the MAE gate yet keeps composite weight 0.16 because weights come from CV correlation. It is documented, with the fix described, rather than silently patched after shipping.</li>
         </ul>
       </div>
 
@@ -208,7 +208,7 @@
             <dt>Why an upside probability instead of a point rank?</dt>
             <dd>Recruitment lists exist to find upside. P(composite clears the pool's top-decile bar) ranks players by the chance they are worth a roster spot, which is the actual decision, and it is what elevated a 19-year-old the v2 point ranking buried.</dd>
             <dt>Why keep a known inconsistency in the shipped board?</dt>
-            <dd>The 3PM weight disagreement between the MAE gate and correlation weighting existed in the delivered v2 board. v3 documents it and describes the fix rather than silently changing a delivered artifact, because reproducibility of what was actually shipped matters.</dd>
+            <dd>The 3PM weight disagreement between the MAE gate and correlation weighting existed in the shipped v2 board. v3 documents it and describes the fix rather than silently changing a shipped artifact, because reproducibility of what actually shipped matters.</dd>
           </dl>
 
           <h3>Challenges</h3>
@@ -346,13 +346,12 @@
         </div>
       </details>
 
-      <p class="fineprint">Built on the datasets provided with an NBA team's data scientist hiring project (2014-15 through 2023-24 schedules, team game data, and arena locations). Data shared for portfolio review only. Both scripts are deterministic and regenerate every table and chart from raw data.</p>
+      <p class="fineprint">Built on ten seasons of NBA schedules, team game data, and arena locations, 2014-15 through 2023-24. Data used for portfolio demonstration only. Both scripts are deterministic and regenerate every table and chart from raw data.</p>
     </div>
   </article>
 
   <!-- Case study 3: Conference Imbalance Study. Sixteen seasons of East vs
-       West, an NBA analyst project built on team-provided data. The team
-       is deliberately not named anywhere on this site. -->
+       West, built on league standings and head-to-head records. -->
   <article class="case" id="conference">
     <div class="wrap">
       <div class="case-tags reveal">
@@ -371,7 +370,7 @@
 
       <div class="case-block reveal">
         <span class="sublabel">Executive summary</span>
-        <p>An NBA analyst project: 17 questions over 16 seasons of standings and head-to-head records, answered with pooled win rates, strength-of-schedule analysis, logistic playoff models, a permutation test, and three modeling-judgment questions. Every answer is written twice, a technical response and a plain-language version for a non-technical reader, because communicating a result is part of the job.</p>
+        <p>Seventeen questions over 16 seasons of standings and head-to-head records, answered with pooled win rates, strength-of-schedule analysis, logistic playoff models, a permutation test, and three modeling-judgment questions. Every answer is written twice, a technical response and a plain-language version for a non-technical reader, because communicating a result is part of the job.</p>
       </div>
 
       <div class="case-block reveal">
@@ -467,7 +466,7 @@
         </div>
       </details>
 
-      <p class="fineprint">An NBA analyst project built on league standings and head-to-head data, 2005-06 through 2020-21. The team that provided the data is intentionally not named. The full notebook, with every answer in both technical and plain-language form, is available on request.</p>
+      <p class="fineprint">Built on league standings and head-to-head data, 2005-06 through 2020-21. The full notebook, with every answer in both technical and plain-language form, is available on request.</p>
     </div>
   </article>
 
