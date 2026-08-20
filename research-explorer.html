@@ -1,0 +1,131 @@
+<!doctype html>
+<!--
+  Research explorer. The interactive layer over the six research studies:
+  every table here is filtered and sorted client-side from JSON exported
+  straight out of the research database, so what you can explore is exactly
+  what the studies computed. No backend, no libraries.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Interactive explorer for six NBA research studies: browse every player in every role cluster, run style-similarity searches, and sort the trajectory watch list, clutch trust table, and team results.">
+<meta property="og:title" content="Research Explorer · Thomas Lappas">
+<meta property="og:description" content="Browse the clusters, search player style similarity, and sort every table the research produced.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tlappas-23.github.io/research-explorer.html">
+<meta property="og:image" content="https://tlappas-23.github.io/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>Research Explorer · Thomas Lappas</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="topbar-name" href="./">Thomas Lappas</a>
+    <nav class="topbar-nav" aria-label="Site">
+      <a href="./">Home</a>
+      <a href="case-studies.html">Case Studies</a>
+      <a href="research.html" aria-current="page">Research</a>
+      <a href="skills.html">Skills</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+    <div class="page-head">
+      <span class="label">Research · Explorer</span>
+      <h1>Explore what the studies found</h1>
+      <p class="dek">Every number the six research studies produced lives in database tables their notebooks wrote. This page loads those tables directly, so you can see which players landed in each role, search style similarity across 1,350 player-seasons, and sort the watch lists yourself. Nothing here is recomputed or editorialized: it is the studies' own output, made browsable.</p>
+    </div>
+
+    <div class="xp-tabs" role="tablist" aria-label="Explorer sections">
+      <button class="chip" data-t="roles">Role clusters</button>
+      <button class="chip" data-t="similarity">Style similarity</button>
+      <button class="chip" data-t="trajectory">Trajectory watch list</button>
+      <button class="chip" data-t="clutch">Clutch trust</button>
+      <button class="chip" data-t="teams">Team tables</button>
+    </div>
+
+    <section class="xp-section" id="xp-roles" hidden>
+      <h2>Who is in each role cluster</h2>
+      <p class="xp-note">From the role-lens study: pick a lens, then a role, and every player-season assigned to it appears with its fit score and the within-season percentiles that define the lens. Fit is the assignment confidence; a value near zero means the player sits on a boundary between roles, and the study treats those as hybrids rather than clean members. The scoring lens is reported by the study as a descriptive partition, not stable structure.</p>
+      <div class="xp-controls" id="roles-lens">
+        <button class="chip on" data-l="shot_diet">Shot diet</button>
+        <button class="chip" data-l="defense">Defense</button>
+        <button class="chip" data-l="scoring">Scoring</button>
+        <button class="chip" data-l="playmaking">Playmaking</button>
+        <select id="roles-season" aria-label="Season filter"></select>
+        <input type="text" id="roles-q" placeholder="Search player" aria-label="Search player">
+      </div>
+      <div class="xp-controls" id="roles-chips"></div>
+      <div class="xp-wrap" id="roles-body"></div>
+    </section>
+
+    <section class="xp-section" id="xp-similarity" hidden>
+      <h2>Style similarity search</h2>
+      <p class="xp-note">From the style-embedding study: pick any player-season and the twelve nearest player-seasons in the 32-dimensional style space appear, with their role labels attached. Distance measures how a player plays, not how well; the study found this space statistically indistinguishable from a PCA equivalent on its held-out test, so read matches as style comparables, not a proprietary edge.</p>
+      <div class="xp-controls">
+        <input list="sim-list" id="sim-q" placeholder="Player · Season" aria-label="Pick a player-season">
+        <datalist id="sim-list"></datalist>
+      </div>
+      <h3 id="sim-title"></h3>
+      <div class="xp-wrap" id="sim-body"></div>
+    </section>
+
+    <section class="xp-section" id="xp-trajectory" hidden>
+      <h2>2026-27 trajectory watch list</h2>
+      <p class="xp-note">From the trajectory study: rise and fall probabilities for every qualifying 2025-26 player, written before the season and graded by it. The study's own correction applies here: these probabilities are driven principally by current level, age, prior trend, and the geometry of a bounded percentile scale, and all reported model performance is development evidence. Sort either column and judge the lists yourself.</p>
+      <div class="xp-wrap" id="traj-body"></div>
+    </section>
+
+    <section class="xp-section" id="xp-clutch" hidden>
+      <h2>Clutch trust, every bench player-season</h2>
+      <p class="xp-note">From the bench-clutch study: clutch lift is a player's share of his team's clutch minutes minus his share of ordinary minutes, the coaching decision isolated from playing time. Positive lift marks players a coach promotes when the game is tight. The study's reliability gate applies: trust repeats year over year; clutch performance itself does not, so no column here is a measure of clutch skill.</p>
+      <div class="xp-wrap" id="clutch-body"></div>
+    </section>
+
+    <section class="xp-section" id="xp-teams" hidden>
+      <h2>Team-level results</h2>
+      <p class="xp-note">From the bench-usage study: each team-season's bench profile against its net rating, with starter net rating alongside because the study's central finding is that raw bench numbers mislead without it. From the playoff study: every playoff run with its opponent strength and opponent-adjusted residual, the number that separates a hard bracket from a real underperformance.</p>
+      <h3>Bench profiles, 150 team-seasons</h3>
+      <div class="xp-wrap" id="teams-bench-body"></div>
+      <h3 style="margin-top:2rem;">Playoff translation, 80 team-seasons</h3>
+      <div class="xp-wrap" id="teams-po-body"></div>
+    </section>
+
+    <p class="fineprint">All tables are loaded from JSON exported directly from the research database (assets/data/). The export script rounds values for display and does nothing else. Interpretations and limitations live on each study's page in the <a href="research.html">research section</a>.</p>
+  </div>
+</main>
+
+<!-- Site footer, identical on every page: identity, navigation, contact. -->
+<footer class="site-footer">
+  <div class="wrap foot-inner">
+    <div>
+      <p class="foot-name">Thomas Lappas</p>
+      <p class="foot-tag">Data science, analytics engineering, and production systems, demonstrated through basketball.</p>
+    </div>
+    <nav class="foot-nav" aria-label="Footer">
+      <a href="./">Home</a>
+      <a href="case-studies.html">Case Studies</a>
+      <a href="research.html">Research</a>
+      <a href="skills.html">Skills</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="foot-links">
+      <a href="mailto:thomas.lappas1010@gmail.com">thomas.lappas1010@gmail.com</a>
+      <a href="https://github.com/Tlappas-23" rel="noopener">github.com/Tlappas-23</a>
+    </div>
+  </div>
+  <div class="wrap foot-legal">Every metric on this site is generated by project code from project data.</div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script src="assets/explorer.js"></script>
+</body>
+</html>

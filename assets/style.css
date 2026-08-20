@@ -429,3 +429,39 @@ html.js .reveal.in { opacity: 1; transform: none; }
   .repo-link { margin-left: 0; }
   .page-head { padding: 2.8rem 0 1rem; }
 }
+
+/* Research explorer. Chips switch lenses and tabs; tables are dense and
+   sortable; the small inline bars carry percentiles without a chart library.
+   Everything inherits the site tokens so dark mode needs nothing extra. */
+.xp-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.6rem 0 0.4rem; }
+.chip {
+  font: inherit; font-size: 0.86rem; color: var(--ink); background: transparent;
+  border: 1px solid var(--line); border-radius: 999px; padding: 0.38rem 0.85rem; cursor: pointer;
+}
+.chip:hover { border-color: var(--accent); color: var(--accent-ink); }
+.chip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.chip b { font-weight: 600; opacity: 0.75; margin-left: 0.25rem; }
+.xp-section { border-top: 1px solid var(--line); padding: 1.6rem 0 2.6rem; }
+.xp-controls { display: flex; flex-wrap: wrap; gap: 0.55rem; align-items: center; margin: 0.9rem 0 1rem; }
+.xp-controls input[type="text"], .xp-controls input[list], .xp-controls select {
+  font: inherit; font-size: 0.9rem; color: var(--ink); background: transparent;
+  border: 1px solid var(--line); border-radius: 8px; padding: 0.45rem 0.7rem; min-width: 14rem;
+}
+.xp-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+.xp-table th { text-align: left; border-bottom: 1px solid var(--line); padding: 0.35rem 0.55rem; white-space: nowrap; }
+.xp-table th button { font: inherit; font-size: 0.78rem; font-weight: 600; color: var(--muted);
+  background: none; border: 0; padding: 0; cursor: pointer; }
+.xp-table th button:hover { color: var(--accent-ink); }
+.xp-table td { border-bottom: 1px solid var(--line); padding: 0.34rem 0.55rem; white-space: nowrap; color: var(--muted); }
+.xp-table td.name { color: var(--ink); font-weight: 550; }
+.xp-table td.rolecell { font-size: 0.8rem; }
+.xp-table tr:hover td { background: var(--accent-soft); }
+.pbar { display: inline-block; width: 3.6rem; height: 0.45rem; background: var(--line);
+  border-radius: 99px; overflow: hidden; vertical-align: middle; margin-right: 0.45rem; }
+.pbar i { display: block; height: 100%; background: var(--accent); border-radius: 99px; }
+.pv { font-variant-numeric: tabular-nums; }
+.xp-count { font-size: 0.78rem; color: var(--faint); margin-top: 0.7rem; }
+.xp-more { font: inherit; font-size: 0.78rem; color: var(--accent-ink); background: none;
+  border: 1px solid var(--line); border-radius: 6px; padding: 0.2rem 0.6rem; cursor: pointer; margin-left: 0.4rem; }
+.xp-note { font-size: 0.85rem; color: var(--muted); max-width: 47rem; margin: 0.3rem 0 0.8rem; }
+.xp-wrap { overflow-x: auto; }
