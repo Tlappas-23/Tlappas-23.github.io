@@ -90,7 +90,7 @@
       <p class="ps-sub" style="margin-top:0.9rem;">Closest style matches</p>
       <div class="ps-nbrow">${nb}</div>
       ${extra}
-      <p class="ps-more-link"><a href="research-explorer.html#roles">Open the full explorer</a> for every table behind this card.</p>`;
+      <p class="ps-more-link"><a href="research.html">Open the research section</a> for the studies and tables behind this card.</p>`;
     card.querySelectorAll(".chip").forEach(b =>
       b.addEventListener("click", () => renderCard(name, b.dataset.season)));
     card.querySelectorAll(".ps-nb").forEach(b =>

@@ -166,14 +166,17 @@
       rows, { sort: "lift" });
   }
 
-  /* ---------- Teams ---------- */
-  async function initTeams() {
-    const [tb, tp] = await Promise.all([data("teams_bench"), data("teams_playoff")]);
+  /* ---------- Teams (each table stands alone on its study page) ---------- */
+  async function initTeamsBench() {
+    const tb = await data("teams_bench");
     table($("#teams-bench-body"),
       [{key:"n",label:"Team",cls:"name"},{key:"s",label:"Season"},{key:"net",label:"Net rtg",d:1},
        {key:"snet",label:"Starter net",d:1},{key:"pts",label:"Bench pts share",d:3},
        {key:"ts",label:"Bench TS",d:3},{key:"eff",label:"Effort /36",d:1}],
       tb, { sort: "eff", limit: 15 });
+  }
+  async function initTeamsPlayoff() {
+    const tp = await data("teams_playoff");
     table($("#teams-po-body"),
       [{key:"n",label:"Team",cls:"name"},{key:"s",label:"Season"},{key:"rs",label:"RS net",d:1},
        {key:"po",label:"Playoff net",d:1},{key:"w",label:"W"},{key:"l",label:"L"},
@@ -181,16 +184,11 @@
       tp, { sort: "adj", limit: 15 });
   }
 
-  /* ---------- Tabs ---------- */
-  const INIT = { roles: initRoles, similarity: initSim, trajectory: initTraj, clutch: initClutch, teams: initTeams };
-  const done = {};
-  function show(id) {
-    $$(".xp-section").forEach(s => s.hidden = s.id !== "xp-" + id);
-    $$(".xp-tabs .chip").forEach(b => b.classList.toggle("on", b.dataset.t === id));
-    if (!done[id] && INIT[id]) { done[id] = true; INIT[id](); }
-    history.replaceState(null, "", "#" + id);
+  /* ---------- Auto-init: each study page carries only its own section ---------- */
+  const INIT = { "xp-roles": initRoles, "xp-similarity": initSim, "xp-trajectory": initTraj,
+                 "xp-clutch": initClutch, "xp-teams-bench": initTeamsBench, "xp-teams-playoff": initTeamsPlayoff };
+  for (const id in INIT) {
+    const el = document.getElementById(id);
+    if (el) { el.hidden = false; INIT[id](); }
   }
-  $$(".xp-tabs .chip").forEach(b => b.addEventListener("click", () => show(b.dataset.t)));
-  const start = location.hash.replace("#", "");
-  show(INIT[start] ? start : "roles");
 })();
