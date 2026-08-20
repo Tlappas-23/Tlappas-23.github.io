@@ -1,0 +1,129 @@
+<!doctype html>
+<!--
+  Bench Usage and Team Success. Part of the research section: six studies on one
+  NBA database, each with its own page, all sharing one validation standard.
+  Styles are shared in assets/style.css; header and footer match every
+  other page so navigation never moves under the reader.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Does leaning on your bench cost games? A confound-controlled study of 150 NBA team-seasons: the raw penalty is a starter-quality artifact, and efficiency is the bench trait that survives every control.">
+<meta property="og:title" content="Bench Usage and Team Success · Thomas Lappas">
+<meta property="og:description" content="Does leaning on your bench cost games? A confound-controlled study of 150 NBA team-seasons: the raw penalty is a starter-quality artifact, and efficiency is the bench trait that survives every control.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tlappas-23.github.io/research-bench-usage.html">
+<meta property="og:image" content="https://tlappas-23.github.io/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>Bench Usage and Team Success · Thomas Lappas</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="topbar-name" href="./">Thomas Lappas</a>
+    <nav class="topbar-nav" aria-label="Site">
+      <a href="./">Home</a>
+      <a href="case-studies.html">Case Studies</a>
+      <a href="research.html" aria-current="page">Research</a>
+      <a href="skills.html">Skills</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <article class="case" id="bench-usage">
+    <div class="wrap">
+      <div class="case-tags reveal">
+        <span class="tag tag-domain">Team Construction</span><span class="tag">Permutation Inference</span><span class="tag">Partial Correlation</span>
+        <a class="repo-link" href="mailto:thomas.lappas1010@gmail.com?subject=Access%20request%3A%20NBA%20research%20notebooks">Notebook · email for access</a>
+      </div>
+      <h2 class="reveal">Bench Usage and Team Success</h2>
+      <p class="dek reveal">Front offices argue about whether a heavy bench is a weakness and whether a designated bench scorer is worth paying for. <strong>Bench statistics are confounded by the starters in front of them</strong>, so this study refuses every raw correlation until it has been re-estimated with starter quality partialled out, with permutation p-values and a Holm correction pricing in every test that was run.</p>
+
+      <div class="qa reveal">
+        <p class="q">Does relying on your bench cost you games?</p>
+        <p class="a"><strong>The raw answer is yes and the controlled answer is no.</strong> Bench scoring share correlates with team net rating at -0.386 across 150 team-seasons, but the association collapses to +0.083 once starter quality is held fixed: bad starters cause both the losing and the bench reliance. What survives the control is bench efficiency (+0.225 partial) and a hustle-based effort index (+0.235), while the designated-bench-scorer share is null at all three thresholds tested.</p>
+      </div>
+
+      <div class="case-block reveal">
+        <span class="sublabel">Executive summary</span>
+        <p>Five regular seasons, 150 team-seasons, one discipline: the two confounds are named before any result. Good starters shrink the bench's role while winning games, and good teams generate garbage time that inflates bench minutes in wins. Every headline correlation is re-tested as a partial correlation against starter net rating, significance comes from 10,000-shuffle permutation tests with a finite-sample estimator, seven tests on the same rows are Holm-corrected, and both surviving findings face a franchise cluster bootstrap that resamples all five of a franchise's seasons together, because 150 rows from 30 franchises are not 150 independent facts.</p>
+      </div>
+      <div class="case-block reveal">
+        <span class="sublabel">Question and data</span>
+        <p>Three questions: does bench share correlate with winning, does the structure of bench usage matter (low-usage role players versus bench scorers who need the ball), and can bench quality be measured without traditional production statistics at all? The starter and bench splits use the league's own per-game definition of who started, which counts a player traded into a starting job correctly on both sides where a minutes heuristic would misclassify him. One data trap handled explicitly: the advanced player table's minutes column is per-game even in totals mode, so true bench minutes are joined from the base table and used as the aggregation weights.</p>
+      </div>
+      <div class="case-block reveal">
+        <span class="sublabel">Findings</span>
+        <p>Bench usage level is a starter artifact (-0.326 raw to -0.045 controlled). The bench-scorer share is uncorrelated with success raw and controlled, at 22, 24, and 26 percent usage definitions alike. Bench true shooting is the one traditional statistic that survives (+0.374 raw, +0.225 controlled, positive in all five individual seasons), with the stated caveat that part of it runs through team offensive rating, where bench points sit inside the outcome. The two production-free measures split: coach-revealed clutch trust is an honest null with a structural explanation, and the hustle-based effort index survives the starter control at +0.235 with a franchise-bootstrap interval of +0.09 to +0.36.</p>
+      </div>
+
+      <div class="stats reveal" role="list" aria-label="Key results">
+        <div class="stat" role="listitem"><span class="n">150</span><span class="l">team-seasons across five regular seasons</span></div><div class="stat" role="listitem"><span class="n">-0.386 → +0.08</span><span class="l">bench scoring share vs winning, raw to starter-controlled</span></div><div class="stat" role="listitem"><span class="n">+0.225</span><span class="l">bench true shooting partial, CI +0.03 to +0.38 under franchise bootstrap</span></div><div class="stat" role="listitem"><span class="n">0 of 3</span><span class="l">usage thresholds where a designated bench scorer relates to winning</span></div>
+      </div>
+
+      <div class="case-block reveal">
+        <span class="sublabel">What the adversarial review changed</span>
+        <p>A senior-level review pass changed three things. Permutation p-values moved to the finite-sample (k+1)/(n+1) estimator, because a 10,000-shuffle test cannot produce zero. The effort index turned out to be mis-specified as a raw sum, with contested shots supplying 67.7 percent of it by construction; re-specified as an equal-weight composite of standardized components it strengthens to +0.324, and the conservative pre-registered number is the one reported. And the closing recommendation was rewritten from acquisition advice into prioritization under association, because part of measured bench efficiency travels with the starters who create the looks, and this design cannot separate the player from the ecosystem.</p>
+      </div>
+
+      <div class="case-block reveal">
+        <span class="sublabel">Limitations</span>
+        <p>Observational league data: no correlation here licenses a causal claim. Garbage time inflates bench minutes for good teams, which works against the raw negative, so the true starter artifact may be larger than measured. The effective sample is smaller than 150 because franchises repeat, which the cluster bootstrap prices in. Playoffs are excluded by design because playoff rotations are a different regime.</p>
+      </div>
+
+      <details class="deep reveal">
+        <summary>Technical deep dive</summary>
+        <div class="deep-body">
+          <h3>Technical highlights</h3>
+          <ul><li>Every claim ships with a permutation p-value; seven tests on the same 150 rows are Holm-corrected, and the correction changes one verdict, which is reported as changed.</li><li>Franchise cluster bootstrap: all five seasons of a resampled franchise move together, so a finding that exists only because well-run franchises repeat five times is exposed.</li><li>Specification sensitivity on every judgment call: the high-usage line at 22/24/26 percent, the hustle minutes floor at 150/200/250, and the effort index in four functional forms.</li><li>A part-whole diagnostic splits the efficiency finding into offensive and defensive halves, exposing exactly where measurement overlaps mechanism.</li></ul>
+          <h3>Key decisions</h3>
+          <dl class="decisions"><dt>Why permutation tests instead of parametric ones?</dt><dd>Team net ratings across five seasons make no distributional promise. Shuffling team labels 10,000 times replaces the assumption with a demonstration, and the finite-sample estimator keeps the smallest reportable p-value honest at 1/10,001.</dd><dt>Why is bench on-court net rating excluded from the findings?</dt><dd>It correlates with team net rating at +0.897, but bench possessions are a component of the team total, so the relationship is close to tautological. It is reported as a methodological note instead of a finding.</dd></dl>
+          <h3>Technology stack</h3>
+          <div class="stack-rows">
+            <div class="stack-row"><span class="k">Languages</span><span class="v">Python, SQL (SQLite)</span></div>
+            <div class="stack-row"><span class="k">Methods</span><span class="v">Permutation inference, partial correlation, Holm step-down correction, franchise block bootstrap, minutes-weighted aggregation; pandas, NumPy, Matplotlib</span></div>
+            <div class="stack-row"><span class="k">Reproducibility</span><span class="v">Deterministic seeds end to end, including every bootstrap resample; re-executed from a clean environment with outputs verified against the committed notebook</span></div>
+          </div>
+        </div>
+      </details>
+
+      <p class="fineprint">Built on five seasons (2021-22 through 2025-26) of NBA Stats dashboard data compiled into a local SQLite database of 97 tables. All six research studies run against the same database. Every number quoted is generated by the notebook's own executed code, deterministically seeded, and re-verified from a clean environment. Notebooks available by email.</p>
+      <p class="reveal" style="margin-top:1.4rem;"><a class="btn btn-ghost" href="research.html">Back to all research</a></p>
+    </div>
+  </article>
+
+</main>
+
+<!-- Site footer, identical on every page: identity, navigation, contact. -->
+<footer class="site-footer">
+  <div class="wrap foot-inner">
+    <div>
+      <p class="foot-name">Thomas Lappas</p>
+      <p class="foot-tag">Data science, analytics engineering, and production systems, demonstrated through basketball.</p>
+    </div>
+    <nav class="foot-nav" aria-label="Footer">
+      <a href="./">Home</a>
+      <a href="case-studies.html">Case Studies</a>
+      <a href="research.html">Research</a>
+      <a href="skills.html">Skills</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="foot-links">
+      <a href="mailto:thomas.lappas1010@gmail.com">thomas.lappas1010@gmail.com</a>
+      <a href="https://github.com/Tlappas-23" rel="noopener">github.com/Tlappas-23</a>
+    </div>
+  </div>
+  <div class="wrap foot-legal">Every metric on this site is generated by project code from project data.</div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>

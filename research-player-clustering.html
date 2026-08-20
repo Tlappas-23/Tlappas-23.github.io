@@ -1,0 +1,129 @@
+<!doctype html>
+<!--
+  Player Role Lenses. Part of the research section: six studies on one
+  NBA database, each with its own page, all sharing one validation standard.
+  Styles are shared in assets/style.css; header and footer match every
+  other page so navigation never moves under the reader.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="One clustering answers one question badly. Four independent lenses cluster 1,350 player-seasons by shot diet, defense, scoring, and playmaking, with player-block stability selection and an external check on the defensive lens.">
+<meta property="og:title" content="Player Role Lenses · Thomas Lappas">
+<meta property="og:description" content="One clustering answers one question badly. Four independent lenses cluster 1,350 player-seasons by shot diet, defense, scoring, and playmaking, with player-block stability selection and an external check on the defensive lens.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tlappas-23.github.io/research-player-clustering.html">
+<meta property="og:image" content="https://tlappas-23.github.io/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>Player Role Lenses · Thomas Lappas</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="topbar-name" href="./">Thomas Lappas</a>
+    <nav class="topbar-nav" aria-label="Site">
+      <a href="./">Home</a>
+      <a href="case-studies.html">Case Studies</a>
+      <a href="research.html" aria-current="page">Research</a>
+      <a href="skills.html">Skills</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <article class="case" id="player-clustering">
+    <div class="wrap">
+      <div class="case-tags reveal">
+        <span class="tag tag-domain">Role Identification</span><span class="tag">Unsupervised Learning</span><span class="tag">External Checks</span>
+        <a class="repo-link" href="mailto:thomas.lappas1010@gmail.com?subject=Access%20request%3A%20NBA%20research%20notebooks">Notebook · email for access</a>
+      </div>
+      <h2 class="reveal">Player Role Lenses</h2>
+      <p class="dek reveal">A single all-purpose player clustering compresses everything a player is into one label. This study clusters the same 1,350 player-seasons through four independent lenses instead, so a player becomes a coordinate: shot diet, defensive job, scoring profile, playmaking tier. <strong>Cluster counts are selected against separation, density, and player-block bootstrap stability at once</strong>, and the defensive lens is checked against an outcome measure it never saw.</p>
+
+      <div class="qa reveal">
+        <p class="q">What is this player? One label cannot say.</p>
+        <p class="a"><strong>Four nearly independent answers per player.</strong> Cross-lens agreement tops out at 0.168 adjusted Rand, so shot diet, defensive job, scoring profile, and playmaking tier are close to orthogonal dimensions. The league's most unusual profiles become expressible: an interior-touch big who is simultaneously a primary creator and a primary scorer, with a fit score that flags his defensive assignment as a genuine boundary case instead of forcing a clean label.</p>
+      </div>
+
+      <div class="case-block reveal">
+        <span class="sublabel">Executive summary</span>
+        <p>Every player-season with 1,000-plus minutes across five seasons, described by 27 engineered features and clustered four ways with KMeans, with Gaussian-mixture BIC and silhouette as selection evidence and a bootstrap that resamples players as blocks, all seasons of a sampled player moving together, because the same player's seasons are near-duplicates and row-level resampling flatters stability. Each lens replicates when refit on single seasons in isolation, every player carries a per-lens fit score so hybrids are visible, and rim defense runs through empirical Bayes shrinkage so no guard is labeled by a 45-attempt rim percentage.</p>
+      </div>
+      <div class="case-block reveal">
+        <span class="sublabel">Question and data</span>
+        <p>The use case is role identification for scouting: a trade target is acquired for a role, not a rating. Ten tables join into the pool with one-row-per-player-season assertions guarding every merge. Features are per-36 rates and opportunity-adjusted shares, power-transformed within each season so a cluster means the same thing in 2021-22 as in 2025-26 even as league behavior drifts, and every feature also gets a within-season percentile so any player-season reads as a profile independent of the labels.</p>
+      </div>
+      <div class="case-block reveal">
+        <span class="sublabel">Findings</span>
+        <p>Six shot diets, three defensive jobs, four scoring quadrants, three playmaking tiers, each named from its profile with exemplars printed from the data. The defensive lens is the strongest: it replicates at 0.928 when refit on single seasons, and its three roles separate on defensive win shares per 36, an outcome the lens never saw, with the separation surviving within-team demeaning (p = 1.4e-04), which rules out the objection that good defenses simply employ good defenders. Role change is real but concentrated among boundary players: above-median-fit players change roles at 4 to 16 percent per year against 31 to 44 percent for boundary cases, and a three-year average profile can land in a role the player never occupied in any actual season, which is why the deployed table is season-level.</p>
+      </div>
+
+      <div class="stats reveal" role="list" aria-label="Key results">
+        <div class="stat" role="listitem"><span class="n">1,350</span><span class="l">player-seasons from 492 players, five seasons</span></div><div class="stat" role="listitem"><span class="n">0.168</span><span class="l">maximum cross-lens agreement: the four lenses are near-independent</span></div><div class="stat" role="listitem"><span class="n">0.928</span><span class="l">defensive lens agreement when refit on single seasons alone</span></div><div class="stat" role="listitem"><span class="n">p=1.4e-04</span><span class="l">within-team separation on defensive win shares, the external check</span></div>
+      </div>
+
+      <div class="case-block reveal">
+        <span class="sublabel">What the adversarial review changed</span>
+        <p>The review found that the stability bootstrap resampled rows despite players repeating up to five times, which overstates stability. Corrected to a player-block bootstrap, three of the four chosen solutions still clear the pre-registered 0.85 bar (defense 0.919, playmaking 0.946, shot diet 0.882), and one does not: the scoring lens falls to 0.836 and is downgraded in the study from stable structure to the most informative descriptive partition of the volume-efficiency plane. The review also prompted the fit-conditioned transition analysis, which reframed role churn: much of the raw change rate is boundary flicker the fit scores already flag.</p>
+      </div>
+
+      <div class="case-block reveal">
+        <span class="sublabel">Limitations</span>
+        <p>Scheme value, matchup difficulty, and off-ball deterrence are invisible to tracking counts. The win-shares check covers one season because the source table exists for one, and win shares are themselves a model-based estimate. The shrinkage constant is global rather than positional. Five seasons measures year-over-year change, not career arcs.</p>
+      </div>
+
+      <details class="deep reveal">
+        <summary>Technical deep dive</summary>
+        <div class="deep-body">
+          <h3>Technical highlights</h3>
+          <ul><li>Selection against three criteria at once: silhouette separation, Gaussian-mixture BIC, and player-block bootstrap stability, with the selection rule fixed before looking.</li><li>Empirical Bayes rim shrinkage with the constant estimated from a variance decomposition: a player's rim percentage is trusted half-and-half against league average at about 60 defended attempts.</li><li>Per-player fit scores from per-point silhouettes, so hard assignment never hides a hybrid: fewer than 2 percent of players sit closer to a neighboring cluster than their own.</li><li>The external check is run twice, raw and within-team demeaned, because defensive win shares correlate with team defensive quality at -0.83 and the naive version could be an illusion of roster quality.</li></ul>
+          <h3>Key decisions</h3>
+          <dl class="decisions"><dt>Why four clusterings instead of one?</dt><dd>Because roles are not one thing, and the data agrees: the four assignments agree with each other barely above chance. One clustering would average four independent dimensions into a blur.</dd><dt>Why keep a scoring solution that missed the stability bar?</dt><dd>Because the quadrant structure is the most informative description of the volume-efficiency plane even if its boundaries move under resampling. The study reports it as descriptive, which is what the evidence supports, rather than dropping it or overselling it.</dd></dl>
+          <h3>Technology stack</h3>
+          <div class="stack-rows">
+            <div class="stack-row"><span class="k">Languages</span><span class="v">Python, SQL (SQLite)</span></div>
+            <div class="stack-row"><span class="k">Methods</span><span class="v">KMeans, Gaussian mixtures (BIC), silhouette analysis, adjusted Rand stability, player-block bootstrap, empirical Bayes shrinkage, Yeo-Johnson per-season transforms; scikit-learn, SciPy, pandas</span></div>
+            <div class="stack-row"><span class="k">Reproducibility</span><span class="v">Deterministic seeds end to end, including every bootstrap resample; re-executed from a clean environment with outputs verified against the committed notebook</span></div>
+          </div>
+        </div>
+      </details>
+
+      <p class="fineprint">Built on five seasons (2021-22 through 2025-26) of NBA Stats dashboard data compiled into a local SQLite database of 97 tables. All six research studies run against the same database. Every number quoted is generated by the notebook's own executed code, deterministically seeded, and re-verified from a clean environment. Notebooks available by email.</p>
+      <p class="reveal" style="margin-top:1.4rem;"><a class="btn btn-ghost" href="research.html">Back to all research</a></p>
+    </div>
+  </article>
+
+</main>
+
+<!-- Site footer, identical on every page: identity, navigation, contact. -->
+<footer class="site-footer">
+  <div class="wrap foot-inner">
+    <div>
+      <p class="foot-name">Thomas Lappas</p>
+      <p class="foot-tag">Data science, analytics engineering, and production systems, demonstrated through basketball.</p>
+    </div>
+    <nav class="foot-nav" aria-label="Footer">
+      <a href="./">Home</a>
+      <a href="case-studies.html">Case Studies</a>
+      <a href="research.html">Research</a>
+      <a href="skills.html">Skills</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="foot-links">
+      <a href="mailto:thomas.lappas1010@gmail.com">thomas.lappas1010@gmail.com</a>
+      <a href="https://github.com/Tlappas-23" rel="noopener">github.com/Tlappas-23</a>
+    </div>
+  </div>
+  <div class="wrap foot-legal">Every metric on this site is generated by project code from project data.</div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>
