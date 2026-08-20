@@ -429,3 +429,99 @@ html.js .reveal.in { opacity: 1; transform: none; }
   .repo-link { margin-left: 0; }
   .page-head { padding: 2.8rem 0 1rem; }
 }
+
+/* Research explorer. Chips switch lenses and tabs; tables are dense and
+   sortable; the small inline bars carry percentiles without a chart library.
+   Everything inherits the site tokens so dark mode needs nothing extra. */
+.xp-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.6rem 0 0.4rem; }
+.chip {
+  font: inherit; font-size: 0.86rem; color: var(--ink); background: transparent;
+  border: 1px solid var(--line); border-radius: 999px; padding: 0.38rem 0.85rem; cursor: pointer;
+}
+.chip:hover { border-color: var(--accent); color: var(--accent-ink); }
+.chip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.chip b { font-weight: 600; opacity: 0.75; margin-left: 0.25rem; }
+.xp-section { border-top: 1px solid var(--line); padding: 1.6rem 0 2.6rem; }
+.xp-controls { display: flex; flex-wrap: wrap; gap: 0.55rem; align-items: center; margin: 0.9rem 0 1rem; }
+.xp-controls input[type="text"], .xp-controls input[list], .xp-controls select {
+  font: inherit; font-size: 0.9rem; color: var(--ink); background: transparent;
+  border: 1px solid var(--line); border-radius: 8px; padding: 0.45rem 0.7rem; min-width: 14rem;
+}
+.xp-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+.xp-table th { text-align: left; border-bottom: 1px solid var(--line); padding: 0.35rem 0.55rem; white-space: nowrap; }
+.xp-table th button { font: inherit; font-size: 0.78rem; font-weight: 600; color: var(--muted);
+  background: none; border: 0; padding: 0; cursor: pointer; }
+.xp-table th button:hover { color: var(--accent-ink); }
+.xp-table td { border-bottom: 1px solid var(--line); padding: 0.34rem 0.55rem; white-space: nowrap; color: var(--muted); }
+.xp-table td.name { color: var(--ink); font-weight: 550; }
+.xp-table td.rolecell { font-size: 0.8rem; }
+.xp-table tr:hover td { background: var(--accent-soft); }
+.pbar { display: inline-block; width: 3.6rem; height: 0.45rem; background: var(--line);
+  border-radius: 99px; overflow: hidden; vertical-align: middle; margin-right: 0.45rem; }
+.pbar i { display: block; height: 100%; background: var(--accent); border-radius: 99px; }
+.pv { font-variant-numeric: tabular-nums; }
+.xp-count { font-size: 0.78rem; color: var(--faint); margin-top: 0.7rem; }
+.xp-more { font: inherit; font-size: 0.78rem; color: var(--accent-ink); background: none;
+  border: 1px solid var(--line); border-radius: 6px; padding: 0.2rem 0.6rem; cursor: pointer; margin-left: 0.4rem; }
+.xp-note { font-size: 0.85rem; color: var(--muted); max-width: 47rem; margin: 0.3rem 0 0.8rem; }
+.xp-wrap { overflow-x: auto; }
+
+/* Homepage player lookup. The suggestion list floats under the input; the
+   card renders roles, percentile bars, and clickable style matches. All
+   colors come from the site tokens, so dark mode is covered. */
+.ps { position: relative; max-width: 47rem; margin-top: 1.4rem; }
+.ps-input {
+  font: inherit; font-size: 1rem; color: var(--ink); background: transparent; width: 100%;
+  border: 1px solid var(--line); border-radius: 10px; padding: 0.7rem 0.95rem;
+}
+.ps-input:focus { outline: none; border-color: var(--accent); }
+.ps-sug {
+  position: absolute; z-index: 30; left: 0; right: 0; margin-top: 0.3rem; padding: 0.3rem;
+  list-style: none; background: var(--bg); border: 1px solid var(--line); border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+.ps-sug li { padding: 0.45rem 0.65rem; border-radius: 7px; cursor: pointer; color: var(--ink); font-size: 0.95rem; }
+.ps-sug li span { color: var(--faint); font-size: 0.78rem; margin-left: 0.5rem; }
+.ps-sug li:hover, .ps-sug li.on { background: var(--accent-soft); color: var(--accent-ink); }
+.ps-card { margin-top: 1.1rem; border: 1px solid var(--line); border-radius: 12px; padding: 1.1rem 1.2rem; }
+.ps-card:empty { display: none; }
+.ps-head { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: baseline; justify-content: space-between; }
+.ps-head h3 { font-size: 1.15rem; font-weight: 700; }
+.ps-team { color: var(--faint); font-size: 0.85rem; font-weight: 500; margin-left: 0.4rem; }
+.ps-seasons { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+.ps-seasons .chip { padding: 0.22rem 0.6rem; font-size: 0.78rem; }
+.ps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; margin-top: 0.9rem; }
+@media (max-width: 40rem) { .ps-grid { grid-template-columns: 1fr; } }
+.ps-sub { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); margin-bottom: 0.45rem; }
+.ps-role { display: flex; gap: 0.5rem; align-items: baseline; padding: 0.28rem 0; border-bottom: 1px solid var(--line); font-size: 0.9rem; }
+.ps-role .k { color: var(--muted); width: 6.4rem; flex: none; font-size: 0.8rem; }
+.ps-role .v { color: var(--ink); font-weight: 550; }
+.ps-role .fit { margin-left: auto; color: var(--faint); font-size: 0.78rem; font-variant-numeric: tabular-nums; }
+.ps-hybrid { font-size: 0.7rem; color: var(--accent-ink); border: 1px solid var(--line); border-radius: 99px; padding: 0.05rem 0.4rem; margin-left: 0.3rem; }
+.ps-pct { display: flex; gap: 0.55rem; align-items: center; padding: 0.26rem 0; font-size: 0.85rem; }
+.ps-pct .k { color: var(--muted); width: 7.6rem; flex: none; font-size: 0.8rem; }
+.ps-pct .pbar { flex: 1; width: auto; }
+.ps-pct .pv { width: 2rem; text-align: right; color: var(--ink); }
+.ps-nbrow { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.ps-nb {
+  font: inherit; font-size: 0.85rem; color: var(--ink); background: transparent; cursor: pointer;
+  border: 1px solid var(--line); border-radius: 8px; padding: 0.35rem 0.65rem;
+}
+.ps-nb:hover { border-color: var(--accent); color: var(--accent-ink); }
+.ps-nb span { color: var(--faint); font-size: 0.75rem; }
+.ps-extra { font-size: 0.85rem; color: var(--muted); margin-top: 0.8rem; max-width: 44rem; }
+.ps-more-link { font-size: 0.8rem; margin-top: 0.8rem; }
+.ps-empty { color: var(--muted); font-size: 0.9rem; }
+
+/* Definition tooltip: one fixed singleton, filled by site.js from data-tip. */
+.xp-tip {
+  position: fixed; z-index: 90; max-width: 20rem;
+  background: var(--ink); color: var(--bg);
+  font-size: 0.78rem; line-height: 1.5; padding: 0.5rem 0.7rem; border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18); pointer-events: none;
+}
+[data-tip] { cursor: help; }
+.xp-table th button[data-tip] { cursor: pointer; border-bottom: 1px dotted var(--faint); padding-bottom: 1px; }
+.xp-table th.num, .xp-table td.num { text-align: right; }
+.xp-table td.num { font-variant-numeric: tabular-nums; }
+.xp-table td.num .pbar { margin-right: 0.45rem; }

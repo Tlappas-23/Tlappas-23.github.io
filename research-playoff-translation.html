@@ -1,0 +1,148 @@
+<!doctype html>
+<!--
+  What Survives the Playoffs. Part of the research section: six studies on one
+  NBA database, each with its own page, all sharing one validation standard.
+  Styles are shared in assets/style.css; header and footer match every
+  other page so navigation never moves under the reader.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Does playing style predict playoff translation? Across 80 playoff team-seasons, no style trait does. What the screen found instead is a way to detect which regular season records overstate their teams.">
+<meta property="og:title" content="What Survives the Playoffs · Thomas Lappas">
+<meta property="og:description" content="Does playing style predict playoff translation? Across 80 playoff team-seasons, no style trait does. What the screen found instead is a way to detect which regular season records overstate their teams.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tlappas-23.github.io/research-playoff-translation.html">
+<meta property="og:image" content="https://tlappas-23.github.io/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>What Survives the Playoffs · Thomas Lappas</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/style.css?v=20260820">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="topbar-name" href="./">Thomas Lappas</a>
+    <nav class="topbar-nav" aria-label="Site">
+      <a href="./">Home</a>
+      <a href="case-studies.html">Case Studies</a>
+      <a href="research.html" aria-current="page">Research</a>
+      <a href="skills.html">Skills</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <article class="case" id="playoff-translation">
+    <div class="wrap">
+      <div class="case-tags reveal">
+        <span class="tag tag-domain">Playoff Translation</span><span class="tag">Nested Validation</span><span class="tag">Honest Nulls</span>
+        <a class="repo-link" href="mailto:thomas.lappas1010@gmail.com?subject=Access%20request%3A%20NBA%20research%20notebooks">Notebook · email for access</a>
+      </div>
+      <h2 class="reveal">What Survives the Playoffs</h2>
+      <p class="dek reveal">Every spring a front office asks whether its roster is built for the playoffs. The folk theory says transition-reliant teams collapse and self-creating teams hold up. <strong>This study turns the theory into a testable model and the theory fails its test</strong>, while the two features that do survive turn out to be measuring something more useful than style: which records are lying.</p>
+
+      <div class="qa reveal">
+        <p class="q">Is this roster built for the playoffs?</p>
+        <p class="a"><strong>Style will not tell you, in five seasons of evidence.</strong> Across 80 playoff team-seasons with opponent strength controlled, no offensive style feature predicts playoff over- or underperformance: transition reliance, the trait playoff defenses supposedly punish, is the deadest feature on the board at r = +0.008. The premise of the folk theory is real, isolation rises and every play type gets harder, but its conclusion does not follow.</p>
+      </div>
+
+      <div class="case-block reveal">
+        <span class="sublabel">Executive summary</span>
+        <p>Eighty playoff team-seasons, each carrying its regular season style profile from play-type and tracking tables and an opponent-strength control computed from game logs, because the average playoff opponent ranges from a -0.5 net rating slate to +12.7 and ignoring that difference measures the bracket instead of the team. Eleven style features are screened against opponent-adjusted overperformance with permutation p-values and a Bonferroni bar, the two survivors face per-season stability checks, a mechanism test with its prediction stated in advance, and a franchise cluster bootstrap, and every predictive claim runs through leave-one-season-out validation with feature selection nested inside each fold.</p>
+      </div>
+      <div class="case-block reveal">
+        <span class="sublabel">Findings</span>
+        <p>The two survivors are not style knobs. Spot-up shooting efficiency is negative, teams that shot well underperform, and isolation defense allowed is positive, teams that defended badly overperform, a sign no basketball mechanism predicts. Both behave as regression to the mean on noisy shooting components predicts: hot spot-up shooting inflates a record the playoffs regress away, and opponents making tough shots deflates a record that was better than it looked. The pattern is consistent with a luck-detection reading, and the correlational finding survives the Bonferroni correction, all five seasons, and the franchise bootstrap.</p>
+      </div>
+      <div class="case-block reveal">
+        <span class="sublabel">The honesty check that decided the study</span>
+        <p>With the feature screen allowed to see all 80 rows, adding the two luck features improved out-of-sample error 4 percent. With the screen moved inside each validation fold, so selection never sees the season being predicted, the improvement vanishes: 6.07 against the baseline's 6.06. Nested-tuned ridge and gradient boosting agree, with the boosting tuner selecting the most conservative configuration available in eight of ten fits. The correlational claim stands; the forecasting claim falls; both halves are findings, and the deployed table labels its coefficients as descriptions of the sample rather than a forecasting tool.</p>
+      </div>
+
+      <div class="stats reveal" role="list" aria-label="Key results">
+        <div class="stat" role="listitem"><span class="n">80</span><span class="l">playoff team-seasons, 16 per year for five years</span></div><div class="stat" role="listitem"><span class="n">r=+0.008</span><span class="l">transition reliance vs playoff translation: the folk theory's key trait, null</span></div><div class="stat" role="listitem"><span class="n">6.07 vs 6.06</span><span class="l">nested-selection RMSE vs baseline: the 4% forecast edge was selection bias</span></div><div class="stat" role="listitem"><span class="n">+0.10 to +0.51</span><span class="l">franchise-bootstrap CI on the one Bonferroni-surviving feature</span></div>
+      </div>
+
+      <figure class="reveal">
+        <div class="fig-panel"><img src="assets/research-playoff-translation.png" alt="Two panels. Left: horizontal bars of eleven regular season style features correlated with opponent-adjusted playoff residual; nine gray nulls near zero, isolation defense at +0.32 and spot-up efficiency at -0.22 in orange. Right: leave-one-season-out RMSE bars showing the luck-feature model at 5.81 when the screen saw all data and 6.08 when selection is nested, against the 6.06 baseline." width="2045" height="851" loading="lazy"></div>
+        <figcaption>Generated output: the feature screen recomputed from the database and the validation ladder from the notebook's executed outputs. Style is null across the board, and the apparent forecasting edge from the two survivors disappears once feature selection runs inside each validation fold.</figcaption>
+      </figure>
+
+      <div class="case-block reveal">
+        <span class="sublabel">The biggest over- and underperformers, named</span>
+        <p>The sample's largest opponent-adjusted over- and underperformances, straight from the deployed table. The 2024-25 Heat row is the study's case-study warning in one line: a raw collapse of -33.5 came against the hardest schedule in the sample, and nearly half of it is the bracket rather than the team.</p>
+        <div class="xp-wrap" style="margin-top:0.9rem;"><table class='xp-table'><thead><tr><th>Team</th><th>Season</th><th><span data-tip="Regular season net rating: points scored minus allowed per 100 possessions.">RS net</span></th><th><span data-tip="Net rating across the playoff run; far noisier than the regular season.">Playoff net</span></th><th><span data-tip="Average regular season net rating of the playoff opponents actually faced, weighted by games played.">Opp strength</span></th><th><span data-tip="Playoff performance relative to what the record predicts, additionally adjusted for opponent strength. Positive = overperformed record and bracket.">Adjusted</span></th></tr></thead><tbody><tr><td>New York Knicks</td><td>2025-26</td><td>+6.4</td><td>+15.4</td><td>+3.7</td><td>+13.3</td></tr><tr><td>Miami Heat</td><td>2022-23</td><td>-0.5</td><td>+1.9</td><td>+4.2</td><td>+11.1</td></tr><tr><td>New Orleans Pelicans</td><td>2021-22</td><td>-0.8</td><td>-2.2</td><td>+7.5</td><td>+10.6</td></tr><tr><td>Miami Heat</td><td>2024-25</td><td>+0.4</td><td>-33.5</td><td>+9.2</td><td>-20.9</td></tr><tr><td>New Orleans Pelicans</td><td>2023-24</td><td>+4.6</td><td>-16.2</td><td>+7.3</td><td>-12.0</td></tr><tr><td>Atlanta Hawks</td><td>2025-26</td><td>+2.2</td><td>-18.1</td><td>+6.4</td><td>-11.0</td></tr></tbody></table></div>
+        <p style="margin-top:0.9rem;">All 80 playoff runs are sortable in the <a href="#xp-teams-playoff">team tables</a>.</p>
+      </div>
+
+      <section class="xp-section" id="xp-teams-playoff" hidden>
+        <h3 style="font-size:1.15rem;font-weight:700;">Sort every playoff run</h3>
+        <p class="xp-note">All 80 playoff team-seasons with opponent strength and the opponent-adjusted residual, the number that separates a hard bracket from a real underperformance. Default sort is the adjusted residual.</p>
+        <div class="xp-wrap" id="teams-po-body"></div>
+      </section>
+
+      <div class="case-block reveal">
+        <span class="sublabel">What the adversarial review changed</span>
+        <p>The review caught an interpretation error in the baseline: a slope of 1.56 had been described as the playoffs amplifying quality gaps. Decomposed, the slope is exactly the correlation times the ratio of standard deviations, 0.574 times 2.72, driven by noisier playoff outcomes and range restriction among qualifiers (the qualifier pool's spread is 2.92 against the league's 5.31). A compounding mechanism may exist, but nothing in the fit identifies it, and the study now says so. Permutation p-values also moved to the finite-sample estimator.</p>
+      </div>
+
+      <div class="case-block reveal">
+        <span class="sublabel">Limitations</span>
+        <p>Eighty observations is small and playoff outcomes are inherently noisy: injuries, matchup specifics, and single-possession swings move a seven-game series by points no season-level model can see. The luck interpretation is a mechanism argument consistent with the checks performed, not a proven causal claim; the direct test needs shot-level data this database does not hold. Opponent strength uses full-season net rating and ignores April form.</p>
+      </div>
+
+      <details class="deep reveal">
+        <summary>Technical deep dive</summary>
+        <div class="deep-body">
+          <h3>Technical highlights</h3>
+          <ul><li>The opponent-strength control is itself stress-tested for endogeneity: it barely tracks advancement, and a fully exogenous first-round-only variant shows a stronger relationship, making the adopted control the conservative choice.</li><li>The mechanism check states its prediction before looking: if the survivors are luck detectors, hot spot-up shooting should correlate positively with regular season net rating and unlucky isolation defense negatively. Both land as predicted.</li><li>Feature selection nested inside every validation fold, the discipline that separated the correlational finding from the forecasting mirage.</li><li>Challenger models get nested hyperparameter tuning on identical folds, so the linear model's survival is a fair result rather than a handicapped comparison.</li></ul>
+          <h3>Key decisions</h3>
+          <dl class="decisions"><dt>Why leave-one-season-out instead of a random split?</dt><dd>Playoff teams within one season share a bracket. A random split lets the model peek at the season it is graded on; holding out whole seasons matches the position a front office is actually in each April.</dd><dt>Why ship a model whose forecast adds nothing?</dt><dd>Because the shipped table says so on its face: coefficients labeled as in-sample descriptions, with the honest error estimate quoted beside them. The luck features tell a front office which records to distrust, not what will happen.</dd></dl>
+          <h3>Technology stack</h3>
+          <div class="stack-rows">
+            <div class="stack-row"><span class="k">Languages</span><span class="v">Python, SQL (SQLite)</span></div>
+            <div class="stack-row"><span class="k">Methods</span><span class="v">Permutation inference, Bonferroni correction, partial correlation, franchise block bootstrap, leave-one-season-out CV with nested feature selection, nested-tuned ridge and gradient boosting challengers; scikit-learn, pandas, NumPy</span></div>
+            <div class="stack-row"><span class="k">Reproducibility</span><span class="v">Deterministic seeds end to end, including every bootstrap resample; re-executed from a clean environment with outputs verified against the committed notebook</span></div>
+          </div>
+        </div>
+      </details>
+
+      <p class="fineprint">Built on five seasons (2021-22 through 2025-26) of NBA Stats dashboard data compiled into a local SQLite database of 97 tables. All six research studies run against the same database. Every number quoted is generated by the notebook's own executed code, deterministically seeded, and re-verified from a clean environment. Notebooks available by email.</p>
+      <p class="reveal" style="margin-top:1.4rem;"><a class="btn btn-primary" href="#xp-teams-playoff">Sort every playoff run</a> <a class="btn btn-ghost" href="research.html">Back to all research</a></p>
+    </div>
+  </article>
+
+</main>
+
+<!-- Site footer, identical on every page: identity, navigation, contact. -->
+<footer class="site-footer">
+  <div class="wrap foot-inner">
+    <div>
+      <p class="foot-name">Thomas Lappas</p>
+      <p class="foot-tag">Data science, analytics engineering, and production systems, demonstrated through basketball.</p>
+    </div>
+    <nav class="foot-nav" aria-label="Footer">
+      <a href="./">Home</a>
+      <a href="case-studies.html">Case Studies</a>
+      <a href="research.html">Research</a>
+      <a href="skills.html">Skills</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="foot-links">
+      <a href="mailto:thomas.lappas1010@gmail.com">thomas.lappas1010@gmail.com</a>
+      <a href="https://github.com/Tlappas-23" rel="noopener">github.com/Tlappas-23</a>
+    </div>
+  </div>
+  <div class="wrap foot-legal">Every metric on this site is generated by project code from project data.</div>
+</footer>
+
+<script src="assets/site.js?v=20260820"></script>
+<script src="assets/explorer.js?v=20260820"></script>
+</body>
+</html>

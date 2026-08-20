@@ -1,0 +1,151 @@
+<!doctype html>
+<!--
+  Player Trajectory Prediction. Part of the research section: six studies on one
+  NBA database, each with its own page, all sharing one validation standard.
+  Styles are shared in assets/style.css; header and footer match every
+  other page so navigation never moves under the reader.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Who is rising and who is falling? Starting from all 860 columns in the database, the honest answer is that trajectory is mostly three variables, and one fifth of the apparent modeling skill was the geometry of a bounded scale.">
+<meta property="og:title" content="Player Trajectory Prediction · Thomas Lappas">
+<meta property="og:description" content="Who is rising and who is falling? Starting from all 860 columns in the database, the honest answer is that trajectory is mostly three variables, and one fifth of the apparent modeling skill was the geometry of a bounded scale.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tlappas-23.github.io/research-player-trajectory.html">
+<meta property="og:image" content="https://tlappas-23.github.io/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>Player Trajectory Prediction · Thomas Lappas</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/style.css?v=20260820">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="topbar-name" href="./">Thomas Lappas</a>
+    <nav class="topbar-nav" aria-label="Site">
+      <a href="./">Home</a>
+      <a href="case-studies.html">Case Studies</a>
+      <a href="research.html" aria-current="page">Research</a>
+      <a href="skills.html">Skills</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <article class="case" id="player-trajectory">
+    <div class="wrap">
+      <div class="case-tags reveal">
+        <span class="tag tag-domain">Trajectory Modeling</span><span class="tag">Feature Engineering</span><span class="tag">Evaluation Geometry</span>
+        <a class="repo-link" href="mailto:thomas.lappas1010@gmail.com?subject=Access%20request%3A%20NBA%20research%20notebooks">Notebook · email for access</a>
+      </div>
+      <h2 class="reveal">Player Trajectory Prediction</h2>
+      <p class="dek reveal">Which players are about to improve relative to the league, and which are about to decline? This study starts from everything, all 860 numeric columns across 42 player tables, and whittles them into one clean analysis table with every drop documented. <strong>Its most important result is a correction to its own headline</strong>: a bounded percentile target mechanically censors its own classes, and measuring that changed the conclusion.</p>
+
+      <div class="qa reveal">
+        <p class="q">Who is rising, who is falling, and how much does the full stat sheet help?</p>
+        <p class="a"><strong>Trajectory is mostly three variables: current level, age, and last year's trend.</strong> That baseline ranks next-season risers at 0.72 AUC on the full sample and 0.67 on the interior of the distribution, and no model built on the 428 cleaned features beats it on the rise side in any corrected evaluation frame. What the full stat sheet demonstrably adds is a modest fall-side signal, about four points of AUC, visible when the question is posed as deviation from expectation, carried by interior-production and role-economy features.</p>
+      </div>
+
+      <div class="case-block reveal">
+        <span class="sublabel">Executive summary</span>
+        <p>The preparation is the project. Eight hundred sixty raw columns become 428 honest features through seven documented rules, and the two worst hazards were caught by the outlier analysis rather than documentation: split-table volumes normalized by total minutes secretly encode who starts (r = +0.814 with starter share), and the league's own dashboards publish rate statistics computed on any sample, including a clutch pace of 1800 from 0.8 seconds of floor time. Rows removed as outliers: zero, because after the pipeline errors were fixed, the extreme rows were MVPs, not mistakes.</p>
+      </div>
+      <div class="case-block reveal">
+        <span class="sublabel">The geometric hazard</span>
+        <p>The target is a within-season percentile change with classes cut at plus and minus ten points, and a percentile is bounded: a player above the 90th percentile cannot rise ten points, one below the 10th cannot fall ten. That constrains 19.5 percent of all transitions mechanically, so part of any model's apparent skill can be knowledge of where the walls are. The evaluation therefore runs in four frames, full sample, interior of the distribution, a baseline-adjusted target, and player-grouped folds, and the frame comparison is consistent with boundary geometry accounting for roughly five to seven points of the full-frame AUC.</p>
+      </div>
+      <div class="case-block reveal">
+        <span class="sublabel">Findings</span>
+        <p>Mean reversion and the aging curve are real and strong, and they are the baseline: the two confounds alone explain 11.7 percent of trajectory variance. Forty-nine of 428 features survive a false-discovery-corrected screen against the confound-adjusted target, clustering into interpretable families, interior touch volume, foul economy, turnover share, role shares. The prospective watch list ships with its framing sized to the evidence: probabilities driven principally by level, age, trend, and scale geometry, graded for real by the following season.</p>
+      </div>
+
+      <div class="stats reveal" role="list" aria-label="Key results">
+        <div class="stat" role="listitem"><span class="n">860 → 428</span><span class="l">raw columns whittled to clean features, every drop documented</span></div><div class="stat" role="listitem"><span class="n">19.5%</span><span class="l">of transitions mechanically constrained by the percentile boundaries</span></div><div class="stat" role="listitem"><span class="n">0.72 → 0.66</span><span class="l">full-frame to interior rise AUC: the cost of removing boundary geometry</span></div><div class="stat" role="listitem"><span class="n">0</span><span class="l">rows removed as outliers after the pipeline errors were fixed</span></div>
+      </div>
+
+      <figure class="reveal">
+        <div class="fig-panel"><img src="assets/research-player-trajectory.png" alt="Grouped bar chart of rising-class AUC for the three-variable baseline, a screened logistic model, and screened XGBoost across four evaluation frames: full sample near 0.72 for all three, interior of the distribution near 0.64 to 0.67 with the baseline highest, adjusted target near 0.61 to 0.63, and player-grouped folds near 0.72, with a dashed chance line at 0.50." width="1690" height="828" loading="lazy"></div>
+        <figcaption>Generated output: the four-frame evaluation from the notebook's executed outputs. On the full sample the models look competitive; on the interior, where no class is mechanically excluded, the stat-sheet models stop beating the baseline, which is how the boundary-geometry share of the original headline was measured.</figcaption>
+      </figure>
+
+      <div class="case-block reveal">
+        <span class="sublabel">The watch list, named</span>
+        <p>The top of each list entering 2026-27, exactly as the model wrote them before the season. The read-aloud test is the point: risers are young players with secure minutes and room above them, plus one veteran the model likes off a depressed baseline; decliners are aging contributors sitting at high percentiles. That is what a model driven by level, age, and trend should produce, and the season will grade it.</p>
+        <div class="fig-grid" style="margin-top:0.9rem;">
+          <div class="xp-wrap"><p style="font-weight:600;margin-bottom:0.4rem;">Projected risers</p><table class='xp-table'><thead><tr><th>Player</th><th>Age</th><th><span data-tip="Model probability of gaining more than 10 value-percentile points in 2026-27. Development-evidence estimate, driven mainly by level, age, trend, and scale geometry.">P(rise)</span></th></tr></thead><tbody><tr><td>Bub Carrington</td><td>20</td><td>0.86</td></tr><tr><td>Jeremiah Fears</td><td>19</td><td>0.73</td></tr><tr><td>Will Riley</td><td>20</td><td>0.70</td></tr><tr><td>Rayan Rupert</td><td>22</td><td>0.70</td></tr><tr><td>Ben Saraf</td><td>20</td><td>0.68</td></tr><tr><td>Drake Powell</td><td>20</td><td>0.67</td></tr><tr><td>VJ Edgecombe</td><td>20</td><td>0.67</td></tr><tr><td>Khris Middleton</td><td>34</td><td>0.67</td></tr></tbody></table></div>
+          <div class="xp-wrap"><p style="font-weight:600;margin-bottom:0.4rem;">Projected decliners</p><table class='xp-table'><thead><tr><th>Player</th><th>Age</th><th><span data-tip="Model probability of losing more than 10 value-percentile points in 2026-27, same caveats as P(rise).">P(fall)</span></th></tr></thead><tbody><tr><td>Paul George</td><td>36</td><td>0.76</td></tr><tr><td>Dennis Schröder</td><td>32</td><td>0.72</td></tr><tr><td>Aaron Gordon</td><td>30</td><td>0.68</td></tr><tr><td>CJ McCollum</td><td>34</td><td>0.67</td></tr><tr><td>Jrue Holiday</td><td>36</td><td>0.66</td></tr><tr><td>Tim Hardaway Jr.</td><td>34</td><td>0.66</td></tr><tr><td>Tobias Harris</td><td>33</td><td>0.64</td></tr><tr><td>Thomas Bryant</td><td>28</td><td>0.63</td></tr></tbody></table></div>
+        </div>
+        <p style="margin-top:0.9rem;">All 378 qualifying players are sortable in the <a href="#xp-trajectory">watch list explorer</a>.</p>
+      </div>
+
+      <section class="xp-section" id="xp-trajectory" hidden>
+        <h3 style="font-size:1.15rem;font-weight:700;">Sort the full watch list</h3>
+        <p class="xp-note">All 378 qualifying players, sortable by either probability. The study's correction applies to every row: these probabilities are driven principally by current level, age, prior trend, and the geometry of a bounded scale, and all model performance is development evidence until the 2026-27 season grades it.</p>
+        <div class="xp-wrap" id="traj-body"></div>
+      </section>
+
+      <div class="case-block reveal">
+        <span class="sublabel">What the adversarial review changed</span>
+        <p>The review is the reason this study says what it says. It flagged the boundary censoring, and quantifying it revealed that the stat-sheet models stop beating the three-variable baseline on the rise side once the mechanically constrained regions are removed. It exposed a second confound in the original headline: most of a claimed balanced-accuracy jump came from class weighting, not features, which a weighted-baseline row now isolates. It forced an explicit provenance rule after finding the notebook could ingest its own deployed output on a re-run. And it required the evaluation governance to sit next to the results: every reported number is development evidence, with the following season reserved as the first untouched confirmation.</p>
+      </div>
+
+      <div class="case-block reveal">
+        <span class="sublabel">Limitations</span>
+        <p>The target is one value metric, and a plus-minus family target could rank players differently. The class cut at ten points is a convention whose boundary effects are now measured rather than ignored. Four transition seasons is the honest sample depth. The 500-minute floor excludes the deep-bench leaps that make the best breakout stories. Model configurations were refined against the reported validation folds, which is disclosed beside the results rather than buried.</p>
+      </div>
+
+      <details class="deep reveal">
+        <summary>Technical deep dive</summary>
+        <div class="deep-body">
+          <h3>Technical highlights</h3>
+          <ul><li>Table-aware normalization: split-table volumes divided by their own split's minutes, never total minutes, with a 24-minute denominator floor that converts absurd small-sample rates into honest missing values.</li><li>A three-layer outlier hunt, robust z-scores, integrity bounds, and Mahalanobis distance on component scores, that caught two pipeline bugs and a source-data hazard, and ended by keeping every genuine player.</li><li>Feature selection nested inside every validation fold, with the fold-stable subset, 20 features chosen in every fold, forming the deployed model's interpretable core.</li><li>Four evaluation frames reported together, because the stat sheet's contribution is the gap between model and baseline within a frame, never the gap between frames.</li></ul>
+          <h3>Key decisions</h3>
+          <dl class="decisions"><dt>Why keep the raw-percentile target if it censors?</dt><dd>Because the operational question, who will be in each class, includes the geometry: an aging star at a high percentile genuinely is more likely to fall, partly because he has room to. The study keeps the operational target and measures the geometry separately, so skill and arithmetic are never conflated.</dd><dt>Why deploy a watch list the stat sheet barely improves?</dt><dd>Because a calibrated synthesis of level, age, and trend, made quantitative and reproducible, is a genuinely useful product as long as nobody mistakes it for hidden-signal discovery. The page it ships on says exactly what drives it.</dd></dl>
+          <h3>Technology stack</h3>
+          <div class="stack-rows">
+            <div class="stack-row"><span class="k">Languages</span><span class="v">Python, SQL (SQLite)</span></div>
+            <div class="stack-row"><span class="k">Methods</span><span class="v">XGBoost, LightGBM, random forest, regularized logistic regression, Benjamini-Hochberg FDR screening nested in folds, grouped cross-validation, robust and multivariate outlier analysis; scikit-learn, pandas</span></div>
+            <div class="stack-row"><span class="k">Reproducibility</span><span class="v">Deterministic seeds end to end, including every bootstrap resample; re-executed from a clean environment with outputs verified against the committed notebook</span></div>
+          </div>
+        </div>
+      </details>
+
+      <p class="fineprint">Built on five seasons (2021-22 through 2025-26) of NBA Stats dashboard data compiled into a local SQLite database of 97 tables. All six research studies run against the same database. Every number quoted is generated by the notebook's own executed code, deterministically seeded, and re-verified from a clean environment. Notebooks available by email.</p>
+      <p class="reveal" style="margin-top:1.4rem;"><a class="btn btn-primary" href="#xp-trajectory">Sort the full watch list</a> <a class="btn btn-ghost" href="research.html">Back to all research</a></p>
+    </div>
+  </article>
+
+</main>
+
+<!-- Site footer, identical on every page: identity, navigation, contact. -->
+<footer class="site-footer">
+  <div class="wrap foot-inner">
+    <div>
+      <p class="foot-name">Thomas Lappas</p>
+      <p class="foot-tag">Data science, analytics engineering, and production systems, demonstrated through basketball.</p>
+    </div>
+    <nav class="foot-nav" aria-label="Footer">
+      <a href="./">Home</a>
+      <a href="case-studies.html">Case Studies</a>
+      <a href="research.html">Research</a>
+      <a href="skills.html">Skills</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="foot-links">
+      <a href="mailto:thomas.lappas1010@gmail.com">thomas.lappas1010@gmail.com</a>
+      <a href="https://github.com/Tlappas-23" rel="noopener">github.com/Tlappas-23</a>
+    </div>
+  </div>
+  <div class="wrap foot-legal">Every metric on this site is generated by project code from project data.</div>
+</footer>
+
+<script src="assets/site.js?v=20260820"></script>
+<script src="assets/explorer.js?v=20260820"></script>
+</body>
+</html>

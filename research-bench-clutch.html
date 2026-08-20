@@ -1,0 +1,151 @@
+<!doctype html>
+<!--
+  Clutch Minutes and Bench Value. Part of the research section: six studies on one
+  NBA database, each with its own page, all sharing one validation standard.
+  Styles are shared in assets/style.css; header and footer match every
+  other page so navigation never moves under the reader.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Which bench players are clutch? The data can answer who coaches trust, and shows the performance half of the question is unmeasurable: clutch net rating for bench players is 99.9 percent sampling noise.">
+<meta property="og:title" content="Clutch Minutes and Bench Value · Thomas Lappas">
+<meta property="og:description" content="Which bench players are clutch? The data can answer who coaches trust, and shows the performance half of the question is unmeasurable: clutch net rating for bench players is 99.9 percent sampling noise.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tlappas-23.github.io/research-bench-clutch.html">
+<meta property="og:image" content="https://tlappas-23.github.io/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>Clutch Minutes and Bench Value · Thomas Lappas</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/style.css?v=20260820">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="topbar-name" href="./">Thomas Lappas</a>
+    <nav class="topbar-nav" aria-label="Site">
+      <a href="./">Home</a>
+      <a href="case-studies.html">Case Studies</a>
+      <a href="research.html" aria-current="page">Research</a>
+      <a href="skills.html">Skills</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <article class="case" id="bench-clutch">
+    <div class="wrap">
+      <div class="case-tags reveal">
+        <span class="tag tag-domain">Reliability Analysis</span><span class="tag">Bench Evaluation</span><span class="tag">Variance Decomposition</span>
+        <a class="repo-link" href="mailto:thomas.lappas1010@gmail.com?subject=Access%20request%3A%20NBA%20research%20notebooks">Notebook · email for access</a>
+      </div>
+      <h2 class="reveal">Clutch Minutes and Bench Value</h2>
+      <p class="dek reveal">Which bench players earn minutes when the game is tight, and which perform once they are out there? The two halves of that question get opposite answers. <strong>Before modeling anything, this study tests whether clutch performance is measurable at all</strong>, and the reliability gate it builds ends up being the finding.</p>
+
+      <div class="qa reveal">
+        <p class="q">Which bench players are clutch?</p>
+        <p class="a"><strong>The data can tell you who is trusted; it cannot tell you who performs.</strong> A bench player's whole clutch season is a median of 46 possessions. Clutch shooting and clutch net rating repeat year over year at +0.03 and -0.05, statistically nothing, and a variance decomposition puts the true-skill share of clutch net rating at 0.1 percent. Coach trust is the half that exists: how much a coach promotes a bench player in the clutch repeats at +0.34, and it is predicted by age and passing, not by shooting.</p>
+      </div>
+
+      <div class="case-block reveal">
+        <span class="sublabel">Executive summary</span>
+        <p>Eight hundred seventy-one bench player-seasons across five seasons, with clutch defined the league's way: last five minutes, margin within five. Every predictor is computed from non-clutch minutes so nothing shares a possession with the outcome. The central measure is clutch lift, a player's share of his team's clutch minutes minus his share of ordinary minutes, which isolates the coaching decision from simply playing a lot. Twenty-two candidate traits face a Holm-corrected screen and a player-clustered bootstrap, and the modest predictive claim is validated under both season-holdout and player-grouped schemes, which answer different operational questions and are reported separately.</p>
+      </div>
+      <div class="case-block reveal">
+        <span class="sublabel">Findings</span>
+        <p>The average bench player loses 31.9 percent of his ordinary role when the game is tight; positive lift marks the players a coach actively promotes. Three traits survive the corrected screen: age, assists per 36, and assist percentage. The nulls are the striking part: true shooting, scoring rate, usage, and free throw percentage all cross zero under the player-clustered bootstrap, and the least-trusted list is full of excellent specialist shooters. Sorted into quartiles by clutch net rating, the best and worst groups are separated by 47 points of net rating in season one and 9 points in season two: 81 percent of the apparent separation evaporates in a single year.</p>
+      </div>
+      <div class="case-block reveal">
+        <span class="sublabel">The decision translation</span>
+        <p>Ordinary quality is the best available estimate of clutch quality, because non-clutch shooting predicts clutch shooting at +0.259 and nothing predicts it better. The deployed per-player table therefore scores bench players on trust and general quality and deliberately excludes clutch statistics from the composite, because a clutch rating built from clutch statistics would rank noise. A clutch reputation built on one bench season is statistically indistinguishable from noise in this data.</p>
+      </div>
+
+      <div class="stats reveal" role="list" aria-label="Key results">
+        <div class="stat" role="listitem"><span class="n">871</span><span class="l">bench player-seasons, five seasons, 465 players</span></div><div class="stat" role="listitem"><span class="n">46</span><span class="l">median clutch possessions in a bench player's entire season</span></div><div class="stat" role="listitem"><span class="n">+0.03 / -0.05</span><span class="l">year-over-year reliability of clutch shooting and clutch net rating</span></div><div class="stat" role="listitem"><span class="n">81%</span><span class="l">of the best-vs-worst clutch gap that evaporates within one season</span></div>
+      </div>
+
+      <figure class="reveal">
+        <div class="fig-panel"><img src="assets/research-bench-clutch.png" alt="Two panels. Left: grouped bars of clutch net rating quartiles, season one from -24 to +23, the same players in season two from -6 to 0. Right: year-over-year reliability bars; usage +0.80, true shooting +0.58, on-court net +0.43, clutch trust +0.34, clutch shooting +0.02, clutch net rating -0.05." width="1833" height="799" loading="lazy"></div>
+        <figcaption>Generated output: the reliability gate, computed from the study's full 871-player-season frame. Ordinary skills repeat, coach trust repeats, and clutch results do not: 81 percent of the best-versus-worst clutch gap is gone one season later.</figcaption>
+      </figure>
+
+      <div class="case-block reveal">
+        <span class="sublabel">Most and least trusted, named</span>
+        <p>The measure's face-validity check, named. The most-trusted list is a roll call of recognized closers; the least-trusted list is the more revealing one, disproportionately specialist shooters and young scorers their coaches remove when the game tightens, which previews the study's finding that nothing in a shooting profile predicts clutch promotion.</p>
+        <div class="fig-grid" style="margin-top:0.9rem;">
+          <div class="xp-wrap"><p style="font-weight:600;margin-bottom:0.4rem;">Largest clutch lift</p><table class='xp-table'><thead><tr><th>Player</th><th>Season</th><th><span data-tip="Clutch lift: share of team clutch minutes minus share of ordinary minutes. Positive means the coach promotes this player when the game is tight.">Lift</span></th></tr></thead><tbody><tr><td>De'Andre Hunter</td><td>2024-25</td><td>+0.097</td></tr><tr><td>Russell Westbrook</td><td>2022-23</td><td>+0.076</td></tr><tr><td>Bennedict Mathurin</td><td>2025-26</td><td>+0.070</td></tr><tr><td>Lonzo Ball</td><td>2024-25</td><td>+0.059</td></tr><tr><td>Malik Monk</td><td>2023-24</td><td>+0.052</td></tr><tr><td>Larry Nance Jr.</td><td>2022-23</td><td>+0.050</td></tr></tbody></table></div>
+          <div class="xp-wrap"><p style="font-weight:600;margin-bottom:0.4rem;">Largest clutch benching</p><table class='xp-table'><thead><tr><th>Player</th><th>Season</th><th><span data-tip="Clutch lift: share of team clutch minutes minus share of ordinary minutes. Negative means the coach removes this player when the game is tight.">Lift</span></th></tr></thead><tbody><tr><td>Shaedon Sharpe</td><td>2022-23</td><td>-0.075</td></tr><tr><td>Jordan Clarkson</td><td>2021-22</td><td>-0.070</td></tr><tr><td>Payton Pritchard</td><td>2023-24</td><td>-0.069</td></tr><tr><td>Sam Hauser</td><td>2023-24</td><td>-0.066</td></tr><tr><td>Jalen Wilson</td><td>2024-25</td><td>-0.058</td></tr><tr><td>Sam Merrill</td><td>2024-25</td><td>-0.058</td></tr></tbody></table></div>
+        </div>
+        <p style="margin-top:0.9rem;">All 688 bench player-seasons are sortable in the <a href="#xp-clutch">clutch trust explorer</a>.</p>
+      </div>
+
+      <section class="xp-section" id="xp-clutch" hidden>
+        <h3 style="font-size:1.15rem;font-weight:700;">Sort every bench player-season</h3>
+        <p class="xp-note">All 688 rows, sortable by any column. Clutch lift is the coaching decision isolated from playing time; the reliability gate applies, so no column here measures clutch skill, and the bench score deliberately excludes clutch statistics.</p>
+        <div class="xp-wrap" id="clutch-body"></div>
+      </section>
+
+      <div class="case-block reveal">
+        <span class="sublabel">What the adversarial review changed</span>
+        <p>The review asked whether leave-one-season-out validation flattered the model by letting the same player appear in training and test seasons. Player-grouped validation, where no player crosses the train-test boundary, produced materially similar results: the modest edge from age and passing carried to held-out players essentially unchanged, providing no evidence of repeated-player inflation. The review also tightened several universal negatives into scoped claims and moved p-values to the finite-sample estimator.</p>
+      </div>
+
+      <div class="case-block reveal">
+        <span class="sublabel">Limitations</span>
+        <p>The reliability findings concern bench players specifically; high-minute stars accumulate enough clutch possessions that their clutch measures may carry more signal, an extension this study does not test. Clutch lift records what a coach did, not whether it was correct: a player with negative lift may be a matchup casualty. Age is a compound of experience, contract status, and reputation, none separable here. The power analysis is explicit that this design cannot grade coaching decisions, because the outcome measure is too noisy to grade anything with.</p>
+      </div>
+
+      <details class="deep reveal">
+        <summary>Technical deep dive</summary>
+        <div class="deep-body">
+          <h3>Technical highlights</h3>
+          <ul><li>Reliability before interpretation: no clutch measure is used as a player attribute until it repeats year over year, and the two that fail the gate are retired from the analysis rather than modeled.</li><li>Two independent methods agree on the central null: year-over-year correlation near zero, and a variance decomposition that regresses squared deviations on inverse possessions to split spread into skill and noise.</li><li>Clutch lift subtracts a player's ordinary role, so the trust measure cannot be gamed by minutes volume; its face validity check surfaces recognized closers at the top and benched specialists at the bottom.</li><li>Both validation schemes reported side by side with distinct interpretations: season-holdout for projecting known players, player-grouped for evaluating unfamiliar targets.</li></ul>
+          <h3>Key decisions</h3>
+          <dl class="decisions"><dt>Why lead with a reliability gate instead of a model?</dt><dd>Because a median of 46 possessions cannot distinguish a good player from a lucky one, and any model trained on that target would rank luck. Proving the target is noise is the study's most decision-relevant output.</dd><dt>Why exclude clutch statistics from the deployed score?</dt><dd>The gate showed there is nothing in them to weight. The composite uses only measures that repeat: trust, ordinary efficiency, and on-court impact.</dd></dl>
+          <h3>Technology stack</h3>
+          <div class="stack-rows">
+            <div class="stack-row"><span class="k">Languages</span><span class="v">Python, SQL (SQLite)</span></div>
+            <div class="stack-row"><span class="k">Methods</span><span class="v">Reliability analysis, variance decomposition, permutation inference with Holm correction, player-clustered bootstrap, grouped cross-validation, power analysis; pandas, NumPy, SciPy</span></div>
+            <div class="stack-row"><span class="k">Reproducibility</span><span class="v">Deterministic seeds end to end, including every bootstrap resample; re-executed from a clean environment with outputs verified against the committed notebook</span></div>
+          </div>
+        </div>
+      </details>
+
+      <p class="fineprint">Built on five seasons (2021-22 through 2025-26) of NBA Stats dashboard data compiled into a local SQLite database of 97 tables. All six research studies run against the same database. Every number quoted is generated by the notebook's own executed code, deterministically seeded, and re-verified from a clean environment. Notebooks available by email.</p>
+      <p class="reveal" style="margin-top:1.4rem;"><a class="btn btn-primary" href="#xp-clutch">Sort every bench player</a> <a class="btn btn-ghost" href="research.html">Back to all research</a></p>
+    </div>
+  </article>
+
+</main>
+
+<!-- Site footer, identical on every page: identity, navigation, contact. -->
+<footer class="site-footer">
+  <div class="wrap foot-inner">
+    <div>
+      <p class="foot-name">Thomas Lappas</p>
+      <p class="foot-tag">Data science, analytics engineering, and production systems, demonstrated through basketball.</p>
+    </div>
+    <nav class="foot-nav" aria-label="Footer">
+      <a href="./">Home</a>
+      <a href="case-studies.html">Case Studies</a>
+      <a href="research.html">Research</a>
+      <a href="skills.html">Skills</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="foot-links">
+      <a href="mailto:thomas.lappas1010@gmail.com">thomas.lappas1010@gmail.com</a>
+      <a href="https://github.com/Tlappas-23" rel="noopener">github.com/Tlappas-23</a>
+    </div>
+  </div>
+  <div class="wrap foot-legal">Every metric on this site is generated by project code from project data.</div>
+</footer>
+
+<script src="assets/site.js?v=20260820"></script>
+<script src="assets/explorer.js?v=20260820"></script>
+</body>
+</html>

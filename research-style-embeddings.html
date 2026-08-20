@@ -1,0 +1,157 @@
+<!doctype html>
+<!--
+  Player Style Embeddings. Part of the research section: six studies on one
+  NBA database, each with its own page, all sharing one validation standard.
+  Styles are shared in assets/style.css; header and footer match every
+  other page so navigation never moves under the reader.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Does a neural network beat PCA for player similarity? On a verdict season no tuning decision touched, the two are statistically indistinguishable, and the search itself demonstrates why reconstruction error is the wrong selection criterion.">
+<meta property="og:title" content="Player Style Embeddings · Thomas Lappas">
+<meta property="og:description" content="Does a neural network beat PCA for player similarity? On a verdict season no tuning decision touched, the two are statistically indistinguishable, and the search itself demonstrates why reconstruction error is the wrong selection criterion.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tlappas-23.github.io/research-style-embeddings.html">
+<meta property="og:image" content="https://tlappas-23.github.io/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>Player Style Embeddings · Thomas Lappas</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/style.css?v=20260820">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="topbar-name" href="./">Thomas Lappas</a>
+    <nav class="topbar-nav" aria-label="Site">
+      <a href="./">Home</a>
+      <a href="case-studies.html">Case Studies</a>
+      <a href="research.html" aria-current="page">Research</a>
+      <a href="skills.html">Skills</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <article class="case" id="style-embeddings">
+    <div class="wrap">
+      <div class="case-tags reveal">
+        <span class="tag tag-domain">Representation Learning</span><span class="tag">Autoencoders</span><span class="tag">Selection Discipline</span>
+        <a class="repo-link" href="mailto:thomas.lappas1010@gmail.com?subject=Access%20request%3A%20NBA%20research%20notebooks">Notebook · email for access</a>
+      </div>
+      <h2 class="reveal">Player Style Embeddings</h2>
+      <p class="dek reveal">Role labels cannot answer the scouting question "who plays like this player." This study compresses 81 tracking features into a continuous style space and makes the neural network earn its place against PCA, <strong>with the similarity pairs split in time so no tuning decision ever touches the season that renders the verdict</strong>.</p>
+
+      <div class="qa reveal">
+        <p class="q">Does a neural network beat PCA for player similarity?</p>
+        <p class="a"><strong>Not measurably, and the honest search is the real finding.</strong> On 190 untouched verdict pairs from the final season, the tuned autoencoder matches a player to his own next season 72.1 percent of the time against PCA's 71.1, indistinguishable within uncertainty (paired test p = 0.83). The search that got there demonstrated something more useful: the architecture that reconstructed the data best produced the worst similarity space of the eight tested, and dropout regularization, which sacrifices reconstruction, gained nearly eight points of similarity accuracy.</p>
+      </div>
+
+      <div class="case-block reveal">
+        <span class="sublabel">Executive summary</span>
+        <p>All 1,350 player-seasons of 1,000-plus minutes, described by 81 style features chosen to capture how a player plays rather than how well, with algebraically dependent pairs removed so no model gets free reconstruction wins. Candidates are graded on three criteria, held-out-season reconstruction, recovery of known role structure, and a label-free test of whether a player lands nearest his own following season, with the third criterion's pairs split 610 for development and 190 for a single untouched verdict evaluation. Determinism is engineered in: seeds fixed everywhere, TensorFlow's deterministic ops enabled, so repeated runs return identical numbers.</p>
+      </div>
+      <div class="case-block reveal">
+        <span class="sublabel">Findings</span>
+        <p>The 81 features are genuinely low-dimensional: about 24 components carry 90 percent of the variance, because drives, drive attempts, drive free throws, and paint touches are four measurements of one behavior. The default autoencoder beats PCA on reconstruction at all five bottlenecks tested and loses to it on both representation tests, the diagnostic that motivated the architecture search. The final space is stable, pairwise distances repeat at 0.941 Spearman across five initializations, and it passes the check no metric replaces: a low-usage defensive guard's nearest neighbors are exactly the low-usage, high-activity defenders a front office would shortlist, none of them stars, none groupable by box score.</p>
+      </div>
+      <div class="case-block reveal">
+        <span class="sublabel">The deployed tool</span>
+        <p>The embedding ships as a database table of 32 coordinates per player-season, so similarity search is a distance computation in SQL with no framework dependency. Distance from the league centroid falls out of the same geometry as a distinctiveness measure, and the per-feature audit tells a user exactly what the space blurs: rare, teammate-dependent events like screen assists and box-outs, with nothing reconstructing below 0.877.</p>
+      </div>
+
+      <div class="stats reveal" role="list" aria-label="Key results">
+        <div class="stat" role="listitem"><span class="n">81 → 32</span><span class="l">tracking features compressed into deployed style coordinates</span></div><div class="stat" role="listitem"><span class="n">610 / 190</span><span class="l">similarity pairs split into development and untouched verdict sets</span></div><div class="stat" role="listitem"><span class="n">72.1% vs 71.1%</span><span class="l">autoencoder vs PCA on the verdict season, p = 0.83: indistinguishable</span></div><div class="stat" role="listitem"><span class="n">0.941</span><span class="l">distance-geometry agreement across five random initializations</span></div>
+      </div>
+
+      <figure class="reveal">
+        <div class="fig-panel"><img src="assets/research-style-embeddings.png" alt="Two panels. Left: scatter of eight autoencoder architectures, held-out reconstruction R-squared against development self-match accuracy, with the best reconstructor lowest on similarity and the selected dropout configuration highest, PCA marked as a reference square. Right: verdict-season bars, autoencoder 72.1 percent versus PCA 71.1 percent with overlapping one-standard-error whiskers." width="1769" height="799" loading="lazy"></div>
+        <figcaption>Generated output: the selection evidence and the verdict, from the notebook's executed outputs. The architecture that copies its input best describes players worst, and on the one season no tuning decision touched, the network and PCA are statistically indistinguishable.</figcaption>
+      </figure>
+
+      <div class="case-block reveal">
+        <span class="sublabel">Example searches from the deployed space</span>
+        <p>Three searches from the deployed space, exactly as the study printed them. A player's own other seasons dominating his neighbour list is the label-free validity test passing in miniature; the non-self matches are the scouting payoff.</p>
+        <dl class="decisions" style="margin-top:0.9rem;">
+          <dt>Alex Caruso 2023-24</dt><dd>Jalen Suggs, De'Anthony Melton, Alex Caruso 22-23, Keon Ellis, Cody Martin: the low-usage, high-activity perimeter defenders a front office would actually shortlist, none of them stars, none groupable by box score.</dd>
+          <dt>Nikola Jokić 2024-25</dt><dd>His own four other seasons first, then Domantas Sabonis: the space recognizes the league's most unusual profile as most similar to itself, then finds the one stylistic relative.</dd>
+          <dt>Tyler Herro 2025-26</dt><dd>Tyler Herro 23-24, Cole Anthony, Anfernee Simons, Malik Monk, CJ McCollum: a coherent family of pull-up shot creators.</dd>
+        </dl>
+        <p>Run any player-season yourself in the <a href="#xp-similarity">similarity explorer</a>.</p>
+      </div>
+
+      <section class="xp-section" id="xp-similarity" hidden>
+        <h3 style="font-size:1.15rem;font-weight:700;">Run the similarity search yourself</h3>
+        <p class="xp-note">Pick any player-season and the twelve nearest player-seasons in the deployed 32-dimensional space appear, with role labels attached. Distance measures how a player plays, not how well, and the verdict above applies: read matches as style comparables, not a proprietary edge.</p>
+        <div class="xp-controls">
+          <input list="sim-list" id="sim-q" placeholder="Player · Season" aria-label="Pick a player-season">
+          <datalist id="sim-list"></datalist>
+        </div>
+        <h4 id="sim-title" style="font-weight:650;"></h4>
+        <div class="xp-wrap" id="sim-body"></div>
+      </section>
+
+      <div class="case-block reveal">
+        <span class="sublabel">What the adversarial review changed</span>
+        <p>The review found the original comparison circular: the architecture had been selected on the same 800 similarity pairs later used to declare the network superior. The remediation built the temporal firewall, development pairs for every selection decision, one untouched season for the verdict, and the verdict changed the conclusion from superiority to statistical indistinguishability. The finding that survived is the methodological one: reconstruction error, the objective autoencoders are trained on, selected the worst similarity space of the eight candidates, a result that stands on development evidence by design.</p>
+      </div>
+
+      <div class="case-block reveal">
+        <span class="sublabel">Limitations</span>
+        <p>The verdict set is one season of 190 pairs, powered to detect differences of roughly seven points, not one, so the tie is a bounded statement rather than proof of equivalence. The role-recovery test is structurally biased toward PCA because the labels came from a linear method, which is why it was demoted from deciding criterion to supporting evidence. Style is defined by what the league tracks: gravity, screening quality, and communication are invisible.</p>
+      </div>
+
+      <details class="deep reveal">
+        <summary>Technical deep dive</summary>
+        <div class="deep-body">
+          <h3>Technical highlights</h3>
+          <ul><li>Three-criterion evaluation with the deciding criterion chosen before results: the deliverable is similarity search, so the label-free self-match test governs, with reconstruction as a floor.</li><li>A temporal selection firewall: architecture and bottleneck width chosen on 610 development pairs, the 190-pair verdict season evaluated exactly once, with a paired McNemar comparison.</li><li>Bit-level reproducibility for a neural pipeline: fixed seeds plus deterministic ops, with a seeded rebuild guard around training that preserves identical results across framework hiccups.</li><li>Per-feature reconstruction audit at the deployed width, so a scout knows the space is excellent on creation and scoring patterns and rougher on connective play.</li></ul>
+          <h3>Key decisions</h3>
+          <dl class="decisions"><dt>Why deploy the autoencoder if the verdict is a tie?</dt><dd>The clean selection procedure chose it, its development evidence was consistently positive, and the two geometries agree at 0.94 anyway. The page and the study both say PCA would serve equally well; the claim shipped is competitive, not superior.</dd><dt>Why does the best reconstructor make the worst similarity space?</dt><dd>An unregularized autoencoder is rewarded for memorizing season-specific noise, and noise is exactly what does not carry to the next season. Dropout forces it to keep only structure robust enough to survive perturbation, which costs reconstruction and buys similarity.</dd></dl>
+          <h3>Technology stack</h3>
+          <div class="stack-rows">
+            <div class="stack-row"><span class="k">Languages</span><span class="v">Python, SQL (SQLite)</span></div>
+            <div class="stack-row"><span class="k">Methods</span><span class="v">Keras/TensorFlow autoencoders with deterministic ops, PCA baselines, temporal selection splits, McNemar paired comparison, Spearman geometry stability; scikit-learn, pandas</span></div>
+            <div class="stack-row"><span class="k">Reproducibility</span><span class="v">Deterministic seeds end to end, including every bootstrap resample; re-executed from a clean environment with outputs verified against the committed notebook</span></div>
+          </div>
+        </div>
+      </details>
+
+      <p class="fineprint">Built on five seasons (2021-22 through 2025-26) of NBA Stats dashboard data compiled into a local SQLite database of 97 tables. All six research studies run against the same database. Every number quoted is generated by the notebook's own executed code, deterministically seeded, and re-verified from a clean environment. Notebooks available by email.</p>
+      <p class="reveal" style="margin-top:1.4rem;"><a class="btn btn-primary" href="#xp-similarity">Search style similarity</a> <a class="btn btn-ghost" href="research.html">Back to all research</a></p>
+    </div>
+  </article>
+
+</main>
+
+<!-- Site footer, identical on every page: identity, navigation, contact. -->
+<footer class="site-footer">
+  <div class="wrap foot-inner">
+    <div>
+      <p class="foot-name">Thomas Lappas</p>
+      <p class="foot-tag">Data science, analytics engineering, and production systems, demonstrated through basketball.</p>
+    </div>
+    <nav class="foot-nav" aria-label="Footer">
+      <a href="./">Home</a>
+      <a href="case-studies.html">Case Studies</a>
+      <a href="research.html">Research</a>
+      <a href="skills.html">Skills</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="foot-links">
+      <a href="mailto:thomas.lappas1010@gmail.com">thomas.lappas1010@gmail.com</a>
+      <a href="https://github.com/Tlappas-23" rel="noopener">github.com/Tlappas-23</a>
+    </div>
+  </div>
+  <div class="wrap foot-legal">Every metric on this site is generated by project code from project data.</div>
+</footer>
+
+<script src="assets/site.js?v=20260820"></script>
+<script src="assets/explorer.js?v=20260820"></script>
+</body>
+</html>
