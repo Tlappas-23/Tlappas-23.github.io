@@ -31,7 +31,8 @@
       let h = "<table class='xp-table'><thead><tr>";
       for (const c of cols) {
         const arrow = c.key === sortKey ? (sortDir < 0 ? " ↓" : " ↑") : "";
-        h += `<th><button data-k="${c.key}">${c.label}${arrow}</button></th>`;
+        const tipAttr = c.tip ? ` data-tip="${esc(c.tip)}"` : "";
+        h += `<th class="${c.cls || ""}"><button data-k="${c.key}"${tipAttr}>${c.label}${arrow}</button></th>`;
       }
       h += "</tr></thead><tbody>";
       for (const row of shown) {
@@ -64,11 +65,26 @@
   }
 
   /* ---------- Roles ---------- */
+  const PCT_SUFFIX = " Shown as a within-season percentile, 0 to 100, among all 1,000+ minute players that season; higher always means more of the named skill.";
   const LENS_PCTS = {
-    shot_diet:  [["cs_fga36","C&S vol"],["pu_fga36","Pull-up vol"],["drives36","Drives"],["post36","Post"],["fg3a_rate","3P rate"]],
-    defense:    [["stl36","Steals"],["blk36","Blocks"],["rimchal36","Rim chal"],["rim_dfg_shrunk","Rim D"],["defl36","Deflect"]],
-    scoring:    [["pts36","Points"],["USG_PCT","Usage"],["TS_PCT","True shooting"],["fta_rate","FT rate"]],
-    playmaking: [["AST_PCT","Assist %"],["potast36","Pot. assists"],["timeposs36","Time of poss"],["tov36","Turnovers"]],
+    shot_diet:  [["cs_fga36","C&S vol","Catch-and-shoot field goal attempts per 36 minutes."],
+                 ["pu_fga36","Pull-up vol","Pull-up jumper attempts per 36 minutes."],
+                 ["drives36","Drives","Drives to the basket per 36 minutes."],
+                 ["post36","Post","Post touches per 36 minutes."],
+                 ["fg3a_rate","3P rate","Share of field goal attempts taken from three."]],
+    defense:    [["stl36","Steals","Steals per 36 minutes."],
+                 ["blk36","Blocks","Blocks per 36 minutes."],
+                 ["rimchal36","Rim chal","Opponent rim attempts this player defended, per 36 minutes: rim-protection workload."],
+                 ["rim_dfg_shrunk","Rim D","Opponent field goal percentage at the rim when this player defends it, shrunk toward league average by empirical Bayes (about 60 attempts to be trusted half-and-half) and inverted so higher means better rim defense."],
+                 ["defl36","Deflect","Deflections per 36 minutes."]],
+    scoring:    [["pts36","Points","Points per 36 minutes."],
+                 ["USG_PCT","Usage","Share of team possessions this player finishes with a shot, foul drawn, or turnover while on the floor."],
+                 ["TS_PCT","True shooting","Scoring efficiency including threes and free throws: points over 2 x (FGA + 0.44 x FTA)."],
+                 ["fta_rate","FT rate","Free throw attempts per field goal attempt: foul-drawing independent of minutes."]],
+    playmaking: [["AST_PCT","Assist %","Share of teammate field goals this player assisted while on the floor."],
+                 ["potast36","Pot. assists","Passes that would have been assists had the shot gone in, per 36 minutes."],
+                 ["timeposs36","Time of poss","Minutes of ball possession per 36 minutes played."],
+                 ["tov36","Turnovers","Turnovers per 36 minutes."]],
   };
   async function initRoles() {
     const rows = await data("roles");
@@ -99,8 +115,9 @@
         return o;
       });
       const cols = [{key:"n",label:"Player",cls:"name"},{key:"s",label:"Season"},{key:"t",label:"Team"},
-                    {key:"role",label:"Role",cls:"rolecell"},{key:"fit",label:"Fit",d:2}]
-        .concat(pcts.map(([k,l]) => ({key:k,label:l+" pct",d:0,bar:100})));
+                    {key:"role",label:"Role",cls:"rolecell",tip:"The cluster this player-season is assigned to under the selected lens."},
+                    {key:"fit",label:"Fit",d:2,cls:"num",tip:"Assignment confidence: this player's silhouette score for the lens. Near zero means a boundary case between two roles, treated as a hybrid; around +0.3 or higher means comfortably inside the role."}]
+        .concat(pcts.map(([k,l,tp]) => ({key:k,label:l,d:0,bar:100,cls:"num",tip:tp + PCT_SUFFIX})));
       table(box, cols, flat, { sort: "fit" });
     }
     $$("#roles-lens .chip").forEach(b => b.addEventListener("click", () => {
@@ -138,7 +155,9 @@
       $("#sim-title").textContent = "Closest style matches to " + label;
       table($("#sim-body"),
         [{key:"n",label:"Player",cls:"name"},{key:"s",label:"Season"},{key:"t",label:"Team"},
-         {key:"dist",label:"Distance",d:2},{key:"sd",label:"Shot diet role"},{key:"df",label:"Defensive role"}],
+         {key:"dist",label:"Distance",d:2,cls:"num",tip:"Euclidean distance between the two player-seasons in the standardized 32-dimensional style embedding. Smaller means more similar style; the space measures how a player plays, not how well."},
+         {key:"sd",label:"Shot diet role",tip:"This player-season's shot-diet cluster from the role-lens study."},
+         {key:"df",label:"Defensive role",tip:"This player-season's defensive cluster from the role-lens study."}],
         rows, { sort: "dist", dir: 1, limit: 12 });
     }
     $("#sim-q").addEventListener("change", e => run(e.target.value));
@@ -150,9 +169,13 @@
   async function initTraj() {
     const rows = await data("watchlist");
     table($("#traj-body"),
-      [{key:"n",label:"Player",cls:"name"},{key:"t",label:"Team"},{key:"a",label:"Age",d:0},
-       {key:"m",label:"Minutes",d:0},{key:"pct",label:"Value pct",d:1},{key:"tr",label:"Prior trend",d:1},
-       {key:"rise",label:"P(rise)",d:3,bar:1},{key:"fall",label:"P(fall)",d:3,bar:1}],
+      [{key:"n",label:"Player",cls:"name"},{key:"t",label:"Team"},
+       {key:"a",label:"Age",d:0,cls:"num",tip:"Age in the 2025-26 season."},
+       {key:"m",label:"Minutes",d:0,cls:"num",tip:"Total minutes played in 2025-26. The pool requires 500 or more."},
+       {key:"pct",label:"Value pct",d:1,cls:"num",tip:"League-relative value: the player's PIE (the league's all-in-one impact estimate) ranked as a percentile within the 2025-26 season, 0 to 100."},
+       {key:"tr",label:"Prior trend",d:1,cls:"num",tip:"Change in value percentile from 2024-25 to 2025-26, in points. Players without a qualifying prior season carry the pool median (about zero)."},
+       {key:"rise",label:"P(rise)",d:3,bar:1,cls:"num",tip:"Model probability of gaining more than 10 value-percentile points in 2026-27. A development-evidence estimate driven mainly by current level, age, prior trend, and the geometry of the bounded scale; graded by the season itself."},
+       {key:"fall",label:"P(fall)",d:3,bar:1,cls:"num",tip:"Model probability of losing more than 10 value-percentile points in 2026-27, with the same caveats as P(rise)."}],
       rows, { sort: "rise" });
   }
 
@@ -160,9 +183,13 @@
   async function initClutch() {
     const rows = await data("clutch");
     table($("#clutch-body"),
-      [{key:"n",label:"Player",cls:"name"},{key:"s",label:"Season"},{key:"t",label:"Team"},{key:"a",label:"Age",d:0},
-       {key:"base",label:"Ordinary share",d:3},{key:"cl",label:"Clutch share",d:3},
-       {key:"lift",label:"Clutch lift",d:3},{key:"poss",label:"Clutch poss"},{key:"score",label:"Bench score",d:2}],
+      [{key:"n",label:"Player",cls:"name"},{key:"s",label:"Season"},{key:"t",label:"Team"},
+       {key:"a",label:"Age",d:0,cls:"num",tip:"Age that season."},
+       {key:"base",label:"Ordinary share",d:3,cls:"num",tip:"Share of his team's available non-clutch minutes (team non-clutch minutes times five players): his ordinary role."},
+       {key:"cl",label:"Clutch share",d:3,cls:"num",tip:"Share of his team's available clutch minutes, using the league's clutch definition: last five minutes, margin within five points."},
+       {key:"lift",label:"Clutch lift",d:3,cls:"num",tip:"Clutch share minus ordinary share: how much the coach promotes (positive) or demotes (negative) this player when the game is tight. The study's trust measure; it repeats year over year at +0.34."},
+       {key:"poss",label:"Clutch poss",d:0,cls:"num",tip:"Total clutch possessions that season. The median is 46, which is why the study treats clutch results as noise rather than skill."},
+       {key:"score",label:"Bench score",d:2,cls:"num",tip:"Equal-weight z-score composite of clutch lift, non-clutch true shooting, and on-court net rating. Clutch performance is excluded by design, because the reliability gate showed there is nothing in it to weight."}],
       rows, { sort: "lift" });
   }
 
@@ -170,17 +197,23 @@
   async function initTeamsBench() {
     const tb = await data("teams_bench");
     table($("#teams-bench-body"),
-      [{key:"n",label:"Team",cls:"name"},{key:"s",label:"Season"},{key:"net",label:"Net rtg",d:1},
-       {key:"snet",label:"Starter net",d:1},{key:"pts",label:"Bench pts share",d:3},
-       {key:"ts",label:"Bench TS",d:3},{key:"eff",label:"Effort /36",d:1}],
+      [{key:"n",label:"Team",cls:"name"},{key:"s",label:"Season"},
+       {key:"net",label:"Net rtg",d:1,cls:"num",tip:"Team net rating: points scored minus allowed per 100 possessions over the regular season."},
+       {key:"snet",label:"Starter net",d:1,cls:"num",tip:"Net rating of the team's starting lineups. The study's control variable: raw bench numbers mislead without it."},
+       {key:"pts",label:"Bench pts share",d:3,cls:"num",tip:"Share of the team's points scored by bench players, using the league's per-game starter definition."},
+       {key:"ts",label:"Bench TS",d:3,cls:"num",tip:"Minutes-weighted true shooting of the team's bench players (200+ bench minutes each). The one traditional bench statistic whose association with winning survives the starter control."},
+       {key:"eff",label:"Effort /36",d:1,cls:"num",tip:"Deflections + loose balls recovered + charges drawn + contested shots by bench players, per 36 bench minutes. The production-free effort index; its association with winning also survives the starter control."}],
       tb, { sort: "eff", limit: 15 });
   }
   async function initTeamsPlayoff() {
     const tp = await data("teams_playoff");
     table($("#teams-po-body"),
-      [{key:"n",label:"Team",cls:"name"},{key:"s",label:"Season"},{key:"rs",label:"RS net",d:1},
-       {key:"po",label:"Playoff net",d:1},{key:"w",label:"W"},{key:"l",label:"L"},
-       {key:"opp",label:"Opp strength",d:1},{key:"adj",label:"Adjusted resid",d:1}],
+      [{key:"n",label:"Team",cls:"name"},{key:"s",label:"Season"},
+       {key:"rs",label:"RS net",d:1,cls:"num",tip:"Regular season net rating: points scored minus allowed per 100 possessions."},
+       {key:"po",label:"Playoff net",d:1,cls:"num",tip:"Net rating across that playoff run. Far noisier than the regular season: a seven-game series is a tiny sample."},
+       {key:"w",label:"W",d:0,cls:"num",tip:"Playoff wins."},{key:"l",label:"L",d:0,cls:"num",tip:"Playoff losses."},
+       {key:"opp",label:"Opp strength",d:1,cls:"num",tip:"Average regular season net rating of the playoff opponents actually faced, weighted by games played. Ranges from -0.5 to +12.7 in this sample."},
+       {key:"adj",label:"Adjusted resid",d:1,cls:"num",tip:"Playoff performance relative to what regular season net rating predicts, additionally adjusted for opponent strength. Positive means the team overperformed both its record and its bracket."}],
       tp, { sort: "adj", limit: 15 });
   }
 

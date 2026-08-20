@@ -512,3 +512,16 @@ html.js .reveal.in { opacity: 1; transform: none; }
 .ps-extra { font-size: 0.85rem; color: var(--muted); margin-top: 0.8rem; max-width: 44rem; }
 .ps-more-link { font-size: 0.8rem; margin-top: 0.8rem; }
 .ps-empty { color: var(--muted); font-size: 0.9rem; }
+
+/* Definition tooltip: one fixed singleton, filled by site.js from data-tip. */
+.xp-tip {
+  position: fixed; z-index: 90; max-width: 20rem;
+  background: var(--ink); color: var(--bg);
+  font-size: 0.78rem; line-height: 1.5; padding: 0.5rem 0.7rem; border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18); pointer-events: none;
+}
+[data-tip] { cursor: help; }
+.xp-table th button[data-tip] { cursor: pointer; border-bottom: 1px dotted var(--faint); padding-bottom: 1px; }
+.xp-table th.num, .xp-table td.num { text-align: right; }
+.xp-table td.num { font-variant-numeric: tabular-nums; }
+.xp-table td.num .pbar { margin-right: 0.45rem; }

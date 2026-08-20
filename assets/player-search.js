@@ -63,7 +63,7 @@
     const roleRows = LENSES.map(([k, lab]) => {
       const [role, fit] = row.roles[k];
       const hybrid = fit < 0.1 ? ' <span class="ps-hybrid" title="Low fit: boundary case">boundary</span>' : "";
-      return `<div class="ps-role"><span class="k">${lab}</span><span class="v">${esc(role)}${hybrid}</span><span class="fit">fit ${fit.toFixed(2)}</span></div>`;
+      return `<div class="ps-role"><span class="k">${lab}</span><span class="v">${esc(role)}${hybrid}</span><span class="fit" data-tip="Assignment confidence for this lens: near zero means a boundary case between two roles; around +0.3 or higher means comfortably inside the role.">fit ${fit.toFixed(2)}</span></div>`;
     }).join("");
     const bars = PCTS.map(([k, lab]) => {
       const v = row.p[k];
@@ -85,7 +85,7 @@
       </div>
       <div class="ps-grid">
         <div><p class="ps-sub">Role lenses</p>${roleRows}</div>
-        <div><p class="ps-sub">Within-season percentiles</p>${bars}</div>
+        <div><p class="ps-sub" data-tip="Each value is a percentile among all 1,000+ minute players in the same season, 0 to 100, so profiles compare across eras. Higher always means more of the named skill.">Within-season percentiles</p>${bars}</div>
       </div>
       <p class="ps-sub" style="margin-top:0.9rem;">Closest style matches</p>
       <div class="ps-nbrow">${nb}</div>
