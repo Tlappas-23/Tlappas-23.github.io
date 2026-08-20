@@ -69,6 +69,11 @@
         <div class="stat" role="listitem"><span class="n">81 → 32</span><span class="l">tracking features compressed into deployed style coordinates</span></div><div class="stat" role="listitem"><span class="n">610 / 190</span><span class="l">similarity pairs split into development and untouched verdict sets</span></div><div class="stat" role="listitem"><span class="n">72.1% vs 71.1%</span><span class="l">autoencoder vs PCA on the verdict season, p = 0.83: indistinguishable</span></div><div class="stat" role="listitem"><span class="n">0.941</span><span class="l">distance-geometry agreement across five random initializations</span></div>
       </div>
 
+      <figure class="reveal">
+        <div class="fig-panel"><img src="assets/research-style-embeddings.png" alt="Two panels. Left: scatter of eight autoencoder architectures, held-out reconstruction R-squared against development self-match accuracy, with the best reconstructor lowest on similarity and the selected dropout configuration highest, PCA marked as a reference square. Right: verdict-season bars, autoencoder 72.1 percent versus PCA 71.1 percent with overlapping one-standard-error whiskers." width="1769" height="799" loading="lazy"></div>
+        <figcaption>Generated output: the selection evidence and the verdict, from the notebook's executed outputs. The architecture that copies its input best describes players worst, and on the one season no tuning decision touched, the network and PCA are statistically indistinguishable.</figcaption>
+      </figure>
+
       <div class="case-block reveal">
         <span class="sublabel">What the adversarial review changed</span>
         <p>The review found the original comparison circular: the architecture had been selected on the same 800 similarity pairs later used to declare the network superior. The remediation built the temporal firewall, development pairs for every selection decision, one untouched season for the verdict, and the verdict changed the conclusion from superiority to statistical indistinguishability. The finding that survived is the methodological one: reconstruction error, the objective autoencoders are trained on, selected the worst similarity space of the eight candidates, a result that stands on development evidence by design.</p>

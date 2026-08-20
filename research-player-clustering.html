@@ -69,6 +69,11 @@
         <div class="stat" role="listitem"><span class="n">1,350</span><span class="l">player-seasons from 492 players, five seasons</span></div><div class="stat" role="listitem"><span class="n">0.168</span><span class="l">maximum cross-lens agreement: the four lenses are near-independent</span></div><div class="stat" role="listitem"><span class="n">0.928</span><span class="l">defensive lens agreement when refit on single seasons alone</span></div><div class="stat" role="listitem"><span class="n">p=1.4e-04</span><span class="l">within-team separation on defensive win shares, the external check</span></div>
       </div>
 
+      <figure class="reveal">
+        <div class="fig-panel"><img src="assets/research-player-clustering.png" alt="Two panels. Left: a four-by-four heatmap of adjusted Rand agreement between the shot diet, defense, scoring, and playmaking lenses, with off-diagonal values between 0.04 and 0.17. Right: defensive win shares per 36 by defensive role, raw and within-team demeaned, with the same ordering in both." width="1739" height="824" loading="lazy"></div>
+        <figcaption>Generated output: cross-lens agreement computed from the deployed player_lens_profiles table, and the external check on the defensive lens. The roles keep their order after removing team-level defensive quality, so the separation is not explained by good defenses employing good defenders.</figcaption>
+      </figure>
+
       <div class="case-block reveal">
         <span class="sublabel">What the adversarial review changed</span>
         <p>The review found that the stability bootstrap resampled rows despite players repeating up to five times, which overstates stability. Corrected to a player-block bootstrap, three of the four chosen solutions still clear the pre-registered 0.85 bar (defense 0.919, playmaking 0.946, shot diet 0.882), and one does not: the scoring lens falls to 0.836 and is downgraded in the study from stable structure to the most informative descriptive partition of the volume-efficiency plane. The review also prompted the fit-conditioned transition analysis, which reframed role churn: much of the raw change rate is boundary flicker the fit scores already flag.</p>

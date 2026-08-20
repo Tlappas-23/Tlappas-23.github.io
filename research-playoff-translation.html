@@ -69,6 +69,11 @@
         <div class="stat" role="listitem"><span class="n">80</span><span class="l">playoff team-seasons, 16 per year for five years</span></div><div class="stat" role="listitem"><span class="n">r=+0.008</span><span class="l">transition reliance vs playoff translation: the folk theory's key trait, null</span></div><div class="stat" role="listitem"><span class="n">6.07 vs 6.06</span><span class="l">nested-selection RMSE vs baseline: the 4% forecast edge was selection bias</span></div><div class="stat" role="listitem"><span class="n">+0.10 to +0.51</span><span class="l">franchise-bootstrap CI on the one Bonferroni-surviving feature</span></div>
       </div>
 
+      <figure class="reveal">
+        <div class="fig-panel"><img src="assets/research-playoff-translation.png" alt="Two panels. Left: horizontal bars of eleven regular season style features correlated with opponent-adjusted playoff residual; nine gray nulls near zero, isolation defense at +0.32 and spot-up efficiency at -0.22 in orange. Right: leave-one-season-out RMSE bars showing the luck-feature model at 5.81 when the screen saw all data and 6.08 when selection is nested, against the 6.06 baseline." width="2045" height="851" loading="lazy"></div>
+        <figcaption>Generated output: the feature screen recomputed from the database and the validation ladder from the notebook's executed outputs. Style is null across the board, and the apparent forecasting edge from the two survivors disappears once feature selection runs inside each validation fold.</figcaption>
+      </figure>
+
       <div class="case-block reveal">
         <span class="sublabel">What the adversarial review changed</span>
         <p>The review caught an interpretation error in the baseline: a slope of 1.56 had been described as the playoffs amplifying quality gaps. Decomposed, the slope is exactly the correlation times the ratio of standard deviations, 0.574 times 2.72, driven by noisier playoff outcomes and range restriction among qualifiers (the qualifier pool's spread is 2.92 against the league's 5.31). A compounding mechanism may exist, but nothing in the fit identifies it, and the study now says so. Permutation p-values also moved to the finite-sample estimator.</p>

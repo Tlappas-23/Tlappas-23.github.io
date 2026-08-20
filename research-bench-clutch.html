@@ -69,6 +69,11 @@
         <div class="stat" role="listitem"><span class="n">871</span><span class="l">bench player-seasons, five seasons, 465 players</span></div><div class="stat" role="listitem"><span class="n">46</span><span class="l">median clutch possessions in a bench player's entire season</span></div><div class="stat" role="listitem"><span class="n">+0.03 / -0.05</span><span class="l">year-over-year reliability of clutch shooting and clutch net rating</span></div><div class="stat" role="listitem"><span class="n">81%</span><span class="l">of the best-vs-worst clutch gap that evaporates within one season</span></div>
       </div>
 
+      <figure class="reveal">
+        <div class="fig-panel"><img src="assets/research-bench-clutch.png" alt="Two panels. Left: grouped bars of clutch net rating quartiles, season one from -24 to +23, the same players in season two from -6 to 0. Right: year-over-year reliability bars; usage +0.80, true shooting +0.58, on-court net +0.43, clutch trust +0.34, clutch shooting +0.02, clutch net rating -0.05." width="1833" height="799" loading="lazy"></div>
+        <figcaption>Generated output: the reliability gate, computed from the study's full 871-player-season frame. Ordinary skills repeat, coach trust repeats, and clutch results do not: 81 percent of the best-versus-worst clutch gap is gone one season later.</figcaption>
+      </figure>
+
       <div class="case-block reveal">
         <span class="sublabel">What the adversarial review changed</span>
         <p>The review asked whether leave-one-season-out validation flattered the model by letting the same player appear in training and test seasons. Player-grouped validation, where no player crosses the train-test boundary, produced materially similar results: the modest edge from age and passing carried to held-out players essentially unchanged, providing no evidence of repeated-player inflation. The review also tightened several universal negatives into scoped claims and moved p-values to the finite-sample estimator.</p>

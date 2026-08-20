@@ -69,6 +69,11 @@
         <div class="stat" role="listitem"><span class="n">150</span><span class="l">team-seasons across five regular seasons</span></div><div class="stat" role="listitem"><span class="n">-0.386 → +0.08</span><span class="l">bench scoring share vs winning, raw to starter-controlled</span></div><div class="stat" role="listitem"><span class="n">+0.225</span><span class="l">bench true shooting partial, CI +0.03 to +0.38 under franchise bootstrap</span></div><div class="stat" role="listitem"><span class="n">0 of 3</span><span class="l">usage thresholds where a designated bench scorer relates to winning</span></div>
       </div>
 
+      <figure class="reveal">
+        <div class="fig-panel"><img src="assets/research-bench-usage.png" alt="Dumbbell chart of five bench measures: raw correlations with team net rating versus starter-controlled partials. The share and usage measures collapse from strongly negative to near zero; true shooting holds at +0.22 and the effort index at +0.24 under the control." width="1604" height="853" loading="lazy"></div>
+        <figcaption>Generated output: the study's headline in one view, computed from the deployed team_bench_metrics table. Gray is the raw correlation across 150 team-seasons; orange is the same relationship with starter net rating partialled out. The apparent bench penalty collapses; efficiency and effort survive.</figcaption>
+      </figure>
+
       <div class="case-block reveal">
         <span class="sublabel">What the adversarial review changed</span>
         <p>A senior-level review pass changed three things. Permutation p-values moved to the finite-sample (k+1)/(n+1) estimator, because a 10,000-shuffle test cannot produce zero. The effort index turned out to be mis-specified as a raw sum, with contested shots supplying 67.7 percent of it by construction; re-specified as an equal-weight composite of standardized components it strengthens to +0.324, and the conservative pre-registered number is the one reported. And the closing recommendation was rewritten from acquisition advice into prioritization under association, because part of measured bench efficiency travels with the starters who create the looks, and this design cannot separate the player from the ecosystem.</p>
