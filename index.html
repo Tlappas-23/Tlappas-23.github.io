@@ -135,6 +135,14 @@
         <h2 id="research-h">Six studies, one database, one standard</h2>
         <p>Alongside the case studies: six self-contained research studies on a five-season NBA database, covering bench value, player roles, playoff translation, clutch reliability, style embeddings, and trajectory prediction. After finishing them, I reviewed the suite the way a head of analytics would review an analyst's work and fixed what the review found. Three headline claims came out weaker and are published that way, with the correction documented on each study's page.</p>
       </div>
+      <!-- Live player lookup: type a name, pick a season, and the card is
+           rendered from the studies' own database tables. -->
+      <div class="ps reveal" id="player-search">
+        <input class="ps-input" id="ps-input" type="text" autocomplete="off" spellcheck="false"
+               aria-label="Look up a player" placeholder="Look up any player from the studies: try Alex Car...">
+        <ul class="ps-sug" role="listbox" hidden></ul>
+        <div class="ps-card" aria-live="polite"></div>
+      </div>
       <div class="btn-row reveal">
         <a class="btn btn-primary" href="research.html">Read the research</a>
         <a class="btn btn-ghost" href="research-explorer.html">Explore the data</a>
@@ -284,5 +292,6 @@
 </footer>
 
 <script src="assets/site.js"></script>
+<script src="assets/player-search.js"></script>
 </body>
 </html>
