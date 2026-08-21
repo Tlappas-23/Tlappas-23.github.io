@@ -97,7 +97,6 @@ h1, h2, h3, h4 { text-wrap: balance; letter-spacing: -0.015em; }
    actually dragged over. */
 main, .topbar, .site-footer { -webkit-user-select: none; user-select: none; }
 h1, h2, h3, h4, p, li, dt, dd, span, a, code, td, th, caption, figcaption, summary,
-.foot-legal { -webkit-user-select: text; user-select: text; }
 ::selection { background: var(--accent); color: var(--bg); }
 
 /* Sticky site header. Identical on every page; the current page's nav
@@ -132,7 +131,6 @@ h1, h2, h3, h4, p, li, dt, dd, span, a, code, td, th, caption, figcaption, summa
 .foot-nav a, .foot-links a { font-size: 0.85rem; color: var(--muted); text-decoration: none; }
 .foot-nav a:hover, .foot-links a:hover { color: var(--accent-ink); }
 .foot-links { display: flex; flex-direction: column; gap: 0.3rem; }
-.foot-legal { margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid var(--line); font-size: 0.78rem; color: var(--faint); }
 
 /* Page intro used on the case studies, skills, and contact pages:
    an eyebrow label, the page title, and a one-paragraph summary. */
