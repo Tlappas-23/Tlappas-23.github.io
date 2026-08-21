@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  Research. Part of the research section: six studies on one
+  Research. The research index: six analyses on one
   NBA database, each with its own page, all sharing one validation standard.
   Styles are shared in assets/style.css; header and footer match every
   other page so navigation never moves under the reader.
@@ -9,9 +9,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Six research studies on one NBA database: bench value, player roles, playoff translation, clutch reliability, style embeddings, and trajectory prediction, each validated, adversarially reviewed, and published with corrected claims.">
+<meta name="description" content="Six research analyses on one NBA database: bench value, player roles, playoff translation, clutch reliability, style embeddings, and trajectory prediction, each validated, adversarially reviewed, and published with corrected claims.">
 <meta property="og:title" content="Research · Thomas Lappas">
-<meta property="og:description" content="Six research studies on one NBA database: bench value, player roles, playoff translation, clutch reliability, style embeddings, and trajectory prediction, each validated, adversarially reviewed, and published with corrected claims.">
+<meta property="og:description" content="Six research analyses on one NBA database: bench value, player roles, playoff translation, clutch reliability, style embeddings, and trajectory prediction, each validated, adversarially reviewed, and published with corrected claims.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://tlappas-23.github.io/research.html">
 <meta property="og:image" content="https://tlappas-23.github.io/assets/og-image.png">
@@ -41,31 +41,31 @@
   <div class="wrap">
     <div class="page-head">
       <span class="label">Research</span>
-      <h1>Six studies, one database, one standard</h1>
-      <p class="dek">Six self-contained research studies built on the same five-season NBA database: 97 tables of box score, tracking, hustle, play-type, and lineup-split data, 2021-22 through 2025-26. Each study stands alone with its own question, methods, and findings. What they share is the standard: confounds named before results, permutation tests with corrected p-values, resampling units that match the data's dependence structure, feature selection nested inside validation folds, and honest nulls reported as findings.</p>
-      <p class="dek">After the six studies were finished, I reviewed the suite the way a head of analytics would review an analyst's work, then fixed what the review found instead of arguing with it. Three headline claims came out weaker: a neural network's edge over PCA dissolved on a properly firewalled test, a clustering solution fell below its own pre-registered stability bar, and a fifth of one model's apparent skill turned out to be the geometry of a bounded scale. All three are published in their corrected form, with the correction documented on each study's page, because a result that survives an honest attempt to kill it is worth more than a bigger number that would not.</p>
+      <h1>Six questions, one database, one standard</h1>
+      <p class="dek">Six self-contained analyses built on the same five-season NBA database: 97 tables of box score, tracking, hustle, play-type, and lineup-split data, 2021-22 through 2025-26. Each analysis stands alone with its own question, methods, and findings. What they share is the standard: confounds named before results, permutation tests with corrected p-values, resampling units that match the data's dependence structure, feature selection nested inside validation folds, and honest nulls reported as findings.</p>
+      <p class="dek">After all six were finished, I reviewed the suite the way a head of analytics would review an analyst's work, then fixed what the review found instead of arguing with it. Three headline claims came out weaker: a neural network's edge over PCA dissolved on a properly firewalled test, a clustering solution fell below its own pre-registered stability bar, and a fifth of one model's apparent skill turned out to be the geometry of a bounded scale. All three are published in their corrected form, with the correction documented on each page, because a result that survives an honest attempt to kill it is worth more than a bigger number that would not.</p>
     </div>
 
     <!-- Suite-level totals, same box-score treatment as the home page. -->
     <div class="glance" role="list" aria-label="Research at a glance">
-      <div role="listitem"><span class="n">6</span><span class="l">studies, each with its own question, methods, and page</span></div>
-      <div role="listitem"><span class="n">97</span><span class="l">database tables across five NBA seasons feeding every study</span></div>
+      <div role="listitem"><span class="n">6</span><span class="l">analyses, each with its own question, methods, and page</span></div>
+      <div role="listitem"><span class="n">97</span><span class="l">database tables across five NBA seasons feeding every analysis</span></div>
       <div role="listitem"><span class="n">3</span><span class="l">headline claims revised downward after adversarial self-review</span></div>
       <div role="listitem"><span class="n">100%</span><span class="l">of quoted numbers regenerated by deterministic re-execution</span></div>
     </div>
 
     <div class="case-block reveal" style="margin-top:2.4rem;">
       <span class="sublabel">Interactive tables</span>
-      <p>Every study page carries its own interactive table, loaded straight from the study's database output: browse every player in every role cluster with its confidence score, run the style-similarity search across all 1,350 player-seasons, and sort the full watch list, the clutch trust table, and both team-level result sets, each where its findings live.</p>
+      <p>Every analysis page carries its own interactive table, loaded straight from its database output: browse every player in every role cluster with its confidence score, run the style-similarity search across all 1,350 player-seasons, and sort the full watch list, the clutch trust table, and both team-level result sets, each where its findings live.</p>
     </div>
 
     <div class="section-head reveal" style="margin-top:3rem;" id="studies">
-      <h2>The studies</h2>
-      <p>Ordered by what each contributes methodologically, not chronologically. Every page ends with the same two sections: what the adversarial review changed, and what the study still cannot claim.</p>
+      <h2>The analyses</h2>
+      <p>Ordered by what each contributes methodologically, not chronologically. Every page ends with the same two sections: what the adversarial review changed, and what the results still cannot claim.</p>
     </div>
   </div>
 
-  <section class="section" aria-label="Research studies">
+  <section class="section" aria-label="Research analyses">
     <div class="wrap">
       <div class="work-grid">
         <a class="work-card reveal" href="research-bench-clutch.html">
@@ -74,15 +74,15 @@
           <p class="q">Which bench players are clutch, and is that even measurable?</p>
           <p>The performance half of the clutch question turns out to be unmeasurable noise; the trust half is stable, modestly predictable, and has nothing to do with shooting.</p>
           <span class="stat-line">871 player-seasons · 0.1% true-skill share · trust repeats at +0.34</span>
-          <span class="go">Read the study</span>
+          <span class="go">Read the analysis</span>
         </a>
         <a class="work-card reveal" href="research-playoff-translation.html">
           <span class="tag tag-domain">Playoff Translation</span>
           <h3>What Survives the Playoffs</h3>
           <p class="q">Does playing style predict who translates to the playoffs?</p>
-          <p>No style trait predicts playoff translation, and the honesty check that erased the study's own forecasting edge is the centerpiece.</p>
+          <p>No style trait predicts playoff translation, and the honesty check that erased its own forecasting edge is the centerpiece.</p>
           <span class="stat-line">80 team-seasons · style all null · nested 6.07 vs baseline 6.06</span>
-          <span class="go">Read the study</span>
+          <span class="go">Read the analysis</span>
         </a>
         <a class="work-card reveal" href="research-player-trajectory.html">
           <span class="tag tag-domain">Trajectory Modeling</span>
@@ -90,7 +90,7 @@
           <p class="q">Who is rising and who is falling next season?</p>
           <p>All 860 database columns whittled to 428, then a self-correction: one fifth of the apparent model skill was the geometry of a bounded scale.</p>
           <span class="stat-line">860 → 428 features · 19.5% censored · rise AUC 0.72 → 0.66 interior</span>
-          <span class="go">Read the study</span>
+          <span class="go">Read the analysis</span>
         </a>
         <a class="work-card reveal" href="research-style-embeddings.html">
           <span class="tag tag-domain">Representation Learning</span>
@@ -98,7 +98,7 @@
           <p class="q">Does a neural network beat PCA for player similarity?</p>
           <p>A neural network made to earn its place against PCA on an untouched verdict season. It ties, and the search shows why reconstruction is the wrong yardstick.</p>
           <span class="stat-line">81 → 32 dims · verdict 72.1% vs 71.1%, p=0.83 · stability 0.941</span>
-          <span class="go">Read the study</span>
+          <span class="go">Read the analysis</span>
         </a>
         <a class="work-card reveal" href="research-player-clustering.html">
           <span class="tag tag-domain">Role Identification</span>
@@ -106,7 +106,7 @@
           <p class="q">What is a player&#x27;s role, asked four independent ways?</p>
           <p>Four near-independent clusterings replace one blurry label, with player-block stability selection and an external check the defensive lens survives.</p>
           <span class="stat-line">1,350 player-seasons · max cross-lens ARI 0.168 · within-team p=1.4e-04</span>
-          <span class="go">Read the study</span>
+          <span class="go">Read the analysis</span>
         </a>
         <a class="work-card reveal" href="research-bench-usage.html">
           <span class="tag tag-domain">Team Construction</span>
@@ -114,7 +114,7 @@
           <p class="q">Does leaning on your bench actually cost games?</p>
           <p>The bench-usage penalty is a starter-quality artifact, bench scorers are a null, and efficiency is the trait that survives every control.</p>
           <span class="stat-line">150 team-seasons · -0.386 → +0.08 controlled · effort CI +0.09 to +0.36</span>
-          <span class="go">Read the study</span>
+          <span class="go">Read the analysis</span>
         </a>
       </div>
     </div>
@@ -123,9 +123,9 @@
   <div class="wrap">
     <div class="case-block reveal" style="margin-top:1rem;">
       <span class="sublabel">One live scoreboard</span>
-      <p>The trajectory study ends in a prospective watch list: rise and fall probabilities for every qualifying player entering 2026-27, written before the season and graded by it. When the season ends, this section gets the score, whichever way it goes.</p>
+      <p>The trajectory analysis ends in a prospective watch list: rise and fall probabilities for every qualifying player entering 2026-27, written before the season and graded by it. When the season ends, this section gets the score, whichever way it goes.</p>
     </div>
-    <p class="fineprint">Built on five seasons (2021-22 through 2025-26) of NBA Stats dashboard data compiled into a local SQLite database of 97 tables. All six research studies run against the same database. Every number quoted is generated by the notebook's own executed code, deterministically seeded, and re-verified from a clean environment. Notebooks available by email.</p>
+    <p class="fineprint">Built on five seasons (2021-22 through 2025-26) of NBA Stats dashboard data compiled into a local SQLite database of 97 tables. All six research analyses run against the same database. Every number quoted is generated by the notebook's own executed code, deterministically seeded, and re-verified from a clean environment. Notebooks available by email.</p>
   </div>
 
 </main>

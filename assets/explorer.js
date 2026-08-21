@@ -156,8 +156,8 @@
       table($("#sim-body"),
         [{key:"n",label:"Player",cls:"name"},{key:"s",label:"Season"},{key:"t",label:"Team"},
          {key:"dist",label:"Distance",d:2,cls:"num",tip:"Euclidean distance between the two player-seasons in the standardized 32-dimensional style embedding. Smaller means more similar style; the space measures how a player plays, not how well."},
-         {key:"sd",label:"Shot diet role",tip:"This player-season's shot-diet cluster from the role-lens study."},
-         {key:"df",label:"Defensive role",tip:"This player-season's defensive cluster from the role-lens study."}],
+         {key:"sd",label:"Shot diet role",tip:"This player-season's shot-diet cluster from the role-lens analysis."},
+         {key:"df",label:"Defensive role",tip:"This player-season's defensive cluster from the role-lens analysis."}],
         rows, { sort: "dist", dir: 1, limit: 12 });
     }
     $("#sim-q").addEventListener("change", e => run(e.target.value));
@@ -187,19 +187,19 @@
        {key:"a",label:"Age",d:0,cls:"num",tip:"Age that season."},
        {key:"base",label:"Ordinary share",d:3,cls:"num",tip:"Share of his team's available non-clutch minutes (team non-clutch minutes times five players): his ordinary role."},
        {key:"cl",label:"Clutch share",d:3,cls:"num",tip:"Share of his team's available clutch minutes, using the league's clutch definition: last five minutes, margin within five points."},
-       {key:"lift",label:"Clutch lift",d:3,cls:"num",tip:"Clutch share minus ordinary share: how much the coach promotes (positive) or demotes (negative) this player when the game is tight. The study's trust measure; it repeats year over year at +0.34."},
-       {key:"poss",label:"Clutch poss",d:0,cls:"num",tip:"Total clutch possessions that season. The median is 46, which is why the study treats clutch results as noise rather than skill."},
+       {key:"lift",label:"Clutch lift",d:3,cls:"num",tip:"Clutch share minus ordinary share: how much the coach promotes (positive) or demotes (negative) this player when the game is tight. The trust measure this analysis settles on; it repeats year over year at +0.34."},
+       {key:"poss",label:"Clutch poss",d:0,cls:"num",tip:"Total clutch possessions that season. The median is 46, which is why clutch results are treated as noise rather than skill."},
        {key:"score",label:"Bench score",d:2,cls:"num",tip:"Equal-weight z-score composite of clutch lift, non-clutch true shooting, and on-court net rating. Clutch performance is excluded by design, because the reliability gate showed there is nothing in it to weight."}],
       rows, { sort: "lift" });
   }
 
-  /* ---------- Teams (each table stands alone on its study page) ---------- */
+  /* ---------- Teams (each table stands alone on its analysis page) ---------- */
   async function initTeamsBench() {
     const tb = await data("teams_bench");
     table($("#teams-bench-body"),
       [{key:"n",label:"Team",cls:"name"},{key:"s",label:"Season"},
        {key:"net",label:"Net rtg",d:1,cls:"num",tip:"Team net rating: points scored minus allowed per 100 possessions over the regular season."},
-       {key:"snet",label:"Starter net",d:1,cls:"num",tip:"Net rating of the team's starting lineups. The study's control variable: raw bench numbers mislead without it."},
+       {key:"snet",label:"Starter net",d:1,cls:"num",tip:"Net rating of the team's starting lineups. The control variable here: raw bench numbers mislead without it."},
        {key:"pts",label:"Bench pts share",d:3,cls:"num",tip:"Share of the team's points scored by bench players, using the league's per-game starter definition."},
        {key:"ts",label:"Bench TS",d:3,cls:"num",tip:"Minutes-weighted true shooting of the team's bench players (200+ bench minutes each). The one traditional bench statistic whose association with winning survives the starter control."},
        {key:"eff",label:"Effort /36",d:1,cls:"num",tip:"Deflections + loose balls recovered + charges drawn + contested shots by bench players, per 36 bench minutes. The production-free effort index; its association with winning also survives the starter control."}],
@@ -217,7 +217,7 @@
       tp, { sort: "adj", limit: 15 });
   }
 
-  /* ---------- Auto-init: each study page carries only its own section ---------- */
+  /* ---------- Auto-init: each analysis page carries only its own section ---------- */
   const INIT = { "xp-roles": initRoles, "xp-similarity": initSim, "xp-trajectory": initTraj,
                  "xp-clutch": initClutch, "xp-teams-bench": initTeamsBench, "xp-teams-playoff": initTeamsPlayoff };
   for (const id in INIT) {

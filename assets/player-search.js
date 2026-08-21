@@ -74,10 +74,10 @@
     let extra = "";
     const wl = DATA.wlIx[name];
     if (wl && season === "2025-26")
-      extra += `<p class="ps-extra">2026-27 outlook from the trajectory study: P(rise) ${wl.rise.toFixed(2)}, P(fall) ${wl.fall.toFixed(2)}. Development-evidence probabilities, graded by the season itself.</p>`;
+      extra += `<p class="ps-extra">2026-27 outlook from the trajectory analysis: P(rise) ${wl.rise.toFixed(2)}, P(fall) ${wl.fall.toFixed(2)}. Development-evidence probabilities, graded by the season itself.</p>`;
     const cl = DATA.clIx[name + "|" + season];
     if (cl)
-      extra += `<p class="ps-extra">Bench-clutch study, this season: clutch lift ${cl.lift >= 0 ? "+" : ""}${cl.lift.toFixed(3)} (share of team clutch minutes minus ordinary share).</p>`;
+      extra += `<p class="ps-extra">Bench-clutch analysis, this season: clutch lift ${cl.lift >= 0 ? "+" : ""}${cl.lift.toFixed(3)} (share of team clutch minutes minus ordinary share).</p>`;
     card.innerHTML = `
       <div class="ps-head">
         <h3>${esc(name)} <span class="ps-team">${row.t} · ${Math.round(row.m).toLocaleString()} min</span></h3>
@@ -90,7 +90,7 @@
       <p class="ps-sub" style="margin-top:0.9rem;">Closest style matches</p>
       <div class="ps-nbrow">${nb}</div>
       ${extra}
-      <p class="ps-more-link"><a href="research.html">Open the research section</a> for the studies and tables behind this card.</p>`;
+      <p class="ps-more-link"><a href="research.html">Open the research section</a> for the analyses and tables behind this card.</p>`;
     card.querySelectorAll(".chip").forEach(b =>
       b.addEventListener("click", () => renderCard(name, b.dataset.season)));
     card.querySelectorAll(".ps-nb").forEach(b =>

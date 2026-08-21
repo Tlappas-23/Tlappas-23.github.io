@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  What Survives the Playoffs. Part of the research section: six studies on one
+  What Survives the Playoffs. Part of the research section: six analyses on one
   NBA database, each with its own page, all sharing one validation standard.
   Styles are shared in assets/style.css; header and footer match every
   other page so navigation never moves under the reader.
@@ -45,14 +45,14 @@
         <a class="repo-link" href="mailto:thomas.lappas1010@gmail.com?subject=Access%20request%3A%20NBA%20research%20notebooks">Notebook · email for access</a>
       </div>
       <h1 class="reveal">What Survives the Playoffs</h1>
-      <p class="dek reveal">Every spring a front office asks whether its roster is built for the playoffs. The folk theory says transition-reliant teams collapse and self-creating teams hold up. <strong>This study turns the theory into a testable model and the theory fails its test</strong>, while the two features that do survive turn out to be measuring something more useful than style: which records are lying.</p>
+      <p class="dek reveal">Every spring a front office asks whether its roster is built for the playoffs. The folk theory says transition-reliant teams collapse and self-creating teams hold up. <strong>This analysis turns the theory into a testable model and the theory fails its test</strong>, while the two features that do survive turn out to be measuring something more useful than style: which records are lying.</p>
 
       <div class="qa reveal">
         <p class="q">Is this roster built for the playoffs?</p>
         <p class="a"><strong>Style will not tell you, in five seasons of evidence.</strong> Across 80 playoff team-seasons with opponent strength controlled, no offensive style feature predicts playoff over- or underperformance: transition reliance, the trait playoff defenses supposedly punish, is the deadest feature on the board at r = +0.008. The premise of the folk theory is real, isolation rises and every play type gets harder, but its conclusion does not follow.</p>
       </div>
 
-      <div class="summary-strip reveal" aria-label="Study summary"><div><span class="k">Question</span><span class="v">Does playing style predict who translates to the playoffs?</span></div><div><span class="k">Data</span><span class="v">80 playoff team-seasons, opponent strength computed from game logs</span></div><div><span class="k">Method</span><span class="v">Bonferroni-corrected screen; leave-one-season-out validation with selection nested in folds</span></div><div><span class="k">Result</span><span class="v"><strong>Style is null across the board</strong>; the apparent 4% forecast edge vanishes under honest selection</span></div></div>
+      <div class="summary-strip reveal" aria-label="Analysis summary"><div><span class="k">Question</span><span class="v">Does playing style predict who translates to the playoffs?</span></div><div><span class="k">Data</span><span class="v">80 playoff team-seasons, opponent strength computed from game logs</span></div><div><span class="k">Method</span><span class="v">Bonferroni-corrected screen; leave-one-season-out validation with selection nested in folds</span></div><div><span class="k">Result</span><span class="v"><strong>Style is null across the board</strong>; the apparent 4% forecast edge vanishes under honest selection</span></div></div>
 
       <div class="case-block reveal">
         <span class="sublabel">Overview</span>
@@ -63,7 +63,7 @@
         <p>The two survivors are not style knobs. Spot-up shooting efficiency is negative, teams that shot well underperform, and isolation defense allowed is positive, teams that defended badly overperform, a sign no basketball mechanism predicts. Both behave as regression to the mean on noisy shooting components predicts: hot spot-up shooting inflates a record the playoffs regress away, and opponents making tough shots deflates a record that was better than it looked. The pattern is consistent with a luck-detection reading, and the correlational finding survives the Bonferroni correction, all five seasons, and the franchise bootstrap.</p>
       </div>
       <div class="case-block reveal">
-        <span class="sublabel">The honesty check that decided the study</span>
+        <span class="sublabel">The honesty check that decided the analysis</span>
         <p>With the feature screen allowed to see all 80 rows, adding the two luck features improved out-of-sample error 4 percent. With the screen moved inside each validation fold, so selection never sees the season being predicted, the improvement vanishes: 6.07 against the baseline's 6.06. Nested-tuned ridge and gradient boosting agree, with the boosting tuner selecting the most conservative configuration available in eight of ten fits. The correlational claim stands; the forecasting claim falls; both halves are findings, and the deployed table labels its coefficients as descriptions of the sample rather than a forecasting tool.</p>
       </div>
 
@@ -78,7 +78,7 @@
 
       <div class="case-block reveal">
         <span class="sublabel">The biggest over- and underperformers, named</span>
-        <p>The sample's largest opponent-adjusted over- and underperformances, straight from the deployed table. The 2024-25 Heat row is the study's case-study warning in one line: a raw collapse of -33.5 came against the hardest schedule in the sample, and nearly half of it is the bracket rather than the team.</p>
+        <p>The sample's largest opponent-adjusted over- and underperformances, straight from the deployed table. The 2024-25 Heat row is the cautionary example in one line: a raw collapse of -33.5 came against the hardest schedule in the sample, and nearly half of it is the bracket rather than the team.</p>
         <div class="xp-wrap" style="margin-top:0.9rem;"><table class='xp-table'><thead><tr><th>Team</th><th>Season</th><th><span data-tip="Regular season net rating: points scored minus allowed per 100 possessions.">RS net</span></th><th><span data-tip="Net rating across the playoff run; far noisier than the regular season.">Playoff net</span></th><th><span data-tip="Average regular season net rating of the playoff opponents actually faced, weighted by games played.">Opp strength</span></th><th><span data-tip="Playoff performance relative to what the record predicts, additionally adjusted for opponent strength. Positive = overperformed record and bracket.">Adjusted</span></th></tr></thead><tbody><tr><td>New York Knicks</td><td>2025-26</td><td>+6.4</td><td>+15.4</td><td>+3.7</td><td>+13.3</td></tr><tr><td>Miami Heat</td><td>2022-23</td><td>-0.5</td><td>+1.9</td><td>+4.2</td><td>+11.1</td></tr><tr><td>New Orleans Pelicans</td><td>2021-22</td><td>-0.8</td><td>-2.2</td><td>+7.5</td><td>+10.6</td></tr><tr><td>Miami Heat</td><td>2024-25</td><td>+0.4</td><td>-33.5</td><td>+9.2</td><td>-20.9</td></tr><tr><td>New Orleans Pelicans</td><td>2023-24</td><td>+4.6</td><td>-16.2</td><td>+7.3</td><td>-12.0</td></tr><tr><td>Atlanta Hawks</td><td>2025-26</td><td>+2.2</td><td>-18.1</td><td>+6.4</td><td>-11.0</td></tr></tbody></table></div>
         <p style="margin-top:0.9rem;">All 80 playoff runs are sortable in the <a href="#xp-teams-playoff">team tables</a>.</p>
       </div>
@@ -91,12 +91,12 @@
 
       <div class="case-block reveal">
         <span class="sublabel">What the results mean</span>
-        <p>For a front office in March, the supported use is diagnosis rather than forecasting. The two surviving features indicate which regular season records overstate their teams, nothing at the style level predicted translation, and at this sample size the best available playoff forecast remains the record and the schedule. Both halves of that sentence are findings, and the study demonstrates each directly.</p>
+        <p>For a front office in March, the supported use is diagnosis rather than forecasting. The two surviving features indicate which regular season records overstate their teams, nothing at the style level predicted translation, and at this sample size the best available playoff forecast remains the record and the schedule. Both halves of that sentence are findings, and the analysis demonstrates each directly.</p>
       </div>
 
       <div class="case-block reveal">
         <span class="sublabel">What the adversarial review changed</span>
-        <p>The review caught an interpretation error in the baseline: a slope of 1.56 had been described as the playoffs amplifying quality gaps. Decomposed, the slope is exactly the correlation times the ratio of standard deviations, 0.574 times 2.72, driven by noisier playoff outcomes and range restriction among qualifiers (the qualifier pool's spread is 2.92 against the league's 5.31). A compounding mechanism may exist, but nothing in the fit identifies it, and the study now says so. Permutation p-values also moved to the finite-sample estimator.</p>
+        <p>The review caught an interpretation error in the baseline: a slope of 1.56 had been described as the playoffs amplifying quality gaps. Decomposed, the slope is exactly the correlation times the ratio of standard deviations, 0.574 times 2.72, driven by noisier playoff outcomes and range restriction among qualifiers (the qualifier pool's spread is 2.92 against the league's 5.31). A compounding mechanism may exist, but nothing in the fit identifies it, and the analysis now says so. Permutation p-values also moved to the finite-sample estimator.</p>
       </div>
 
       <div class="case-block reveal">
@@ -120,7 +120,7 @@
         </div>
       </details>
 
-      <p class="fineprint">Built on five seasons (2021-22 through 2025-26) of NBA Stats dashboard data compiled into a local SQLite database of 97 tables. All six research studies run against the same database. Every number quoted is generated by the notebook's own executed code, deterministically seeded, and re-verified from a clean environment. Notebooks available by email.</p>
+      <p class="fineprint">Built on five seasons (2021-22 through 2025-26) of NBA Stats dashboard data compiled into a local SQLite database of 97 tables. All six research analyses run against the same database. Every number quoted is generated by the notebook's own executed code, deterministically seeded, and re-verified from a clean environment. Notebooks available by email.</p>
       <p class="reveal" style="margin-top:1.4rem;"><a class="btn btn-primary" href="#xp-teams-playoff">Sort every playoff run</a> <a class="btn btn-ghost" href="research.html">Back to all research</a></p>
     </div>
   </article>

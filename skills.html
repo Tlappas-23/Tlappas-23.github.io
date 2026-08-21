@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
   Capabilities page. Organized around what the work demonstrates, not a
-  tag cloud: four groups, each pointing at the projects and studies where
+  tag cloud: four groups, each pointing at the projects and analyses where
   the capability is shown. The full tool inventory keeps its old grouping
   one click deep, inside the disclosure at the bottom.
 -->
@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Capabilities of Thomas Lappas, each anchored to the project or research study where it is demonstrated: modeling and statistics, evaluation and reliability, analytics engineering, and software and product development.">
+<meta name="description" content="Capabilities of Thomas Lappas, each anchored to the project or analysis where it is demonstrated: modeling and statistics, evaluation and reliability, analytics engineering, and software and product development.">
 <meta property="og:title" content="Capabilities · Thomas Lappas">
 <meta property="og:description" content="Four capability groups, each anchored to the work where it is demonstrated, with the full tool inventory one click deep.">
 <meta property="og:type" content="website">
@@ -41,24 +41,24 @@
     <div class="page-head">
       <span class="label">Capabilities</span>
       <h1>What I can do, and where I demonstrated it</h1>
-      <p class="dek">No skill bars and no percentages. Each group below names the projects and studies where the capability is actually shown, because a claim without a receipt is a slogan. The complete tool inventory sits at the bottom for anyone who wants the full list.</p>
+      <p class="dek">No skill bars and no percentages. Each group below names the projects and analyses where the capability is actually shown, because a claim without a receipt is a slogan. The complete tool inventory sits at the bottom for anyone who wants the full list.</p>
     </div>
 
     <div class="cap-page-group reveal">
       <h2>Modeling and statistics</h2>
-      <p>Bayesian hierarchical modeling with a hand-rolled, all-conjugate Gibbs sampler in the <a href="project-scouting-board.html">International Scouting Board</a>. Calibrated gradient boosting with era-split evaluation in <a href="project-prospectiq.html">ProspectIQ</a>, where isotonic calibration makes a 30% probability mean 30%. Permutation inference, empirical Bayes shrinkage, and reliability analysis throughout the <a href="research.html">research suite</a>, including a study whose central finding is that its own target is unmeasurable noise.</p>
+      <p>Bayesian hierarchical modeling with a hand-rolled, all-conjugate Gibbs sampler in the <a href="project-scouting-board.html">International Scouting Board</a>. Calibrated gradient boosting with era-split evaluation in <a href="project-prospectiq.html">ProspectIQ</a>, where isotonic calibration makes a 30% probability mean 30%. Permutation inference, empirical Bayes shrinkage, and reliability analysis throughout the <a href="research.html">research suite</a>, including one analysis whose central finding is that its own target is unmeasurable noise.</p>
       <p class="cap-tools">Python · XGBoost · scikit-learn · statsmodels · SHAP · Gibbs sampling · empirical Bayes · Gaussian mixtures · logistic regression</p>
     </div>
 
     <div class="cap-page-group reveal">
       <h2>Evaluation and reliability</h2>
-      <p>Designs that prevent the evaluation from cheating: leakage-free pre-tipoff features in the <a href="project-schedule-analysis.html">schedule analysis</a>, era splits with SMOTE confined to training folds in <a href="project-prospectiq.html">ProspectIQ</a>, feature selection nested inside validation folds in the <a href="research-playoff-translation.html">playoff study</a>, and a temporally firewalled verdict set in the <a href="research-style-embeddings.html">embeddings study</a>. The research suite also went through an adversarial review pass that weakened three of my own headline claims, which are published in their corrected form.</p>
+      <p>Designs that prevent the evaluation from cheating: leakage-free pre-tipoff features in the <a href="project-schedule-analysis.html">schedule analysis</a>, era splits with SMOTE confined to training folds in <a href="project-prospectiq.html">ProspectIQ</a>, feature selection nested inside validation folds in the <a href="research-playoff-translation.html">playoff translation analysis</a>, and a temporally firewalled verdict set in the <a href="research-style-embeddings.html">embeddings analysis</a>. The research suite also went through an adversarial review pass that weakened three of my own headline claims, which are published in their corrected form.</p>
       <p class="cap-tools">out-of-sample and era-split designs · permutation testing · calibration · baseline benchmarking · block bootstraps · power analysis</p>
     </div>
 
     <div class="cap-page-group reveal">
       <h2>Analytics engineering</h2>
-      <p>A 97-table research database with an explicit provenance rule that no notebook may ingest its own outputs. An 860-column feature space whittled to 428 in the <a href="research-player-trajectory.html">trajectory study</a>, with every drop documented and the two worst normalization hazards caught by the study&#x27;s own outlier analysis. Every number on this site regenerates deterministically from raw data, and the research notebooks were re-executed from a clean environment before publication.</p>
+      <p>A 97-table research database with an explicit provenance rule that no notebook may ingest its own outputs. An 860-column feature space whittled to 428 in the <a href="research-player-trajectory.html">trajectory analysis</a>, with every drop documented and the two worst normalization hazards caught by its own outlier screening. Every number on this site regenerates deterministically from raw data, and the research notebooks were re-executed from a clean environment before publication.</p>
       <p class="cap-tools">SQL · pandas · NumPy · deterministic pipelines · schema reconciliation · data quality guardrails · feature snapshots</p>
     </div>
 
@@ -85,7 +85,7 @@
       <div class="skill-group reveal">
         <h2>Statistics &amp; Validation</h2>
         <div class="chips"><span class="chip">Bayesian hierarchical models</span><span class="chip">Gibbs sampling</span><span class="chip">Permutation testing</span><span class="chip">Empirical Bayes</span><span class="chip">Leave-one-out CV</span><span class="chip">Leave-one-season-out CV</span><span class="chip">Fold-identical CV</span><span class="chip">Baseline benchmarking</span><span class="chip">Calibration</span><span class="chip">statsmodels</span></div>
-        <p class="used-in">Scouting Board · Schedule Analysis · Conference Study · ProspectIQ</p>
+        <p class="used-in">Scouting Board · Schedule Analysis · Conference Imbalance · ProspectIQ</p>
       </div>
       <div class="skill-group reveal">
         <h2>Data Engineering</h2>

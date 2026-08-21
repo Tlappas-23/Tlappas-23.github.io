@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  Bench Usage and Team Success. Part of the research section: six studies on one
+  Bench Usage and Team Success. Part of the research section: six analyses on one
   NBA database, each with its own page, all sharing one validation standard.
   Styles are shared in assets/style.css; header and footer match every
   other page so navigation never moves under the reader.
@@ -9,9 +9,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Does leaning on your bench cost games? A confound-controlled study of 150 NBA team-seasons: the raw penalty is a starter-quality artifact, and efficiency is the bench trait that survives every control.">
+<meta name="description" content="Does leaning on your bench cost games? A confound-controlled analysis of 150 NBA team-seasons: the raw penalty is a starter-quality artifact, and efficiency is the bench trait that survives every control.">
 <meta property="og:title" content="Bench Usage and Team Success · Thomas Lappas">
-<meta property="og:description" content="Does leaning on your bench cost games? A confound-controlled study of 150 NBA team-seasons: the raw penalty is a starter-quality artifact, and efficiency is the bench trait that survives every control.">
+<meta property="og:description" content="Does leaning on your bench cost games? A confound-controlled analysis of 150 NBA team-seasons: the raw penalty is a starter-quality artifact, and efficiency is the bench trait that survives every control.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://tlappas-23.github.io/research-bench-usage.html">
 <meta property="og:image" content="https://tlappas-23.github.io/assets/og-image.png">
@@ -45,21 +45,21 @@
         <a class="repo-link" href="mailto:thomas.lappas1010@gmail.com?subject=Access%20request%3A%20NBA%20research%20notebooks">Notebook · email for access</a>
       </div>
       <h1 class="reveal">Bench Usage and Team Success</h1>
-      <p class="dek reveal">Front offices argue about whether a heavy bench is a weakness and whether a designated bench scorer is worth paying for. <strong>Bench statistics are confounded by the starters in front of them</strong>, so this study refuses every raw correlation until it has been re-estimated with starter quality partialled out, with permutation p-values and a Holm correction pricing in every test that was run.</p>
+      <p class="dek reveal">Front offices argue about whether a heavy bench is a weakness and whether a designated bench scorer is worth paying for. <strong>Bench statistics are confounded by the starters in front of them</strong>, so this analysis refuses every raw correlation until it has been re-estimated with starter quality partialled out, with permutation p-values and a Holm correction pricing in every test that was run.</p>
 
       <div class="qa reveal">
         <p class="q">Does relying on your bench cost you games?</p>
         <p class="a"><strong>The raw answer is yes and the controlled answer is no.</strong> Bench scoring share correlates with team net rating at -0.386 across 150 team-seasons, but the association collapses to +0.083 once starter quality is held fixed: bad starters cause both the losing and the bench reliance. What survives the control is bench efficiency (+0.225 partial) and a hustle-based effort index (+0.235), while the designated-bench-scorer share is null at all three thresholds tested.</p>
       </div>
 
-      <div class="summary-strip reveal" aria-label="Study summary"><div><span class="k">Question</span><span class="v">Does leaning on your bench cost games?</span></div><div><span class="k">Data</span><span class="v">150 team-seasons across five NBA seasons</span></div><div><span class="k">Method</span><span class="v">Permutation inference with starter quality partialled out; franchise block bootstrap</span></div><div><span class="k">Result</span><span class="v"><strong>The raw penalty is a starter artifact</strong>; efficiency (+0.225) and effort (+0.235) survive the control</span></div></div>
+      <div class="summary-strip reveal" aria-label="Analysis summary"><div><span class="k">Question</span><span class="v">Does leaning on your bench cost games?</span></div><div><span class="k">Data</span><span class="v">150 team-seasons across five NBA seasons</span></div><div><span class="k">Method</span><span class="v">Permutation inference with starter quality partialled out; franchise block bootstrap</span></div><div><span class="k">Result</span><span class="v"><strong>The raw penalty is a starter artifact</strong>; efficiency (+0.225) and effort (+0.235) survive the control</span></div></div>
 
       <div class="case-block reveal">
         <span class="sublabel">Overview</span>
         <p>Five regular seasons, 150 team-seasons, one discipline: the two confounds are named before any result. Good starters shrink the bench's role while winning games, and good teams generate garbage time that inflates bench minutes in wins. Every headline correlation is re-tested as a partial correlation against starter net rating, significance comes from 10,000-shuffle permutation tests with a finite-sample estimator, seven tests on the same rows are Holm-corrected, and both surviving findings face a franchise cluster bootstrap that resamples all five of a franchise's seasons together, because 150 rows from 30 franchises are not 150 independent facts.</p>
       </div>
       <div class="case-block reveal">
-        <span class="sublabel">The study and its data</span>
+        <span class="sublabel">The analysis and its data</span>
         <p>Three questions: does bench share correlate with winning, does the structure of bench usage matter (low-usage role players versus bench scorers who need the ball), and can bench quality be measured without traditional production statistics at all? The starter and bench splits use the league's own per-game definition of who started, which counts a player traded into a starting job correctly on both sides where a minutes heuristic would misclassify him. One data trap handled explicitly: the advanced player table's minutes column is per-game even in totals mode, so true bench minutes are joined from the base table and used as the aggregation weights.</p>
       </div>
       <div class="case-block reveal">
@@ -73,7 +73,7 @@
 
       <figure class="reveal">
         <div class="fig-panel"><img src="assets/research-bench-usage.png" alt="Dumbbell chart of five bench measures: raw correlations with team net rating versus starter-controlled partials. The share and usage measures collapse from strongly negative to near zero; true shooting holds at +0.22 and the effort index at +0.24 under the control." width="1604" height="853" loading="lazy"></div>
-        <figcaption>Generated output: the study's headline in one view, computed from the deployed team_bench_metrics table. Gray is the raw correlation across 150 team-seasons; orange is the same relationship with starter net rating partialled out. The apparent bench penalty collapses; efficiency and effort survive.</figcaption>
+        <figcaption>Generated output: the headline result in one view, computed from the deployed team_bench_metrics table. Gray is the raw correlation across 150 team-seasons; orange is the same relationship with starter net rating partialled out. The apparent bench penalty collapses; efficiency and effort survive.</figcaption>
       </figure>
 
       <div class="case-block reveal">
@@ -83,13 +83,13 @@
 
       <section class="xp-section" id="xp-teams-bench" hidden>
         <h3 style="font-size:1.15rem;font-weight:700;">Sort every bench profile</h3>
-        <p class="xp-note">All 150 team-seasons with starter net rating alongside, because the study's central finding is that raw bench numbers mislead without it. Default sort is the effort index; click any header to re-sort.</p>
+        <p class="xp-note">All 150 team-seasons with starter net rating alongside, because the central finding is that raw bench numbers mislead without it. Default sort is the effort index; click any header to re-sort.</p>
         <div class="xp-wrap" id="teams-bench-body"></div>
       </section>
 
       <div class="case-block reveal">
         <span class="sublabel">What the results mean</span>
-        <p>For roster construction at the margin, the evidence supports weighting bench efficiency first and non-scoring energy second, treating bench usage appetite as irrelevant, and treating the bench-scorer archetype as unsupported in this window. These are associations that survive the stated controls, not levers proven to cause winning: part of measured bench efficiency travels with the starters who create the looks, and the study says exactly where that exposure lives.</p>
+        <p>For roster construction at the margin, the evidence supports weighting bench efficiency first and non-scoring energy second, treating bench usage appetite as irrelevant, and treating the bench-scorer archetype as unsupported in this window. These are associations that survive the stated controls, not levers proven to cause winning: part of measured bench efficiency travels with the starters who create the looks, and the analysis says exactly where that exposure lives.</p>
       </div>
 
       <div class="case-block reveal">
@@ -118,7 +118,7 @@
         </div>
       </details>
 
-      <p class="fineprint">Built on five seasons (2021-22 through 2025-26) of NBA Stats dashboard data compiled into a local SQLite database of 97 tables. All six research studies run against the same database. Every number quoted is generated by the notebook's own executed code, deterministically seeded, and re-verified from a clean environment. Notebooks available by email.</p>
+      <p class="fineprint">Built on five seasons (2021-22 through 2025-26) of NBA Stats dashboard data compiled into a local SQLite database of 97 tables. All six research analyses run against the same database. Every number quoted is generated by the notebook's own executed code, deterministically seeded, and re-verified from a clean environment. Notebooks available by email.</p>
       <p class="reveal" style="margin-top:1.4rem;"><a class="btn btn-primary" href="#xp-teams-bench">Sort every bench profile</a> <a class="btn btn-ghost" href="research.html">Back to all research</a></p>
     </div>
   </article>

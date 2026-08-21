@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  Clutch Minutes and Bench Value. Part of the research section: six studies on one
+  Clutch Minutes and Bench Value. Part of the research section: six analyses on one
   NBA database, each with its own page, all sharing one validation standard.
   Styles are shared in assets/style.css; header and footer match every
   other page so navigation never moves under the reader.
@@ -45,14 +45,14 @@
         <a class="repo-link" href="mailto:thomas.lappas1010@gmail.com?subject=Access%20request%3A%20NBA%20research%20notebooks">Notebook · email for access</a>
       </div>
       <h1 class="reveal">Clutch Minutes and Bench Value</h1>
-      <p class="dek reveal">Which bench players earn minutes when the game is tight, and which perform once they are out there? The two halves of that question get opposite answers. <strong>Before modeling anything, this study tests whether clutch performance is measurable at all</strong>, and the reliability gate it builds ends up being the finding.</p>
+      <p class="dek reveal">Which bench players earn minutes when the game is tight, and which perform once they are out there? The two halves of that question get opposite answers. <strong>Before modeling anything, this analysis tests whether clutch performance is measurable at all</strong>, and the reliability gate it builds ends up being the finding.</p>
 
       <div class="qa reveal">
         <p class="q">Which bench players are clutch?</p>
         <p class="a"><strong>The data can tell you who is trusted; it cannot tell you who performs.</strong> A bench player's whole clutch season is a median of 46 possessions. Clutch shooting and clutch net rating repeat year over year at +0.03 and -0.05, statistically nothing, and a variance decomposition puts the true-skill share of clutch net rating at 0.1 percent. Coach trust is the half that exists: how much a coach promotes a bench player in the clutch repeats at +0.34, and it is predicted by age and passing, not by shooting.</p>
       </div>
 
-      <div class="summary-strip reveal" aria-label="Study summary"><div><span class="k">Question</span><span class="v">Which bench players are clutch, and is that even measurable?</span></div><div><span class="k">Data</span><span class="v">871 bench player-seasons; a median of 46 clutch possessions each</span></div><div><span class="k">Method</span><span class="v">Reliability gate, variance decomposition, Holm-corrected screen, player-clustered bootstrap</span></div><div><span class="k">Result</span><span class="v"><strong>Clutch performance is noise in this data</strong>; coach trust repeats (+0.34) and is predicted by age and passing</span></div></div>
+      <div class="summary-strip reveal" aria-label="Analysis summary"><div><span class="k">Question</span><span class="v">Which bench players are clutch, and is that even measurable?</span></div><div><span class="k">Data</span><span class="v">871 bench player-seasons; a median of 46 clutch possessions each</span></div><div><span class="k">Method</span><span class="v">Reliability gate, variance decomposition, Holm-corrected screen, player-clustered bootstrap</span></div><div><span class="k">Result</span><span class="v"><strong>Clutch performance is noise in this data</strong>; coach trust repeats (+0.34) and is predicted by age and passing</span></div></div>
 
       <div class="case-block reveal">
         <span class="sublabel">Overview</span>
@@ -73,12 +73,12 @@
 
       <figure class="reveal">
         <div class="fig-panel"><img src="assets/research-bench-clutch.png" alt="Two panels. Left: grouped bars of clutch net rating quartiles, season one from -24 to +23, the same players in season two from -6 to 0. Right: year-over-year reliability bars; usage +0.80, true shooting +0.58, on-court net +0.43, clutch trust +0.34, clutch shooting +0.02, clutch net rating -0.05." width="1833" height="799" loading="lazy"></div>
-        <figcaption>Generated output: the reliability gate, computed from the study's full 871-player-season frame. Ordinary skills repeat, coach trust repeats, and clutch results do not: 81 percent of the best-versus-worst clutch gap is gone one season later.</figcaption>
+        <figcaption>Generated output: the reliability gate, computed from the full 871-player-season frame. Ordinary skills repeat, coach trust repeats, and clutch results do not: 81 percent of the best-versus-worst clutch gap is gone one season later.</figcaption>
       </figure>
 
       <div class="case-block reveal">
         <span class="sublabel">Most and least trusted, named</span>
-        <p>The measure's face-validity check, named. The most-trusted list is a roll call of recognized closers; the least-trusted list is the more revealing one, disproportionately specialist shooters and young scorers their coaches remove when the game tightens, which previews the study's finding that nothing in a shooting profile predicts clutch promotion.</p>
+        <p>The measure's face-validity check, named. The most-trusted list is a roll call of recognized closers; the least-trusted list is the more revealing one, disproportionately specialist shooters and young scorers their coaches remove when the game tightens, which previews the finding that nothing in a shooting profile predicts clutch promotion.</p>
         <div class="fig-grid" style="margin-top:0.9rem;">
           <div class="xp-wrap"><p style="font-weight:600;margin-bottom:0.4rem;">Largest clutch lift</p><table class='xp-table'><thead><tr><th>Player</th><th>Season</th><th><span data-tip="Clutch lift: share of team clutch minutes minus share of ordinary minutes. Positive means the coach promotes this player when the game is tight.">Lift</span></th></tr></thead><tbody><tr><td>De'Andre Hunter</td><td>2024-25</td><td>+0.097</td></tr><tr><td>Russell Westbrook</td><td>2022-23</td><td>+0.076</td></tr><tr><td>Bennedict Mathurin</td><td>2025-26</td><td>+0.070</td></tr><tr><td>Lonzo Ball</td><td>2024-25</td><td>+0.059</td></tr><tr><td>Malik Monk</td><td>2023-24</td><td>+0.052</td></tr><tr><td>Larry Nance Jr.</td><td>2022-23</td><td>+0.050</td></tr></tbody></table></div>
           <div class="xp-wrap"><p style="font-weight:600;margin-bottom:0.4rem;">Largest clutch benching</p><table class='xp-table'><thead><tr><th>Player</th><th>Season</th><th><span data-tip="Clutch lift: share of team clutch minutes minus share of ordinary minutes. Negative means the coach removes this player when the game is tight.">Lift</span></th></tr></thead><tbody><tr><td>Shaedon Sharpe</td><td>2022-23</td><td>-0.075</td></tr><tr><td>Jordan Clarkson</td><td>2021-22</td><td>-0.070</td></tr><tr><td>Payton Pritchard</td><td>2023-24</td><td>-0.069</td></tr><tr><td>Sam Hauser</td><td>2023-24</td><td>-0.066</td></tr><tr><td>Jalen Wilson</td><td>2024-25</td><td>-0.058</td></tr><tr><td>Sam Merrill</td><td>2024-25</td><td>-0.058</td></tr></tbody></table></div>
@@ -104,7 +104,7 @@
 
       <div class="case-block reveal">
         <span class="sublabel">Limitations</span>
-        <p>The reliability findings concern bench players specifically; high-minute stars accumulate enough clutch possessions that their clutch measures may carry more signal, an extension this study does not test. Clutch lift records what a coach did, not whether it was correct: a player with negative lift may be a matchup casualty. Age is a compound of experience, contract status, and reputation, none separable here. The power analysis is explicit that this design cannot grade coaching decisions, because the outcome measure is too noisy to grade anything with.</p>
+        <p>The reliability findings concern bench players specifically; high-minute stars accumulate enough clutch possessions that their clutch measures may carry more signal, an extension this analysis does not test. Clutch lift records what a coach did, not whether it was correct: a player with negative lift may be a matchup casualty. Age is a compound of experience, contract status, and reputation, none separable here. The power analysis is explicit that this design cannot grade coaching decisions, because the outcome measure is too noisy to grade anything with.</p>
       </div>
 
       <details class="deep reveal">
@@ -113,7 +113,7 @@
           <h3>Technical highlights</h3>
           <ul><li>Reliability before interpretation: no clutch measure is used as a player attribute until it repeats year over year, and the two that fail the gate are retired from the analysis rather than modeled.</li><li>Two independent methods agree on the central null: year-over-year correlation near zero, and a variance decomposition that regresses squared deviations on inverse possessions to split spread into skill and noise.</li><li>Clutch lift subtracts a player's ordinary role, so the trust measure cannot be gamed by minutes volume; its face validity check surfaces recognized closers at the top and benched specialists at the bottom.</li><li>Both validation schemes reported side by side with distinct interpretations: season-holdout for projecting known players, player-grouped for evaluating unfamiliar targets.</li></ul>
           <h3>Key decisions</h3>
-          <dl class="decisions"><dt>Why lead with a reliability gate instead of a model?</dt><dd>Because a median of 46 possessions cannot distinguish a good player from a lucky one, and any model trained on that target would rank luck. Proving the target is noise is the study's most decision-relevant output.</dd><dt>Why exclude clutch statistics from the deployed score?</dt><dd>The gate showed there is nothing in them to weight. The composite uses only measures that repeat: trust, ordinary efficiency, and on-court impact.</dd></dl>
+          <dl class="decisions"><dt>Why lead with a reliability gate instead of a model?</dt><dd>Because a median of 46 possessions cannot distinguish a good player from a lucky one, and any model trained on that target would rank luck. Proving the target is noise is the most decision-relevant output here.</dd><dt>Why exclude clutch statistics from the deployed score?</dt><dd>The gate showed there is nothing in them to weight. The composite uses only measures that repeat: trust, ordinary efficiency, and on-court impact.</dd></dl>
           <h3>Technology stack</h3>
           <div class="stack-rows">
             <div class="stack-row"><span class="k">Languages</span><span class="v">Python, SQL (SQLite)</span></div>
@@ -123,7 +123,7 @@
         </div>
       </details>
 
-      <p class="fineprint">Built on five seasons (2021-22 through 2025-26) of NBA Stats dashboard data compiled into a local SQLite database of 97 tables. All six research studies run against the same database. Every number quoted is generated by the notebook's own executed code, deterministically seeded, and re-verified from a clean environment. Notebooks available by email.</p>
+      <p class="fineprint">Built on five seasons (2021-22 through 2025-26) of NBA Stats dashboard data compiled into a local SQLite database of 97 tables. All six research analyses run against the same database. Every number quoted is generated by the notebook's own executed code, deterministically seeded, and re-verified from a clean environment. Notebooks available by email.</p>
       <p class="reveal" style="margin-top:1.4rem;"><a class="btn btn-primary" href="#xp-clutch">Sort every bench player</a> <a class="btn btn-ghost" href="research.html">Back to all research</a></p>
     </div>
   </article>

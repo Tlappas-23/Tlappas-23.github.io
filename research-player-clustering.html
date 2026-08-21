@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  Player Role Lenses. Part of the research section: six studies on one
+  Player Role Lenses. Part of the research section: six analyses on one
   NBA database, each with its own page, all sharing one validation standard.
   Styles are shared in assets/style.css; header and footer match every
   other page so navigation never moves under the reader.
@@ -45,21 +45,21 @@
         <a class="repo-link" href="mailto:thomas.lappas1010@gmail.com?subject=Access%20request%3A%20NBA%20research%20notebooks">Notebook · email for access</a>
       </div>
       <h1 class="reveal">Player Role Lenses</h1>
-      <p class="dek reveal">A single all-purpose player clustering compresses everything a player is into one label. This study clusters the same 1,350 player-seasons through four independent lenses instead, so a player becomes a coordinate: shot diet, defensive job, scoring profile, playmaking tier. <strong>Cluster counts are selected against separation, density, and player-block bootstrap stability at once</strong>, and the defensive lens is checked against an outcome measure it never saw.</p>
+      <p class="dek reveal">A single all-purpose player clustering compresses everything a player is into one label. This analysis clusters the same 1,350 player-seasons through four independent lenses instead, so a player becomes a coordinate: shot diet, defensive job, scoring profile, playmaking tier. <strong>Cluster counts are selected against separation, density, and player-block bootstrap stability at once</strong>, and the defensive lens is checked against an outcome measure it never saw.</p>
 
       <div class="qa reveal">
         <p class="q">What is this player? One label cannot say.</p>
         <p class="a"><strong>Four nearly independent answers per player.</strong> Cross-lens agreement tops out at 0.168 adjusted Rand, so shot diet, defensive job, scoring profile, and playmaking tier are close to orthogonal dimensions. The league's most unusual profiles become expressible: an interior-touch big who is simultaneously a primary creator and a primary scorer, with a fit score that flags his defensive assignment as a genuine boundary case instead of forcing a clean label.</p>
       </div>
 
-      <div class="summary-strip reveal" aria-label="Study summary"><div><span class="k">Question</span><span class="v">What is a player&#x27;s role, asked four independent ways?</span></div><div><span class="k">Data</span><span class="v">1,350 player-seasons, 27 engineered features</span></div><div><span class="k">Method</span><span class="v">KMeans per lens; player-block stability selection; external check against defensive win shares</span></div><div><span class="k">Result</span><span class="v"><strong>Four near-independent lenses</strong> (max agreement 0.168); three clear the stability bar, one downgraded</span></div></div>
+      <div class="summary-strip reveal" aria-label="Analysis summary"><div><span class="k">Question</span><span class="v">What is a player&#x27;s role, asked four independent ways?</span></div><div><span class="k">Data</span><span class="v">1,350 player-seasons, 27 engineered features</span></div><div><span class="k">Method</span><span class="v">KMeans per lens; player-block stability selection; external check against defensive win shares</span></div><div><span class="k">Result</span><span class="v"><strong>Four near-independent lenses</strong> (max agreement 0.168); three clear the stability bar, one downgraded</span></div></div>
 
       <div class="case-block reveal">
         <span class="sublabel">Overview</span>
         <p>Every player-season with 1,000-plus minutes across five seasons, described by 27 engineered features and clustered four ways with KMeans, with Gaussian-mixture BIC and silhouette as selection evidence and a bootstrap that resamples players as blocks, all seasons of a sampled player moving together, because the same player's seasons are near-duplicates and row-level resampling flatters stability. Each lens replicates when refit on single seasons in isolation, every player carries a per-lens fit score so hybrids are visible, and rim defense runs through empirical Bayes shrinkage so no guard is labeled by a 45-attempt rim percentage.</p>
       </div>
       <div class="case-block reveal">
-        <span class="sublabel">The study and its data</span>
+        <span class="sublabel">The analysis and its data</span>
         <p>The use case is role identification for scouting: a trade target is acquired for a role, not a rating. Ten tables join into the pool with one-row-per-player-season assertions guarding every merge. Features are per-36 rates and opportunity-adjusted shares, power-transformed within each season so a cluster means the same thing in 2021-22 as in 2025-26 even as league behavior drifts, and every feature also gets a within-season percentile so any player-season reads as a profile independent of the labels.</p>
       </div>
       <div class="case-block reveal">
@@ -78,7 +78,7 @@
 
       <div class="case-block reveal">
         <span class="sublabel">Named exemplars, straight from the fitted clusters</span>
-        <p>The players nearest each cluster centre, printed by the study from the fitted solutions. They are the face-validity check a role label has to pass: each list should read as a recognizable basketball type, and the study's most unusual case, an interior-touch big assigned Perimeter Disruptor with a near-zero fit score, is flagged as a boundary hybrid rather than forced into a clean label.</p>
+        <p>The players nearest each cluster centre, printed by the analysis from the fitted solutions. They are the face-validity check a role label has to pass: each list should read as a recognizable basketball type, and the most unusual case in the sample, an interior-touch big assigned Perimeter Disruptor with a near-zero fit score, is flagged as a boundary hybrid rather than forced into a clean label.</p>
         <dl class="decisions" style="margin-top:0.9rem;"><dt>Shot diet: Pull-Up Creators</dt><dd>Terry Rozier, Tyler Herro, Cole Anthony</dd><dt>Shot diet: Downhill Attackers</dt><dd>LeBron James, Jaylen Brown, Jalen Johnson</dd><dt>Shot diet: Spot-Up Shooters</dt><dd>Jose Alvarado, Luguentz Dort, Grayson Allen</dd><dt>Shot diet: Rim Runners</dt><dd>Kevon Looney, Drew Eubanks, Onyeka Okongwu</dd><dt>Shot diet: Post-and-Pop Bigs</dt><dd>John Collins, Myles Turner, Santi Aldama</dd><dt>Shot diet: Low-Volume Connectors</dt><dd>Caleb Martin, Naji Marshall, Jaden McDaniels</dd><dt>Defense: Interior Anchors</dt><dd>Naz Reid, P.J. Washington, Wendell Carter Jr.</dd><dt>Defense: Low-Event Defenders</dt><dd>Mikal Bridges (BKN season), Malik Monk, Cameron Johnson</dd><dt>Defense: Perimeter Disruptors</dt><dd>OG Anunoby, Alex Caruso, Marcus Smart, Dyson Daniels</dd><dt>Scoring: Low-Usage Efficient</dt><dd>Clint Capela, Nic Claxton</dd><dt>Scoring: Minimal Load</dt><dd>Jae Crowder, Kenrich Williams</dd><dt>Scoring: Inefficient Secondary</dt><dd>Tim Hardaway Jr., Tobias Harris, Cedi Osman</dd><dt>Scoring: Primary Scorers</dt><dd>Devin Booker, Pascal Siakam, Anthony Davis</dd><dt>Playmaking: Primary Creators</dt><dd>De'Aaron Fox, Kyrie Irving, CJ McCollum</dd><dt>Playmaking: Play Finishers</dt><dd>Doug McDermott, Corey Kispert, Guerschon Yabusele</dd><dt>Playmaking: Connectors</dt><dd>Miles Bridges, Jerami Grant, Keldon Johnson</dd></dl>
         <p>Every player-season and its fit score is browsable in the <a href="#xp-roles">role explorer</a>.</p>
       </div>
@@ -105,7 +105,7 @@
 
       <div class="case-block reveal">
         <span class="sublabel">What the adversarial review changed</span>
-        <p>The review found that the stability bootstrap resampled rows despite players repeating up to five times, which overstates stability. Corrected to a player-block bootstrap, three of the four chosen solutions still clear the pre-registered 0.85 bar (defense 0.919, playmaking 0.946, shot diet 0.882), and one does not: the scoring lens falls to 0.836 and is downgraded in the study from stable structure to the most informative descriptive partition of the volume-efficiency plane. The review also prompted the fit-conditioned transition analysis, which reframed role churn: much of the raw change rate is boundary flicker the fit scores already flag.</p>
+        <p>The review found that the stability bootstrap resampled rows despite players repeating up to five times, which overstates stability. Corrected to a player-block bootstrap, three of the four chosen solutions still clear the pre-registered 0.85 bar (defense 0.919, playmaking 0.946, shot diet 0.882), and one does not: the scoring lens falls to 0.836 and is downgraded in the analysis from stable structure to the most informative descriptive partition of the volume-efficiency plane. The review also prompted the fit-conditioned transition analysis, which reframed role churn: much of the raw change rate is boundary flicker the fit scores already flag.</p>
       </div>
 
       <div class="case-block reveal">
@@ -119,7 +119,7 @@
           <h3>Technical highlights</h3>
           <ul><li>Selection against three criteria at once: silhouette separation, Gaussian-mixture BIC, and player-block bootstrap stability, with the selection rule fixed before looking.</li><li>Empirical Bayes rim shrinkage with the constant estimated from a variance decomposition: a player's rim percentage is trusted half-and-half against league average at about 60 defended attempts.</li><li>Per-player fit scores from per-point silhouettes, so hard assignment never hides a hybrid: fewer than 2 percent of players sit closer to a neighboring cluster than their own.</li><li>The external check is run twice, raw and within-team demeaned, because defensive win shares correlate with team defensive quality at -0.83 and the naive version could be an illusion of roster quality.</li></ul>
           <h3>Key decisions</h3>
-          <dl class="decisions"><dt>Why four clusterings instead of one?</dt><dd>Because roles are not one thing, and the data agrees: the four assignments agree with each other barely above chance. One clustering would average four independent dimensions into a blur.</dd><dt>Why keep a scoring solution that missed the stability bar?</dt><dd>Because the quadrant structure is the most informative description of the volume-efficiency plane even if its boundaries move under resampling. The study reports it as descriptive, which is what the evidence supports, rather than dropping it or overselling it.</dd></dl>
+          <dl class="decisions"><dt>Why four clusterings instead of one?</dt><dd>Because roles are not one thing, and the data agrees: the four assignments agree with each other barely above chance. One clustering would average four independent dimensions into a blur.</dd><dt>Why keep a scoring solution that missed the stability bar?</dt><dd>Because the quadrant structure is the most informative description of the volume-efficiency plane even if its boundaries move under resampling. The analysis reports it as descriptive, which is what the evidence supports, rather than dropping it or overselling it.</dd></dl>
           <h3>Technology stack</h3>
           <div class="stack-rows">
             <div class="stack-row"><span class="k">Languages</span><span class="v">Python, SQL (SQLite)</span></div>
@@ -129,7 +129,7 @@
         </div>
       </details>
 
-      <p class="fineprint">Built on five seasons (2021-22 through 2025-26) of NBA Stats dashboard data compiled into a local SQLite database of 97 tables. All six research studies run against the same database. Every number quoted is generated by the notebook's own executed code, deterministically seeded, and re-verified from a clean environment. Notebooks available by email.</p>
+      <p class="fineprint">Built on five seasons (2021-22 through 2025-26) of NBA Stats dashboard data compiled into a local SQLite database of 97 tables. All six research analyses run against the same database. Every number quoted is generated by the notebook's own executed code, deterministically seeded, and re-verified from a clean environment. Notebooks available by email.</p>
       <p class="reveal" style="margin-top:1.4rem;"><a class="btn btn-primary" href="#xp-roles">Browse every player by role</a> <a class="btn btn-ghost" href="research.html">Back to all research</a></p>
     </div>
   </article>
