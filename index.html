@@ -1,7 +1,8 @@
 <!doctype html>
 <!--
-  Home page. Its job is to answer "why hire me" in one screen:
-  who I am, how I work, and five case studies that back it up.
+  Home page. Its job is orientation in ten seconds: who I am, the two
+  strongest pieces of evidence, and where to go next. Everything below
+  the featured projects is supporting material, deliberately quieter.
   Styles are shared in assets/style.css; every page carries the same
   header and footer so navigation never moves under the reader.
 -->
@@ -9,16 +10,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Portfolio of Thomas Lappas: validated predictive models, statistical analysis, and production data systems, demonstrated through five basketball analytics case studies.">
+<meta name="description" content="Portfolio of Thomas Lappas: validated predictive models, statistical research, and production data systems, demonstrated through five projects and six research studies in basketball analytics.">
 <meta property="og:title" content="Thomas Lappas · Data Science and Analytics Engineering">
-<meta property="og:description" content="Validated models, shipped as working systems. Five evidence-based case studies in prediction, evaluation, and production ML.">
+<meta property="og:description" content="Validated models, shipped as working systems. Five projects, six research studies, and the evidence behind every number.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://tlappas-23.github.io/">
 <meta property="og:image" content="https://tlappas-23.github.io/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <title>Thomas Lappas · Data Science and Analytics Engineering</title>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-<link rel="stylesheet" href="assets/style.css?v=20260820">
+<link rel="stylesheet" href="assets/style.css?v=20260821">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -29,9 +30,9 @@
     <a class="topbar-name" href="./">Thomas Lappas</a>
     <nav class="topbar-nav" aria-label="Site">
       <a href="./" aria-current="page">Home</a>
-      <a href="case-studies.html">Case Studies</a>
+      <a href="case-studies.html">Projects</a>
       <a href="research.html">Research</a>
-      <a href="skills.html">Skills</a>
+      <a href="skills.html">Capabilities</a>
       <a href="contact.html">Contact</a>
     </nav>
   </div>
@@ -39,102 +40,102 @@
 
 <main id="main">
 
-  <!-- Hero: my positioning in one headline and one paragraph. The primary
-       action is reading the case studies; contact links come second. -->
+  <!-- Hero: orientation only. One headline, one sentence, two doors.
+       The four-problem framing that used to live here moved into the
+       project cards, where each claim sits next to its evidence. -->
   <section class="hero">
     <div class="wrap">
       <div class="hero-grid">
         <div>
           <span class="label">Data Science · Analytics Engineering · Software Engineering</span>
           <h1>Validated models, shipped as working systems.</h1>
-          <p class="hero-lede">I am Thomas Lappas, a data scientist and analytics engineer with a master's in business analytics from Villanova University. The case studies on this site are basketball questions that are really familiar modeling problems in disguise. Swap the domain and the same problems appear in pricing, credit, hiring, and forecasting.</p>
-          <!-- The four problems, one entry each: the claim, then the model and why. -->
-          <ul class="problem-grid">
-            <li><strong>A stat line moving between leagues is domain shift.</strong><span>Hierarchical Bayesian translation, because small transition samples demand pooled strength and honest uncertainty.</span></li>
-            <li><strong>The transfer portal is asset mispricing.</strong><span>Calibrated projection models, because an undervalued-player list is only useful if its probabilities can be trusted.</span></li>
-            <li><strong>Schedule luck is attribution.</strong><span>A leakage-free counterfactual, because team quality stays fixed while only the schedule varies.</span></li>
-            <li><strong>A daily prediction product is production reliability.</strong><span>Guardrails, lineage, and monitoring, because an unattended model is only as good as the pipeline feeding it.</span></li>
-          </ul>
+          <p class="hero-lede">I am Thomas Lappas, a data scientist and analytics engineer with a master&#x27;s in business analytics from Villanova. I build models that survive honest attempts to break them, then ship them as products people can use, demonstrated here through basketball.</p>
           <div class="btn-row">
-            <a class="btn btn-primary" href="case-studies.html">Read the case studies</a>
-            <a class="btn btn-ghost" href="mailto:thomas.lappas1010@gmail.com">Email</a>
-            <a class="btn btn-ghost" href="https://github.com/Tlappas-23" rel="noopener">GitHub</a>
+            <a class="btn btn-primary" href="case-studies.html">View the projects</a>
+            <a class="btn btn-ghost" href="research.html">Explore the research</a>
           </div>
         </div>
-        <!-- When I have a professional photo, it goes here as
-             <img class="avatar" src="assets/photo.jpg" alt="Thomas Lappas">
-             with the .avatar styles restored. Until then, no placeholder. -->
       </div>
 
-      <!-- Four verified totals from the projects, set like a box score. -->
+      <!-- Verified totals from the work, set like a box score. -->
       <div class="glance" role="list" aria-label="At a glance">
-        <div role="listitem"><span class="n">5</span><span class="l">case studies, from single-script models to deployed platforms</span></div>
+        <div role="listitem"><span class="n">5</span><span class="l">projects, including two deployed full-stack platforms</span></div>
+        <div role="listitem"><span class="n">6</span><span class="l">research studies on one database, adversarially reviewed</span></div>
         <div role="listitem"><span class="n">147K+</span><span class="l">college player-seasons modeled in ProspectIQ</span></div>
-        <div role="listitem"><span class="n">10</span><span class="l">NBA seasons of schedule data modeled out of sample</span></div>
-        <div role="listitem"><span class="n">2</span><span class="l">full-stack platforms built, deployed, and monitored</span></div>
+        <div role="listitem"><span class="n">10</span><span class="l">NBA seasons of schedule data evaluated out of sample</span></div>
       </div>
     </div>
   </section>
 
-  <!-- Featured work: one card per case study with a real headline stat.
-       Each card links to the full study on the case studies page. -->
+  <!-- Featured projects. The two deployed platforms lead at double
+       width; the three analyses follow. Every card links to a full
+       case study told from question to limitations. -->
   <section class="section" aria-labelledby="work-h">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="label">Featured Work</span>
-        <h2 id="work-h">Five case studies</h2>
-        <p>Three research analyses and two deployed platforms. Every number quoted is generated by the project's own code from its own data.</p>
+        <span class="label">Featured Projects</span>
+        <h2 id="work-h">The work</h2>
+        <p>Two deployed platforms and three validated analyses. Each page tells the whole story: the question, the data, the method, the validation, and what the results do and do not establish.</p>
       </div>
-      <div class="work-grid">
-        <a class="work-card reveal" href="case-studies.html#scouting-board">
-          <span class="tag tag-domain">International Scouting</span>
+      <div class="work-grid has-flagship">
+        <a class="work-card flagship reveal" href="project-prospectiq.html">
+          <span class="tag tag-domain">Deployed Platform</span>
+          <h3>ProspectIQ</h3>
+          <p>Which college players are worth a roster spot, a portal offer, or an NIL dollar? Four scouting products in one platform: calibrated career projections, transfer portal modeling, play-by-play scouting reports, and NIL valuation.</p>
+          <span class="stat-line">147K+ player-seasons · 0.685 era-split ROC-AUC · 90+ endpoints</span>
+          <span class="go">Read the case study</span>
+        </a>
+        <a class="work-card flagship reveal" href="project-prediction-platform.html">
+          <span class="tag tag-domain">Production System</span>
+          <h3>NBA Prediction Platform</h3>
+          <p>Can a prediction model run itself daily with no one watching? A prediction product engineered to refuse bad data: run-pinned lineage, circuit-breaker guardrails, a read-only public API, and two model versions graded side by side.</p>
+          <span class="stat-line">7 services · unattended daily cycle · point-in-time lineage</span>
+          <span class="go">Read the case study</span>
+        </a>
+        <a class="work-card reveal" href="project-scouting-board.html">
+          <span class="tag tag-domain">Bayesian Modeling</span>
           <h3>International Scouting Board</h3>
-          <p>An INTL to NBA translation pipeline, rebuilt as a hierarchical Bayesian re-evaluation that displaced five of its own top ten targets and removed the previous #1 entirely.</p>
+          <p>What does a European stat line mean in NBA terms? A hierarchical Bayesian translation learned from the 118 players who made the jump, whose stricter re-evaluation displaced half its own top ten.</p>
           <span class="stat-line">118 transitions · 431 players · 50% error cut vs naive</span>
           <span class="go">Read the case study</span>
         </a>
-        <a class="work-card reveal" href="case-studies.html#schedule">
-          <span class="tag tag-domain">Schedule Analysis</span>
+        <a class="work-card reveal" href="project-schedule-analysis.html">
+          <span class="tag tag-domain">Counterfactual Analysis</span>
           <h3>NBA Schedule Analysis</h3>
-          <p>A leakage-free counterfactual that puts a win total on every team's schedule luck, plus permutation-tested density questions.</p>
-          <span class="stat-line">DET +4.2 / PHI -3.5 wins · AUC 0.706 out of sample</span>
+          <p>How many wins does the schedule give or take? A leakage-free counterfactual that prices schedule luck with team quality held fixed, and retires the loudest unfairness narratives.</p>
+          <span class="stat-line">+4.2 / -3.5 wins at the extremes · AUC 0.706 out of sample</span>
           <span class="go">Read the case study</span>
         </a>
-        <a class="work-card reveal" href="case-studies.html#conference">
-          <span class="tag tag-domain">Conference Analysis</span>
+        <a class="work-card reveal" href="project-conference-imbalance.html">
+          <span class="tag tag-domain">Statistical Inference</span>
           <h3>Conference Imbalance Study</h3>
-          <p>Sixteen seasons of East vs West: how big the gap is, what it costs a .500 team, and whether it survives a permutation test.</p>
-          <span class="stat-line">55.7% West win rate · 61-point playoff-odds gap at .500</span>
-          <span class="go">Read the case study</span>
-        </a>
-        <a class="work-card reveal" href="case-studies.html#platform">
-          <span class="tag tag-domain">Production System</span>
-          <h3>NBA Prediction Platform</h3>
-          <p>A daily prediction product with a private ML pipeline, read-only public API, and web UI, engineered to run unattended.</p>
-          <span class="stat-line">7 services · daily automated cycle · point-in-time lineage</span>
-          <span class="go">Read the case study</span>
-        </a>
-        <a class="work-card reveal" href="case-studies.html#prospectiq">
-          <span class="tag tag-domain">Prospect Evaluation</span>
-          <h3>ProspectIQ</h3>
-          <p>Four scouting products in one deployed platform: college player rankings, transfer portal projections, scouting reports with coaching tendencies, and NIL valuation.</p>
-          <span class="stat-line">147K+ player-seasons · 0.685 CV ROC-AUC · 90+ endpoints</span>
+          <p>Is the East-West gap real, and what does it cost? Sixteen seasons sized with pooled rates, logistic models, and a permutation test designed so it could have failed.</p>
+          <span class="stat-line">55.7% West head-to-head · 61-point playoff-odds gap at .500</span>
           <span class="go">Read the case study</span>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- Research: six studies on one NBA database, each its own page.
-       The hook is the self-review: three headline claims got weaker and
-       shipped that way. The section stays short; the hub page carries it. -->
+  <!-- Research: six studies on one database, browsable by question,
+       plus the live player lookup rendered from the studies' tables. -->
   <section class="section" aria-labelledby="research-h">
     <div class="wrap">
       <div class="section-head reveal">
         <span class="label">Research</span>
         <h2 id="research-h">Six studies, one database, one standard</h2>
-        <p>Alongside the case studies: six self-contained research studies on a five-season NBA database, covering bench value, player roles, playoff translation, clutch reliability, style embeddings, and trajectory prediction. After finishing them, I reviewed the suite the way a head of analytics would review an analyst's work and fixed what the review found. Three headline claims came out weaker and are published that way, with the correction documented on each study's page.</p>
+        <p>Self-contained research studies on a five-season NBA database. After finishing them, I reviewed the suite the way a head of analytics would review an analyst&#x27;s work; three headline claims came out weaker and are published that way, with the correction documented on each study&#x27;s page.</p>
       </div>
+
+      <ul class="study-index reveal">
+        <li><a href="research-bench-clutch.html"><span>Which bench players are clutch, and is clutch performance even measurable?</span><span class="meta">Reliability analysis</span></a></li>
+        <li><a href="research-playoff-translation.html"><span>Does playing style predict who translates to the playoffs?</span><span class="meta">Honest nulls</span></a></li>
+        <li><a href="research-player-trajectory.html"><span>Who is rising and who is falling next season?</span><span class="meta">Trajectory modeling</span></a></li>
+        <li><a href="research-style-embeddings.html"><span>Does a neural network beat PCA for player similarity?</span><span class="meta">Representation learning</span></a></li>
+        <li><a href="research-player-clustering.html"><span>What is a player&#x27;s role, asked four independent ways?</span><span class="meta">Clustering</span></a></li>
+        <li><a href="research-bench-usage.html"><span>Does leaning on your bench actually cost games?</span><span class="meta">Confound control</span></a></li>
+      </ul>
+
       <!-- Live player lookup: type a name, pick a season, and the card is
            rendered from the studies' own database tables. -->
       <div class="ps reveal" id="player-search">
@@ -145,123 +146,96 @@
       </div>
       <div class="btn-row reveal">
         <a class="btn btn-primary" href="research.html">Read the research</a>
-        <a class="btn btn-ghost" href="research.html#studies">Explore the studies</a>
       </div>
     </div>
   </section>
 
-  <!-- About: the standard I hold my own work to, with receipts. -->
-  <section class="section" aria-labelledby="about-h">
+  <!-- Capabilities: what I do, each anchored to where it is shown.
+       This absorbs the old About section; the standard it described
+       now leads the section in one paragraph. -->
+  <section class="section" aria-labelledby="cap-h">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="label">About</span>
-        <h2 id="about-h">The gap between promising and trustworthy</h2>
+        <span class="label">Capabilities</span>
+        <h2 id="cap-h">What I do, and where it is demonstrated</h2>
+        <p>A promising model has a good metric; a trustworthy one has survived an honest attempt to break it. Everything below is a capability with a receipt: each group names the work where it is shown, and the claims stay inside what that work supports.</p>
       </div>
-      <div class="about-grid reveal">
-        <p>A promising model has a good metric. A trustworthy one has survived an honest attempt to break it: out-of-sample evaluation, competition against a naive baseline, permutation tests, calibration checks. My projects are built around that distinction, and it shows in the details: a stat that failed its baseline test was excluded from a scouting composite rather than quietly kept, and a headline split that rested on 16 games was reported as noise, because it was.</p>
-        <p>The same standard applies to systems. A pipeline that silently produces stale predictions is worse than one that stops and says why. The platforms in the case studies are built to refuse bad data: freshness enforcement, missing-data circuit breakers, point-in-time feature lineage, and monitoring that checks whether the model is still expressing uncertainty.</p>
-        <p>I work across the full stack because analysis that cannot be served is not finished: Python and SQL for modeling, FastAPI and PostgreSQL for serving, Next.js and TypeScript for the product surface, Docker for keeping all of it reproducible.</p>
-        <p>Matching the tool to the audience is part of the same standard. The original transfer index was a neural-network-style model built entirely in Excel, its weights fit with Solver instead of backpropagation, so a coaching staff could audit every calculation on the sheet. It now lives inside <a href="case-studies.html#prospectiq">the ProspectIQ platform</a>, serialized into the transfer API.</p>
+      <div class="cap-grid reveal">
+        <div class="cap">
+          <h3>Modeling and statistics</h3>
+          <p>Hierarchical Bayesian modeling with a hand-rolled Gibbs sampler in the <a href="project-scouting-board.html">scouting board</a>; calibrated gradient boosting in <a href="project-prospectiq.html">ProspectIQ</a>; permutation inference and reliability analysis across the <a href="research.html">research suite</a>.</p>
+          <p class="cap-tools">Python · XGBoost · scikit-learn · statsmodels · SHAP · empirical Bayes</p>
+        </div>
+        <div class="cap">
+          <h3>Evaluation and reliability</h3>
+          <p>Leakage-free counterfactuals in the <a href="project-schedule-analysis.html">schedule analysis</a>; era-split and nested validation in <a href="project-prospectiq.html">ProspectIQ</a> and the <a href="research-playoff-translation.html">playoff study</a>; an adversarial review pass that weakened three of my own headline claims, published as such.</p>
+          <p class="cap-tools">out-of-sample designs · permutation testing · calibration · baseline benchmarking</p>
+        </div>
+        <div class="cap">
+          <h3>Analytics engineering</h3>
+          <p>A 97-table research database with documented provenance rules; an 860-column feature space whittled to 428 with every drop logged, in the <a href="research-player-trajectory.html">trajectory study</a>; deterministic, re-executable pipelines behind every number on this site.</p>
+          <p class="cap-tools">SQL · pandas · reproducible pipelines · data quality guardrails</p>
+        </div>
+        <div class="cap">
+          <h3>Software and product</h3>
+          <p>Two deployed platforms: <a href="project-prospectiq.html">ProspectIQ</a> (36 pages, 14 API routers) and the <a href="project-prediction-platform.html">prediction platform</a> (7 services, unattended daily cycle). Analysis that cannot be served is not finished.</p>
+          <p class="cap-tools">FastAPI · PostgreSQL · Next.js · TypeScript · Docker · Redis</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Graduate foundations: the types of work from the Villanova M.S. in
-       Business Analytics, with real numbers from the actual coursework.
-       The capstone client stays unnamed. -->
+  <!-- Graduate foundations, compressed to one line per area. The
+       capstone client stays unnamed. -->
   <section class="section" aria-labelledby="grad-h">
     <div class="wrap">
       <div class="section-head reveal">
         <span class="label">Foundations</span>
-        <h2 id="grad-h">What the master's covered</h2>
-        <p>The basketball work sits on a Villanova M.S. in Business Analytics that ran the full analytics stack, with every project graded on the model and on the business communication around it. Several assignments were solved in R and Python side by side.</p>
+        <h2 id="grad-h">What the master&#x27;s covered</h2>
+        <p>A Villanova M.S. in Business Analytics, with every project graded on the model and on the business communication around it.</p>
       </div>
-      <div class="phil-grid">
-        <div class="phil reveal">
-          <h3>Data mining and machine learning</h3>
-          <p>A warm-lead prediction final compared logistic regression, CART, random forest, AdaBoost, and XGBoost on identical splits, then picked the winner in dollars: a threshold-optimization loop over the confusion matrix chose the cutoff that maximized campaign profit at $233,000 (XGBoost, AUC 0.916), not the one that maximized accuracy.</p>
-        </div>
-        <div class="phil reveal">
-          <h3>Optimization</h3>
-          <p>A six-month production plan formulated as a 72-variable linear program in Excel Solver, with sensitivity analysis priced in dollars: a half-hour cut in assembly time was worth $165,000. The same Solver fluency later fit the transfer index.</p>
-        </div>
-        <div class="phil reveal">
-          <h3>Simulation</h3>
-          <p>A discrete-event Simio model of airport check-in and security, 20+ scenarios at 50 replications each, cutting modeled passenger flow time from 68 minutes to under 18 with two added security stations and one kiosk.</p>
-        </div>
-        <div class="phil reveal">
-          <h3>SQL and data modeling</h3>
-          <p>A purchase-pattern analysis of 155,676 grocery orders in raw SQL Server: reorder behavior, peak ordering windows, and market-basket lift, ending in shelf, inventory, and promotion recommendations.</p>
-        </div>
-        <div class="phil reveal">
-          <h3>Forecasting and text mining</h3>
-          <p>Bike-share ridership forecast with ARIMA and with neural networks tuned over learning rates and architectures, benchmarked against a naive baseline, plus social-media text pipelines with tokenization, TF-IDF, and sentiment scoring.</p>
-        </div>
-        <div class="phil reveal">
-          <h3>Consulting capstone</h3>
-          <p>For a national consumer research firm's survey of about 4,000 US respondents, joined Census population data, engineered the features, and clustered consumers into three actionable segments, delivered as a business report and dashboard to a real client.</p>
-        </div>
-      </div>
+      <ul class="found-list reveal">
+        <li><strong>Machine learning:</strong> five classifiers compared on identical splits, with the cutoff chosen by looping over thresholds to maximize campaign profit ($233K, XGBoost, AUC 0.916).</li>
+        <li><strong>Optimization:</strong> a 72-variable linear program with sensitivity analysis priced in dollars; the same Solver fluency later fit the transfer index.</li>
+        <li><strong>Simulation:</strong> a discrete-event airport model, 20+ scenarios at 50 replications, cutting modeled flow time from 68 minutes to under 18.</li>
+        <li><strong>SQL and data modeling:</strong> purchase-pattern analysis of 155,676 grocery orders in raw SQL Server, ending in shelf and promotion recommendations.</li>
+        <li><strong>Forecasting and text mining:</strong> ARIMA and neural network ridership forecasts benchmarked against a naive baseline; TF-IDF and sentiment pipelines.</li>
+        <li><strong>Consulting capstone:</strong> a segmentation of about 4,000 survey respondents joined with Census data, delivered as a report and dashboard to a real client.</li>
+      </ul>
     </div>
   </section>
 
-  <!-- Engineering philosophy: nine principles, each checkable against
-       a case study or the graduate work rather than a slogan. -->
+  <!-- Principles, one line each. Every claim is checkable against a
+       project or study on this site rather than a slogan. -->
   <section class="section" aria-labelledby="phil-h">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="label">Engineering Philosophy</span>
-        <h2 id="phil-h">Principles the projects actually follow</h2>
-        <p>Each of these is a claim you can check against the case studies or the graduate work above, not a slogan.</p>
+        <span class="label">Principles</span>
+        <h2 id="phil-h">Rules the work actually follows</h2>
+        <p>Each one is checkable against a project or research study on this site.</p>
       </div>
-      <div class="phil-grid">
-        <div class="phil reveal">
-          <h3>Beat the baseline or sit out</h3>
-          <p>Every model competes against the naive alternative out of sample. Three-point volume failed that test and carries near-zero weight in the v2 scouting composite, and when the v3 re-evaluation applied stricter legitimacy accounting, v2's #1 target was removed from the board entirely and five of the top ten fell out of the top ten.</p>
-        </div>
-        <div class="phil reveal">
-          <h3>Evaluation should not be able to cheat</h3>
-          <p>Leave-one-out, leave-one-season-out, fold-identical CV, and era-split designs; SMOTE confined to training folds; features restricted to what was knowable before tipoff. If the evaluation can leak, the metric is fiction.</p>
-        </div>
-        <div class="phil reveal">
-          <h3>State the uncertainty</h3>
-          <p>The scouting board ranks by upside probability computed from 1,000 posterior draws per player. Splits ship with permutation p-values, and the ones that fail are reported as noise. Knowing when a number is quotable is part of the analysis.</p>
-        </div>
-        <div class="phil reveal">
-          <h3>Reproducibility is a deliverable</h3>
-          <p>Deterministic scripts with fixed seeds regenerate every table and chart from raw data. Feature snapshots are pinned per run. Validation lives in notebooks anyone can re-execute, and an audit script checks the largest system end to end.</p>
-        </div>
-        <div class="phil reveal">
-          <h3>Systems should refuse to do the wrong thing</h3>
-          <p>Freshness enforcement, missing-data circuit breakers, and a pre-tipoff blackout mean the prediction platform stops loudly instead of publishing quietly wrong output.</p>
-        </div>
-        <div class="phil reveal">
-          <h3>Write down the trade-offs</h3>
-          <p>Design decisions are documented with what was given up: Compose-only runtime, a single production writer, duplicated feature storage. Known-limitations sections state what the models cannot see, including one inherited inconsistency kept for continuity and flagged openly.</p>
-        </div>
-        <div class="phil reveal">
-          <h3>Judge models in business units</h3>
-          <p>The graduate data mining final chose its classification cutoff by looping over thresholds to maximize campaign profit in dollars, and optimization sensitivity was reported the same way. AUC is a diagnostic; the decision is measured in what the business actually counts.</p>
-        </div>
-        <div class="phil reveal">
-          <h3>Communicate to the decision-maker</h3>
-          <p>Every graduate project ended in an executive summary with recommendations, and the habit carried: the conference study answers every question twice, once technically and once in plain language, because a model nobody understands funds no decision.</p>
-        </div>
-        <div class="phil reveal">
-          <h3>Leave out what does not belong</h3>
-          <p>A school-marketing targeting model deliberately excluded race and ethnicity on ethical grounds, even though the fields were available and predictive work would have accepted them. What a model is not allowed to see is a design decision too.</p>
-        </div>
-      </div>
+      <ul class="principle-list reveal">
+        <li><strong>Beat the baseline or sit out.</strong> A stat that failed its baseline was excluded from the scouting composite rather than quietly kept.</li>
+        <li><strong>Evaluation should not be able to cheat.</strong> Era splits, season holdouts, fold-identical CV, and selection nested inside folds.</li>
+        <li><strong>State the uncertainty.</strong> Rankings by posterior upside probability; splits that fail their permutation tests reported as noise.</li>
+        <li><strong>Reproducibility is a deliverable.</strong> Seeded, deterministic pipelines regenerate every table and chart from raw data.</li>
+        <li><strong>Systems should refuse to do the wrong thing.</strong> Freshness checks and circuit breakers stop the platform loudly instead of publishing quietly wrong output.</li>
+        <li><strong>Write down the trade-offs.</strong> Design decisions documented with what was given up, including one shipped inconsistency kept and flagged.</li>
+        <li><strong>Judge models in business units.</strong> Classification cutoffs chosen by campaign profit in dollars, not accuracy.</li>
+        <li><strong>Communicate to the decision-maker.</strong> The conference study answers every question twice, technically and in plain language.</li>
+        <li><strong>Leave out what does not belong.</strong> A targeting model excluded race and ethnicity on ethical grounds even though the fields were predictive.</li>
+      </ul>
     </div>
   </section>
 
-  <!-- Closing call to action. Email is the fastest way to reach me, so it leads. -->
+  <!-- Closing call to action. Email is the fastest way to reach me. -->
   <section class="section" aria-labelledby="cta-h">
     <div class="wrap reveal">
       <span class="label">Get in touch</span>
       <h2 id="cta-h" style="font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 700; margin-top: 0.6rem;">The fastest way to reach me is email.</h2>
       <div class="btn-row">
         <a class="btn btn-primary" href="mailto:thomas.lappas1010@gmail.com">thomas.lappas1010@gmail.com</a>
+        <a class="btn btn-ghost" href="https://github.com/Tlappas-23" rel="noopener">GitHub</a>
         <a class="btn btn-ghost" href="contact.html">Contact details</a>
       </div>
     </div>
@@ -278,9 +252,9 @@
     </div>
     <nav class="foot-nav" aria-label="Footer">
       <a href="./">Home</a>
-      <a href="case-studies.html">Case Studies</a>
+      <a href="case-studies.html">Projects</a>
       <a href="research.html">Research</a>
-      <a href="skills.html">Skills</a>
+      <a href="skills.html">Capabilities</a>
       <a href="contact.html">Contact</a>
     </nav>
     <div class="foot-links">
@@ -291,7 +265,7 @@
   <div class="wrap foot-legal">Every metric on this site is generated by project code from project data.</div>
 </footer>
 
-<script src="assets/site.js?v=20260820"></script>
-<script src="assets/player-search.js?v=20260820"></script>
+<script src="assets/site.js?v=20260821"></script>
+<script src="assets/player-search.js?v=20260821"></script>
 </body>
 </html>
