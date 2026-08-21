@@ -85,7 +85,7 @@
 
       <div class="case-block reveal toc-watch" id="method">
         <span class="sublabel">Method and key decisions</span>
-        <p>The first decision was what the model is allowed to see, and it decides everything downstream. To any feature that correlates with being bad, a bad team's losses look like schedule effect, so every feature is restricted, by construction, to information knowable before tipoff: rest and fatigue stretches for both teams, haversine travel between consecutive arenas, timezone crossings, and strictly pre-game strength priors. The second decision was how to attribute. A residual version of this question, actual wins minus expected wins, hands out schedule swings as large as 18 wins because it bundles schedule, luck, and model error into one number. The counterfactual asks it cleanly: each team's summed win probability under its actual schedule minus the same team under a league-average schedule, strength held fixed in both scenarios. Under that design the honest answer shrinks to about four wins at the extremes, team quality lands in its own column, and a bad team reads as bad rather than schedule-victimized.</p>
+        <p>The first decision was what the model is allowed to see, and it decides everything downstream. To any feature that correlates with being bad, a bad team's losses look like schedule effect, so every feature is restricted, by construction, to information knowable before tipoff: rest and fatigue stretches for both teams, haversine travel between consecutive arenas, timezone crossings, and strictly pre-game strength priors. The second decision was how to attribute. A residual version of this question, actual wins minus expected wins, hands out schedule swings as large as 18 wins because it bundles schedule, luck, and model error into one number. The counterfactual asks it cleanly: each team's summed win probability under its actual schedule minus the same team under a league-average schedule, strength held fixed in both scenarios. Under that design the answer shrinks to about four wins at the extremes, team quality lands in its own column, and a bad team reads as bad rather than schedule-victimized.</p>
         <p>Model class followed the deliverable. Logistic regression was chosen over gradient boosting because the product is a set of readable prices, and because the counterfactual feeds the model an imaginary average schedule, an input a smooth parametric model handles stably and a tree ensemble does not. The prices came out looking like basketball (home court +0.59 log-odds, a back-to-back -0.25, an opponent's back-to-back +0.25), which is the sanity check that buys the rest of the table its credibility. Evaluation is leave-one-season-out rather than random folds because games within a season share rosters and context, and random folds would leak; each of ten seasons is scored by a model that never saw it.</p>
       </div>
 
@@ -143,7 +143,7 @@
                   <ul>
             <li>Structurally unusual seasons: the window includes the 2019-20 bubble and the 72-game 2020-21 season. Season-fraction normalization helps; the residual limitation is stated, not hidden.</li>
             <li>Mid-season roster upheaval: priors cannot fully see trades and collapses; the shrunk in-season blend mitigates without eliminating.</li>
-            <li>Resisting a bigger number: the honest answer, about 0.8 wins per season at the extremes, is less quotable than the narratives it replaces. The analysis says so anyway.</li>
+            <li>Resisting a bigger number: the measured answer, about 0.8 wins per season at the extremes, is less quotable than the narratives it replaces. The analysis says so anyway.</li>
           </ul>
       </div>
 
@@ -171,7 +171,7 @@
             <dt>Why a counterfactual instead of residual analysis?</dt>
             <dd>Residuals mix schedule with everything else the model missed. The counterfactual isolates the schedule by holding team strength fixed and varying only the slate.</dd>
             <dt>Why leave-one-season-out instead of random folds?</dt>
-            <dd>Games within a season share teams and context; random folds would leak. Scoring each season with a model that never saw it is the honest test.</dd>
+            <dd>Games within a season share teams and context; random folds would leak. Scoring each season with a model that never saw it is the test that matches the use case.</dd>
             <dt>Why deliberately collinear strength priors?</dt>
             <dd>Collinearity among prior-season, three-year, and in-season strength is good for prediction. The cost is that individual strength coefficients cannot be read causally, so they are not; the schedule coefficients, which are stable, are.</dd>
           </dl>

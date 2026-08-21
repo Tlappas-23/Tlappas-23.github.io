@@ -41,7 +41,7 @@
   <article class="case" id="playoff-translation">
     <div class="wrap">
       <div class="case-tags reveal">
-        <span class="tag tag-domain">Playoff Translation</span><span class="tag">Nested Validation</span><span class="tag">Honest Nulls</span>
+        <span class="tag tag-domain">Playoff Translation</span><span class="tag">Nested Validation</span><span class="tag">Null Results</span>
         <a class="repo-link" href="mailto:thomas.lappas1010@gmail.com?subject=Access%20request%3A%20NBA%20research%20notebooks">Notebook · email for access</a>
       </div>
       <h1 class="reveal">What Survives the Playoffs</h1>
@@ -52,7 +52,7 @@
         <p class="a"><strong>Style will not tell you, in five seasons of evidence.</strong> Across 80 playoff team-seasons with opponent strength controlled, no offensive style feature predicts playoff over- or underperformance: transition reliance, the trait playoff defenses supposedly punish, is the deadest feature on the board at r = +0.008. The premise of the folk theory is real, isolation rises and every play type gets harder, but its conclusion does not follow.</p>
       </div>
 
-      <div class="summary-strip reveal" aria-label="Analysis summary"><div><span class="k">Question</span><span class="v">Does playing style predict who translates to the playoffs?</span></div><div><span class="k">Data</span><span class="v">80 playoff team-seasons, opponent strength computed from game logs</span></div><div><span class="k">Method</span><span class="v">Bonferroni-corrected screen; leave-one-season-out validation with selection nested in folds</span></div><div><span class="k">Result</span><span class="v"><strong>Style is null across the board</strong>; the apparent 4% forecast edge vanishes under honest selection</span></div></div>
+      <div class="summary-strip reveal" aria-label="Analysis summary"><div><span class="k">Question</span><span class="v">Does playing style predict who translates to the playoffs?</span></div><div><span class="k">Data</span><span class="v">80 playoff team-seasons, opponent strength computed from game logs</span></div><div><span class="k">Method</span><span class="v">Bonferroni-corrected screen; leave-one-season-out validation with selection nested in folds</span></div><div><span class="k">Result</span><span class="v"><strong>Style is null across the board</strong>; the apparent 4% forecast edge vanishes under nested selection</span></div></div>
 
       <div class="case-block reveal">
         <span class="sublabel">Overview</span>
@@ -63,7 +63,7 @@
         <p>The two survivors are not style knobs. Spot-up shooting efficiency is negative, teams that shot well underperform, and isolation defense allowed is positive, teams that defended badly overperform, a sign no basketball mechanism predicts. Both behave as regression to the mean on noisy shooting components predicts: hot spot-up shooting inflates a record the playoffs regress away, and opponents making tough shots deflates a record that was better than it looked. The pattern is consistent with a luck-detection reading, and the correlational finding survives the Bonferroni correction, all five seasons, and the franchise bootstrap.</p>
       </div>
       <div class="case-block reveal">
-        <span class="sublabel">The honesty check that decided the analysis</span>
+        <span class="sublabel">The selection check that decided the analysis</span>
         <p>With the feature screen allowed to see all 80 rows, adding the two luck features improved out-of-sample error 4 percent. With the screen moved inside each validation fold, so selection never sees the season being predicted, the improvement vanishes: 6.07 against the baseline's 6.06. Nested-tuned ridge and gradient boosting agree, with the boosting tuner selecting the most conservative configuration available in eight of ten fits. The correlational claim stands; the forecasting claim falls; both halves are findings, and the deployed table labels its coefficients as descriptions of the sample rather than a forecasting tool.</p>
       </div>
 
@@ -110,7 +110,7 @@
           <h3>Technical highlights</h3>
           <ul><li>The opponent-strength control is itself stress-tested for endogeneity: it barely tracks advancement, and a fully exogenous first-round-only variant shows a stronger relationship, making the adopted control the conservative choice.</li><li>The mechanism check states its prediction before looking: if the survivors are luck detectors, hot spot-up shooting should correlate positively with regular season net rating and unlucky isolation defense negatively. Both land as predicted.</li><li>Feature selection nested inside every validation fold, the discipline that separated the correlational finding from the forecasting mirage.</li><li>Challenger models get nested hyperparameter tuning on identical folds, so the linear model's survival is a fair result rather than a handicapped comparison.</li></ul>
           <h3>Key decisions</h3>
-          <dl class="decisions"><dt>Why leave-one-season-out instead of a random split?</dt><dd>Playoff teams within one season share a bracket. A random split lets the model peek at the season it is graded on; holding out whole seasons matches the position a front office is actually in each April.</dd><dt>Why ship a model whose forecast adds nothing?</dt><dd>Because the shipped table says so on its face: coefficients labeled as in-sample descriptions, with the honest error estimate quoted beside them. The luck features tell a front office which records to distrust, not what will happen.</dd></dl>
+          <dl class="decisions"><dt>Why leave-one-season-out instead of a random split?</dt><dd>Playoff teams within one season share a bracket. A random split lets the model peek at the season it is graded on; holding out whole seasons matches the position a front office is actually in each April.</dd><dt>Why ship a model whose forecast adds nothing?</dt><dd>Because the shipped table says so on its face: coefficients labeled as in-sample descriptions, with the nested-selection error estimate quoted beside them. The luck features tell a front office which records to distrust, not what will happen.</dd></dl>
           <h3>Technology stack</h3>
           <div class="stack-rows">
             <div class="stack-row"><span class="k">Languages</span><span class="v">Python, SQL (SQLite)</span></div>

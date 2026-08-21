@@ -9,9 +9,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Who is rising and who is falling? Starting from all 860 columns in the database, the honest answer is that trajectory is mostly three variables, and one fifth of the apparent modeling skill was the geometry of a bounded scale.">
+<meta name="description" content="Who is rising and who is falling? Starting from all 860 columns in the database, the answer is that trajectory is mostly three variables, and one fifth of the apparent modeling skill was the geometry of a bounded scale.">
 <meta property="og:title" content="Player Trajectory Prediction · Thomas Lappas">
-<meta property="og:description" content="Who is rising and who is falling? Starting from all 860 columns in the database, the honest answer is that trajectory is mostly three variables, and one fifth of the apparent modeling skill was the geometry of a bounded scale.">
+<meta property="og:description" content="Who is rising and who is falling? Starting from all 860 columns in the database, the answer is that trajectory is mostly three variables, and one fifth of the apparent modeling skill was the geometry of a bounded scale.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://tlappas-23.github.io/research-player-trajectory.html">
 <meta property="og:image" content="https://tlappas-23.github.io/assets/og-image.png">
@@ -56,7 +56,7 @@
 
       <div class="case-block reveal">
         <span class="sublabel">Overview</span>
-        <p>The preparation is the project. Eight hundred sixty raw columns become 428 honest features through seven documented rules, and the two worst hazards were caught by the outlier analysis rather than documentation: split-table volumes normalized by total minutes secretly encode who starts (r = +0.814 with starter share), and the league's own dashboards publish rate statistics computed on any sample, including a clutch pace of 1800 from 0.8 seconds of floor time. Rows removed as outliers: zero, because after the pipeline errors were fixed, the extreme rows were MVPs, not mistakes.</p>
+        <p>The preparation is the project. Eight hundred sixty raw columns become 428 modeling-ready features through seven documented rules, and the two worst hazards were caught by the outlier analysis rather than documentation: split-table volumes normalized by total minutes secretly encode who starts (r = +0.814 with starter share), and the league's own dashboards publish rate statistics computed on any sample, including a clutch pace of 1800 from 0.8 seconds of floor time. Rows removed as outliers: zero, because after the pipeline errors were fixed, the extreme rows were MVPs, not mistakes.</p>
       </div>
       <div class="case-block reveal">
         <span class="sublabel">The geometric hazard</span>
@@ -104,16 +104,16 @@
 
       <div class="case-block reveal">
         <span class="sublabel">Limitations</span>
-        <p>The target is one value metric, and a plus-minus family target could rank players differently. The class cut at ten points is a convention whose boundary effects are now measured rather than ignored. Four transition seasons is the honest sample depth. The 500-minute floor excludes the deep-bench leaps that make the best breakout stories. Model configurations were refined against the reported validation folds, which is disclosed beside the results rather than buried.</p>
+        <p>The target is one value metric, and a plus-minus family target could rank players differently. The class cut at ten points is a convention whose boundary effects are now measured rather than ignored. Four transition seasons is the sample depth. The 500-minute floor excludes the deep-bench leaps that make the best breakout stories. Model configurations were refined against the reported validation folds, which is disclosed beside the results rather than buried.</p>
       </div>
 
       <details class="deep reveal">
         <summary>Technical deep dive</summary>
         <div class="deep-body">
           <h3>Technical highlights</h3>
-          <ul><li>Table-aware normalization: split-table volumes divided by their own split's minutes, never total minutes, with a 24-minute denominator floor that converts absurd small-sample rates into honest missing values.</li><li>A three-layer outlier hunt, robust z-scores, integrity bounds, and Mahalanobis distance on component scores, that caught two pipeline bugs and a source-data hazard, and ended by keeping every genuine player.</li><li>Feature selection nested inside every validation fold, with the fold-stable subset, 20 features chosen in every fold, forming the deployed model's interpretable core.</li><li>Four evaluation frames reported together, because the stat sheet's contribution is the gap between model and baseline within a frame, never the gap between frames.</li></ul>
+          <ul><li>Table-aware normalization: split-table volumes divided by their own split's minutes, never total minutes, with a 24-minute denominator floor that converts absurd small-sample rates into missing values.</li><li>A three-layer outlier hunt, robust z-scores, integrity bounds, and Mahalanobis distance on component scores, that caught two pipeline bugs and a source-data hazard, and ended by keeping every genuine player.</li><li>Feature selection nested inside every validation fold, with the fold-stable subset, 20 features chosen in every fold, forming the deployed model's interpretable core.</li><li>Four evaluation frames reported together, because the stat sheet's contribution is the gap between model and baseline within a frame, never the gap between frames.</li></ul>
           <h3>Key decisions</h3>
-          <dl class="decisions"><dt>Why keep the raw-percentile target if it censors?</dt><dd>Because the operational question, who will be in each class, includes the geometry: an aging star at a high percentile genuinely is more likely to fall, partly because he has room to. The analysis keeps the operational target and measures the geometry separately, so skill and arithmetic are never conflated.</dd><dt>Why deploy a watch list the stat sheet barely improves?</dt><dd>Because a calibrated synthesis of level, age, and trend, made quantitative and reproducible, is a genuinely useful product as long as nobody mistakes it for hidden-signal discovery. The page it ships on says exactly what drives it.</dd></dl>
+          <dl class="decisions"><dt>Why keep the raw-percentile target if it censors?</dt><dd>Because the operational question, who will be in each class, includes the geometry: an aging star at a high percentile is more likely to fall, partly because he has room to. The analysis keeps the operational target and measures the geometry separately, so skill and arithmetic are never conflated.</dd><dt>Why deploy a watch list the stat sheet barely improves?</dt><dd>Because a calibrated synthesis of level, age, and trend, made quantitative and reproducible, is a useful product as long as nobody mistakes it for hidden-signal discovery. The page it ships on says exactly what drives it.</dd></dl>
           <h3>Technology stack</h3>
           <div class="stack-rows">
             <div class="stack-row"><span class="k">Languages</span><span class="v">Python, SQL (SQLite)</span></div>

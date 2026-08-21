@@ -96,7 +96,8 @@ h1, h2, h3, h4 { text-wrap: balance; letter-spacing: -0.015em; }
    backgrounds or margins, and copy and paste picks up only the text you
    actually dragged over. */
 main, .topbar, .site-footer { -webkit-user-select: none; user-select: none; }
-h1, h2, h3, h4, p, li, dt, dd, span, a, code, td, th, caption, figcaption, summary,
+h1, h2, h3, h4, p, li, dt, dd, span, a, code, td, th, caption, figcaption, summary
+  { -webkit-user-select: text; user-select: text; }
 ::selection { background: var(--accent); color: var(--bg); }
 
 /* Sticky site header. Identical on every page; the current page's nav
