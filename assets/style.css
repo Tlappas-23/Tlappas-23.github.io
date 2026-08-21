@@ -525,3 +525,92 @@ html.js .reveal.in { opacity: 1; transform: none; }
 .xp-table th.num, .xp-table td.num { text-align: right; }
 .xp-table td.num { font-variant-numeric: tabular-nums; }
 .xp-table td.num .pbar { margin-right: 0.45rem; }
+
+/* ============================================================
+   Redesign pass, August 2026. New components only; the token
+   system, header, footer, and case anatomy above are unchanged.
+   ============================================================ */
+
+/* Breadcrumb on study pages, so a visitor arriving from a resume
+   link still knows where they are and how to go up a level. */
+.crumb { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--faint); margin-bottom: 1.6rem; }
+.crumb a { color: var(--muted); text-decoration: none; }
+.crumb a:hover { color: var(--accent-ink); }
+.crumb .sep { margin: 0 0.45rem; }
+
+/* Study summary strip: question, data, method, result in one scan.
+   Set like the glance strip so the two read as one family. */
+.summary-strip {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.2rem 2rem;
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  padding: 1.3rem 0; margin: 1.9rem 0 2.6rem;
+}
+.summary-strip .k {
+  font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.13em;
+  text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 0.4rem;
+}
+.summary-strip .v { font-size: 0.88rem; color: var(--muted); line-height: 1.5; display: block; }
+.summary-strip .v strong { color: var(--ink); font-weight: 600; }
+@media (max-width: 52rem) { .summary-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Flagship treatment for the two deployed platforms on the home
+   page: wider cards, larger titles, same quiet surface. */
+@media (min-width: 62rem) {
+  .work-card.flagship { grid-column: span 3; padding: 1.7rem 1.8rem; }
+  .work-card.flagship h3 { font-size: 1.35rem; }
+  .work-grid.has-flagship .work-card:nth-child(4) { grid-column: span 2; }
+}
+
+/* Capabilities: four groups, each anchored to the work where it is
+   demonstrated. Tools sit in a quiet mono line under the evidence. */
+.cap-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.9rem 3rem; margin-top: 2.2rem; }
+@media (max-width: 52rem) { .cap-grid { grid-template-columns: 1fr; } }
+.cap h3 { font-size: 1.05rem; font-weight: 650; margin-bottom: 0.45rem; }
+.cap p { font-size: 0.95rem; color: var(--muted); }
+.cap .cap-tools { font-family: var(--mono); font-size: 0.74rem; color: var(--faint); margin-top: 0.55rem; line-height: 1.7; }
+
+/* Principles, compressed: the claim in ink, the receipt in one quiet
+   clause. Two columns instead of nine cards. */
+.principle-list { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 3rem; margin-top: 2rem; }
+@media (max-width: 52rem) { .principle-list { grid-template-columns: 1fr; } }
+.principle-list strong { color: var(--ink); font-weight: 600; }
+.principle-list li { font-size: 0.93rem; color: var(--muted); }
+
+/* Foundations, compressed to the same pattern. */
+.found-list { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 3rem; margin-top: 2rem; }
+@media (max-width: 52rem) { .found-list { grid-template-columns: 1fr; } }
+.found-list strong { color: var(--ink); font-weight: 600; }
+.found-list li { font-size: 0.93rem; color: var(--muted); }
+
+/* Compact research index rows on the home page: the question leads,
+   the study name trails in mono. */
+.study-index { list-style: none; margin-top: 1.8rem; border-top: 1px solid var(--line); max-width: 47rem; }
+.study-index li { border-bottom: 1px solid var(--line); }
+.study-index a {
+  display: flex; justify-content: space-between; gap: 1.5rem; align-items: baseline;
+  padding: 0.8rem 0.2rem; text-decoration: none; color: var(--ink); font-size: 0.97rem;
+}
+.study-index a:hover { color: var(--accent-ink); }
+.study-index .meta { font-family: var(--mono); font-size: 0.72rem; color: var(--faint); white-space: nowrap; }
+@media (max-width: 46rem) { .study-index a { flex-direction: column; gap: 0.15rem; } }
+
+/* Capability page groups keep their chips, but inside a disclosure
+   so the toolbox is one click deep instead of the whole page. */
+.cap-page-group { max-width: 47rem; margin-bottom: 2.4rem; }
+.cap-page-group h2 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+.cap-page-group p { color: var(--muted); }
+.cap-page-group .cap-tools { font-family: var(--mono); font-size: 0.76rem; color: var(--faint); margin-top: 0.6rem; line-height: 1.8; }
+
+/* Larger index cards on the projects page. The question is the
+   headline; evidence and action follow. */
+.project-index { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; margin-top: 2.2rem; }
+@media (max-width: 52rem) { .project-index { grid-template-columns: 1fr; } }
+.project-index .work-card h2 { font-size: 1.3rem; font-weight: 700; margin: 0.55rem 0 0.4rem; }
+.project-index .work-card .q { color: var(--ink); font-weight: 600; font-size: 0.98rem; margin-top: 0.2rem; }
+.project-index .work-card p { font-size: 0.93rem; color: var(--muted); margin-top: 0.45rem; }
+
+/* Case pages promote their title to h1 with the same scale the h2
+   carried, and section anchors clear the sticky header. */
+.case h1 { font-size: clamp(1.7rem, 3.2vw, 2.35rem); font-weight: 700; letter-spacing: -0.02em; }
+.case .case-block[id], .case .qa[id], .case .stats[id], .case details[id] { scroll-margin-top: 4.5rem; }
+.work-card .q { color: var(--ink); font-weight: 600; font-size: 0.95rem; margin-top: 0.2rem; }

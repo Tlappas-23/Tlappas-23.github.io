@@ -16,6 +16,25 @@ document.documentElement.classList.add("js");
     });
   }, { rootMargin: "0px 0px -6% 0px" });
   els.forEach(function (el) { io.observe(el); });
+  /* Fast-scroll safety net. A small element can cross the whole viewport
+     between observer callbacks and never intersect, which leaves it stuck
+     invisible. This sweep reveals anything at or above the trigger line
+     and unbinds itself once every element is in. */
+  var pending = Array.prototype.slice.call(els), ticking = false;
+  function sweep() {
+    ticking = false;
+    pending = pending.filter(function (el) {
+      if (el.classList.contains("in")) return false;
+      var r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.94 || r.bottom < 0) {
+        el.classList.add("in"); io.unobserve(el); return false;
+      }
+      return true;
+    });
+    if (!pending.length) window.removeEventListener("scroll", onScroll);
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(sweep); } }
+  window.addEventListener("scroll", onScroll, { passive: true });
 })();
 
 /* Study navigator on the case studies page. Watches the five articles
@@ -34,7 +53,7 @@ document.documentElement.classList.add("js");
       if (a) a.classList.add("active");
     });
   }, { rootMargin: "-35% 0px -55% 0px" });
-  document.querySelectorAll("article.case[id]").forEach(function (el) { io.observe(el); });
+  document.querySelectorAll("article.case[id], .toc-watch[id]").forEach(function (el) { io.observe(el); });
 })();
 
 /* Definition tooltips. Any element with data-tip gets a styled tooltip on
