@@ -196,11 +196,11 @@
       </div>
       <ul class="found-list reveal">
         <li><strong>Machine learning:</strong> five classifiers compared on identical splits, with the cutoff chosen by looping over thresholds to maximize campaign profit ($199.5K, XGBoost, AUC 0.916).</li>
-        <li><strong>Optimization:</strong> a 72-variable linear program with sensitivity analysis priced in dollars; the same Solver fluency later fit the transfer index.</li>
-        <li><strong>Simulation:</strong> a discrete-event airport model, 20+ scenarios at 50 replications, cutting modeled flow time from 68 minutes to under 18.</li>
-        <li><strong>SQL and data modeling:</strong> purchase-pattern analysis of 155,676 grocery orders in raw SQL Server, ending in shelf and promotion recommendations.</li>
-        <li><strong>Forecasting and text mining:</strong> ARIMA and neural network ridership forecasts benchmarked against a naive baseline; TF-IDF and sentiment pipelines.</li>
-        <li><strong>Consulting capstone:</strong> a segmentation of about 4,000 survey respondents joined with Census data, delivered as a report and dashboard to a real client.</li>
+        <li><strong>Optimization:</strong> a 72-variable production LP solved with Simplex, its sensitivity analysis priced in dollars: $165K more profit from a half-hour cut in assembly time. The same Solver fluency later fit the transfer index.</li>
+        <li><strong>Simulation:</strong> a discrete-event airport terminal model in Simio, resource scenarios run at 50 replications each, cutting modeled passenger flow time from 68 minutes to 17.</li>
+        <li><strong>SQL and data modeling:</strong> purchase-pattern and market basket analysis (support, confidence, lift) of 155,676 grocery orders in raw SQL Server, ending in shelf and promotion recommendations.</li>
+        <li><strong>Forecasting and text mining:</strong> ARIMA, SARIMA, and recurrent network forecasts of bike-share ridership, each scored against a naive baseline that ARIMA did not beat (MAE 391 against the baseline's 344), reported as it came out; plus TF-IDF and sentiment pipelines in NLTK.</li>
+        <li><strong>Consulting capstone:</strong> a clustering segmentation of 4,000+ survey respondents joined with U.S. Census data, delivered as a report and Tableau visuals to a real media-research client.</li>
       </ul>
     </div>
   </section>
@@ -223,7 +223,7 @@
         <li><strong>Write down the trade-offs.</strong> Design decisions documented with what was given up, including one shipped inconsistency kept and flagged.</li>
         <li><strong>Judge models in business units.</strong> Classification cutoffs chosen by campaign profit in dollars, not accuracy.</li>
         <li><strong>Communicate to the decision-maker.</strong> The conference imbalance project answers every question twice, technically and in plain language.</li>
-        <li><strong>Leave out what does not belong.</strong> A targeting model excluded race and ethnicity on ethical grounds even though the fields were predictive.</li>
+        <li><strong>Leave out what does not belong.</strong> A targeting model excluded race, ethnicity, and gender on ethical and legal-risk grounds, stated in the deliverable's own recommendations.</li>
       </ul>
     </div>
   </section>
