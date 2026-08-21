@@ -1,36 +1,36 @@
 <!doctype html>
 <!--
-  Skills page. Grouped by domain, no skill bars and no percentages.
-  Every chip is something I used in at least one of the five case
-  studies, and each group says where.
+  Capabilities page. Organized around what the work demonstrates, not a
+  tag cloud: four groups, each pointing at the projects and studies where
+  the capability is shown. The full tool inventory keeps its old grouping
+  one click deep, inside the disclosure at the bottom.
 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Technical skills of Thomas Lappas, grouped by domain. Every skill listed is used in at least one of the five portfolio case studies.">
-<meta property="og:title" content="Skills · Thomas Lappas">
-<meta property="og:description" content="Technical skills grouped by domain. Every skill listed is used in the five case studies or the graduate coursework.">
+<meta name="description" content="Capabilities of Thomas Lappas, each anchored to the project or research study where it is demonstrated: modeling and statistics, evaluation and reliability, analytics engineering, and software and product development.">
+<meta property="og:title" content="Capabilities · Thomas Lappas">
+<meta property="og:description" content="Four capability groups, each anchored to the work where it is demonstrated, with the full tool inventory one click deep.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://tlappas-23.github.io/skills.html">
 <meta property="og:image" content="https://tlappas-23.github.io/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<title>Skills · Thomas Lappas</title>
+<title>Capabilities · Thomas Lappas</title>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-<link rel="stylesheet" href="assets/style.css?v=20260820">
+<link rel="stylesheet" href="assets/style.css?v=20260821">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
-<!-- Site header, identical on every page. aria-current marks this page in the nav. -->
 <header class="topbar">
   <div class="topbar-inner">
     <a class="topbar-name" href="./">Thomas Lappas</a>
     <nav class="topbar-nav" aria-label="Site">
       <a href="./">Home</a>
-      <a href="case-studies.html">Case Studies</a>
+      <a href="case-studies.html">Projects</a>
       <a href="research.html">Research</a>
-      <a href="skills.html" aria-current="page">Skills</a>
+      <a href="skills.html" aria-current="page">Capabilities</a>
       <a href="contact.html">Contact</a>
     </nav>
   </div>
@@ -39,12 +39,39 @@
 <main id="main">
   <div class="wrap">
     <div class="page-head">
-      <span class="label">Technical Skills</span>
-      <h1>Skills, grouped by domain</h1>
-      <p class="dek">No skill bars, no percentages. Everything listed here was used in the five case studies or in the Villanova M.S. in Business Analytics coursework, and each group names where.</p>
+      <span class="label">Capabilities</span>
+      <h1>What I can do, and where I demonstrated it</h1>
+      <p class="dek">No skill bars and no percentages. Each group below names the projects and studies where the capability is actually shown, because a claim without a receipt is a slogan. The complete tool inventory sits at the bottom for anyone who wants the full list.</p>
     </div>
 
-    <div class="skills-grid">
+    <div class="cap-page-group reveal">
+      <h2>Modeling and statistics</h2>
+      <p>Bayesian hierarchical modeling with a hand-rolled, all-conjugate Gibbs sampler in the <a href="project-scouting-board.html">International Scouting Board</a>. Calibrated gradient boosting with era-split evaluation in <a href="project-prospectiq.html">ProspectIQ</a>, where isotonic calibration makes a 30% probability mean 30%. Permutation inference, empirical Bayes shrinkage, and reliability analysis throughout the <a href="research.html">research suite</a>, including a study whose central finding is that its own target is unmeasurable noise.</p>
+      <p class="cap-tools">Python · XGBoost · scikit-learn · statsmodels · SHAP · Gibbs sampling · empirical Bayes · Gaussian mixtures · logistic regression</p>
+    </div>
+
+    <div class="cap-page-group reveal">
+      <h2>Evaluation and reliability</h2>
+      <p>Designs that prevent the evaluation from cheating: leakage-free pre-tipoff features in the <a href="project-schedule-analysis.html">schedule analysis</a>, era splits with SMOTE confined to training folds in <a href="project-prospectiq.html">ProspectIQ</a>, feature selection nested inside validation folds in the <a href="research-playoff-translation.html">playoff study</a>, and a temporally firewalled verdict set in the <a href="research-style-embeddings.html">embeddings study</a>. The research suite also went through an adversarial review pass that weakened three of my own headline claims, which are published in their corrected form.</p>
+      <p class="cap-tools">out-of-sample and era-split designs · permutation testing · calibration · baseline benchmarking · block bootstraps · power analysis</p>
+    </div>
+
+    <div class="cap-page-group reveal">
+      <h2>Analytics engineering</h2>
+      <p>A 97-table research database with an explicit provenance rule that no notebook may ingest its own outputs. An 860-column feature space whittled to 428 in the <a href="research-player-trajectory.html">trajectory study</a>, with every drop documented and the two worst normalization hazards caught by the study&#x27;s own outlier analysis. Every number on this site regenerates deterministically from raw data, and the research notebooks were re-executed from a clean environment before publication.</p>
+      <p class="cap-tools">SQL · pandas · NumPy · deterministic pipelines · schema reconciliation · data quality guardrails · feature snapshots</p>
+    </div>
+
+    <div class="cap-page-group reveal">
+      <h2>Software and product development</h2>
+      <p>Two deployed platforms. <a href="project-prospectiq.html">ProspectIQ</a>: a 36-page Next.js product over an async FastAPI backend with 14 routers, serving precomputed predictions from PostgreSQL. The <a href="project-prediction-platform.html">prediction platform</a>: seven services under one compose file, running an unattended daily cycle with run-pinned lineage and circuit-breaker guardrails. Analysis that cannot be served is not finished.</p>
+      <p class="cap-tools">FastAPI · PostgreSQL · Redis · Next.js · React · TypeScript · Docker Compose · rate limiting · monitoring</p>
+    </div>
+
+    <details class="deep reveal" style="max-width:47rem;">
+      <summary>The complete tool inventory, grouped by domain</summary>
+      <div class="deep-body">
+        <div class="skills-grid">
       <div class="skill-group reveal">
         <h2>Languages</h2>
         <div class="chips"><span class="chip">Python</span><span class="chip">SQL</span><span class="chip">R</span><span class="chip">TypeScript</span><span class="chip">JavaScript</span></div>
@@ -91,6 +118,8 @@
         <p class="used-in">Villanova M.S. in Business Analytics coursework and capstone · Transfer Index (Solver)</p>
       </div>
     </div>
+      </div>
+    </details>
   </div>
 </main>
 
@@ -103,9 +132,9 @@
     </div>
     <nav class="foot-nav" aria-label="Footer">
       <a href="./">Home</a>
-      <a href="case-studies.html">Case Studies</a>
+      <a href="case-studies.html">Projects</a>
       <a href="research.html">Research</a>
-      <a href="skills.html">Skills</a>
+      <a href="skills.html">Capabilities</a>
       <a href="contact.html">Contact</a>
     </nav>
     <div class="foot-links">
@@ -116,6 +145,6 @@
   <div class="wrap foot-legal">Every metric on this site is generated by project code from project data.</div>
 </footer>
 
-<script src="assets/site.js?v=20260820"></script>
+<script src="assets/site.js?v=20260821"></script>
 </body>
 </html>
