@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <title>Player Style Embeddings · Thomas Lappas</title>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-<link rel="stylesheet" href="assets/style.css?v=20260820">
+<link rel="stylesheet" href="assets/style.css?v=20260821">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -28,9 +28,9 @@
     <a class="topbar-name" href="./">Thomas Lappas</a>
     <nav class="topbar-nav" aria-label="Site">
       <a href="./">Home</a>
-      <a href="case-studies.html">Case Studies</a>
+      <a href="case-studies.html">Projects</a>
       <a href="research.html" aria-current="page">Research</a>
-      <a href="skills.html">Skills</a>
+      <a href="skills.html">Capabilities</a>
       <a href="contact.html">Contact</a>
     </nav>
   </div>
@@ -44,7 +44,7 @@
         <span class="tag tag-domain">Representation Learning</span><span class="tag">Autoencoders</span><span class="tag">Selection Discipline</span>
         <a class="repo-link" href="mailto:thomas.lappas1010@gmail.com?subject=Access%20request%3A%20NBA%20research%20notebooks">Notebook · email for access</a>
       </div>
-      <h2 class="reveal">Player Style Embeddings</h2>
+      <h1 class="reveal">Player Style Embeddings</h1>
       <p class="dek reveal">Role labels cannot answer the scouting question "who plays like this player." This study compresses 81 tracking features into a continuous style space and makes the neural network earn its place against PCA, <strong>with the similarity pairs split in time so no tuning decision ever touches the season that renders the verdict</strong>.</p>
 
       <div class="qa reveal">
@@ -52,12 +52,14 @@
         <p class="a"><strong>Not measurably, and the honest search is the real finding.</strong> On 190 untouched verdict pairs from the final season, the tuned autoencoder matches a player to his own next season 72.1 percent of the time against PCA's 71.1, indistinguishable within uncertainty (paired test p = 0.83). The search that got there demonstrated something more useful: the architecture that reconstructed the data best produced the worst similarity space of the eight tested, and dropout regularization, which sacrifices reconstruction, gained nearly eight points of similarity accuracy.</p>
       </div>
 
+      <div class="summary-strip reveal" aria-label="Study summary"><div><span class="k">Question</span><span class="v">Does a neural network beat PCA for player similarity?</span></div><div><span class="k">Data</span><span class="v">1,350 player-seasons described by 81 style features</span></div><div><span class="k">Method</span><span class="v">Autoencoder vs PCA, with selection on development pairs and one untouched verdict season</span></div><div><span class="k">Result</span><span class="v"><strong>Indistinguishable on the verdict</strong> (72.1% vs 71.1%, p = 0.83); reconstruction is the wrong selection criterion</span></div></div>
+
       <div class="case-block reveal">
-        <span class="sublabel">Executive summary</span>
+        <span class="sublabel">Overview</span>
         <p>All 1,350 player-seasons of 1,000-plus minutes, described by 81 style features chosen to capture how a player plays rather than how well, with algebraically dependent pairs removed so no model gets free reconstruction wins. Candidates are graded on three criteria, held-out-season reconstruction, recovery of known role structure, and a label-free test of whether a player lands nearest his own following season, with the third criterion's pairs split 610 for development and 190 for a single untouched verdict evaluation. Determinism is engineered in: seeds fixed everywhere, TensorFlow's deterministic ops enabled, so repeated runs return identical numbers.</p>
       </div>
       <div class="case-block reveal">
-        <span class="sublabel">Findings</span>
+        <span class="sublabel">Results</span>
         <p>The 81 features are genuinely low-dimensional: about 24 components carry 90 percent of the variance, because drives, drive attempts, drive free throws, and paint touches are four measurements of one behavior. The default autoencoder beats PCA on reconstruction at all five bottlenecks tested and loses to it on both representation tests, the diagnostic that motivated the architecture search. The final space is stable, pairwise distances repeat at 0.941 Spearman across five initializations, and it passes the check no metric replaces: a low-usage defensive guard's nearest neighbors are exactly the low-usage, high-activity defenders a front office would shortlist, none of them stars, none groupable by box score.</p>
       </div>
       <div class="case-block reveal">
@@ -95,6 +97,11 @@
         <h4 id="sim-title" style="font-weight:650;"></h4>
         <div class="xp-wrap" id="sim-body"></div>
       </section>
+
+      <div class="case-block reveal">
+        <span class="sublabel">What the results mean</span>
+        <p>For scouting use, the deployed space answers who plays like a given player continuously rather than by category, and the choice between the network and PCA is close to immaterial in practice, since the two geometries agree at 0.94. The transferable methodological result is the selection lesson: reconstruction error, the objective these models train on, chose the worst similarity space of the eight candidates evaluated.</p>
+      </div>
 
       <div class="case-block reveal">
         <span class="sublabel">What the adversarial review changed</span>
@@ -138,9 +145,9 @@
     </div>
     <nav class="foot-nav" aria-label="Footer">
       <a href="./">Home</a>
-      <a href="case-studies.html">Case Studies</a>
+      <a href="case-studies.html">Projects</a>
       <a href="research.html">Research</a>
-      <a href="skills.html">Skills</a>
+      <a href="skills.html">Capabilities</a>
       <a href="contact.html">Contact</a>
     </nav>
     <div class="foot-links">
@@ -151,7 +158,7 @@
   <div class="wrap foot-legal">Every metric on this site is generated by project code from project data.</div>
 </footer>
 
-<script src="assets/site.js?v=20260820"></script>
-<script src="assets/explorer.js?v=20260820"></script>
+<script src="assets/site.js?v=20260821"></script>
+<script src="assets/explorer.js?v=20260821"></script>
 </body>
 </html>

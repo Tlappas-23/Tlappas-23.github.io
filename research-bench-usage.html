@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <title>Bench Usage and Team Success · Thomas Lappas</title>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-<link rel="stylesheet" href="assets/style.css?v=20260820">
+<link rel="stylesheet" href="assets/style.css?v=20260821">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -28,9 +28,9 @@
     <a class="topbar-name" href="./">Thomas Lappas</a>
     <nav class="topbar-nav" aria-label="Site">
       <a href="./">Home</a>
-      <a href="case-studies.html">Case Studies</a>
+      <a href="case-studies.html">Projects</a>
       <a href="research.html" aria-current="page">Research</a>
-      <a href="skills.html">Skills</a>
+      <a href="skills.html">Capabilities</a>
       <a href="contact.html">Contact</a>
     </nav>
   </div>
@@ -44,7 +44,7 @@
         <span class="tag tag-domain">Team Construction</span><span class="tag">Permutation Inference</span><span class="tag">Partial Correlation</span>
         <a class="repo-link" href="mailto:thomas.lappas1010@gmail.com?subject=Access%20request%3A%20NBA%20research%20notebooks">Notebook · email for access</a>
       </div>
-      <h2 class="reveal">Bench Usage and Team Success</h2>
+      <h1 class="reveal">Bench Usage and Team Success</h1>
       <p class="dek reveal">Front offices argue about whether a heavy bench is a weakness and whether a designated bench scorer is worth paying for. <strong>Bench statistics are confounded by the starters in front of them</strong>, so this study refuses every raw correlation until it has been re-estimated with starter quality partialled out, with permutation p-values and a Holm correction pricing in every test that was run.</p>
 
       <div class="qa reveal">
@@ -52,16 +52,18 @@
         <p class="a"><strong>The raw answer is yes and the controlled answer is no.</strong> Bench scoring share correlates with team net rating at -0.386 across 150 team-seasons, but the association collapses to +0.083 once starter quality is held fixed: bad starters cause both the losing and the bench reliance. What survives the control is bench efficiency (+0.225 partial) and a hustle-based effort index (+0.235), while the designated-bench-scorer share is null at all three thresholds tested.</p>
       </div>
 
+      <div class="summary-strip reveal" aria-label="Study summary"><div><span class="k">Question</span><span class="v">Does leaning on your bench cost games?</span></div><div><span class="k">Data</span><span class="v">150 team-seasons across five NBA seasons</span></div><div><span class="k">Method</span><span class="v">Permutation inference with starter quality partialled out; franchise block bootstrap</span></div><div><span class="k">Result</span><span class="v"><strong>The raw penalty is a starter artifact</strong>; efficiency (+0.225) and effort (+0.235) survive the control</span></div></div>
+
       <div class="case-block reveal">
-        <span class="sublabel">Executive summary</span>
+        <span class="sublabel">Overview</span>
         <p>Five regular seasons, 150 team-seasons, one discipline: the two confounds are named before any result. Good starters shrink the bench's role while winning games, and good teams generate garbage time that inflates bench minutes in wins. Every headline correlation is re-tested as a partial correlation against starter net rating, significance comes from 10,000-shuffle permutation tests with a finite-sample estimator, seven tests on the same rows are Holm-corrected, and both surviving findings face a franchise cluster bootstrap that resamples all five of a franchise's seasons together, because 150 rows from 30 franchises are not 150 independent facts.</p>
       </div>
       <div class="case-block reveal">
-        <span class="sublabel">Question and data</span>
+        <span class="sublabel">The study and its data</span>
         <p>Three questions: does bench share correlate with winning, does the structure of bench usage matter (low-usage role players versus bench scorers who need the ball), and can bench quality be measured without traditional production statistics at all? The starter and bench splits use the league's own per-game definition of who started, which counts a player traded into a starting job correctly on both sides where a minutes heuristic would misclassify him. One data trap handled explicitly: the advanced player table's minutes column is per-game even in totals mode, so true bench minutes are joined from the base table and used as the aggregation weights.</p>
       </div>
       <div class="case-block reveal">
-        <span class="sublabel">Findings</span>
+        <span class="sublabel">Results</span>
         <p>Bench usage level is a starter artifact (-0.326 raw to -0.045 controlled). The bench-scorer share is uncorrelated with success raw and controlled, at 22, 24, and 26 percent usage definitions alike. Bench true shooting is the one traditional statistic that survives (+0.374 raw, +0.225 controlled, positive in all five individual seasons), with the stated caveat that part of it runs through team offensive rating, where bench points sit inside the outcome. The two production-free measures split: coach-revealed clutch trust is an honest null with a structural explanation, and the hustle-based effort index survives the starter control at +0.235 with a franchise-bootstrap interval of +0.09 to +0.36.</p>
       </div>
 
@@ -84,6 +86,11 @@
         <p class="xp-note">All 150 team-seasons with starter net rating alongside, because the study's central finding is that raw bench numbers mislead without it. Default sort is the effort index; click any header to re-sort.</p>
         <div class="xp-wrap" id="teams-bench-body"></div>
       </section>
+
+      <div class="case-block reveal">
+        <span class="sublabel">What the results mean</span>
+        <p>For roster construction at the margin, the evidence supports weighting bench efficiency first and non-scoring energy second, treating bench usage appetite as irrelevant, and treating the bench-scorer archetype as unsupported in this window. These are associations that survive the stated controls, not levers proven to cause winning: part of measured bench efficiency travels with the starters who create the looks, and the study says exactly where that exposure lives.</p>
+      </div>
 
       <div class="case-block reveal">
         <span class="sublabel">What the adversarial review changed</span>
@@ -127,9 +134,9 @@
     </div>
     <nav class="foot-nav" aria-label="Footer">
       <a href="./">Home</a>
-      <a href="case-studies.html">Case Studies</a>
+      <a href="case-studies.html">Projects</a>
       <a href="research.html">Research</a>
-      <a href="skills.html">Skills</a>
+      <a href="skills.html">Capabilities</a>
       <a href="contact.html">Contact</a>
     </nav>
     <div class="foot-links">
@@ -140,7 +147,7 @@
   <div class="wrap foot-legal">Every metric on this site is generated by project code from project data.</div>
 </footer>
 
-<script src="assets/site.js?v=20260820"></script>
-<script src="assets/explorer.js?v=20260820"></script>
+<script src="assets/site.js?v=20260821"></script>
+<script src="assets/explorer.js?v=20260821"></script>
 </body>
 </html>

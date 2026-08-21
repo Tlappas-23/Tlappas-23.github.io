@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <title>What Survives the Playoffs · Thomas Lappas</title>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-<link rel="stylesheet" href="assets/style.css?v=20260820">
+<link rel="stylesheet" href="assets/style.css?v=20260821">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -28,9 +28,9 @@
     <a class="topbar-name" href="./">Thomas Lappas</a>
     <nav class="topbar-nav" aria-label="Site">
       <a href="./">Home</a>
-      <a href="case-studies.html">Case Studies</a>
+      <a href="case-studies.html">Projects</a>
       <a href="research.html" aria-current="page">Research</a>
-      <a href="skills.html">Skills</a>
+      <a href="skills.html">Capabilities</a>
       <a href="contact.html">Contact</a>
     </nav>
   </div>
@@ -44,7 +44,7 @@
         <span class="tag tag-domain">Playoff Translation</span><span class="tag">Nested Validation</span><span class="tag">Honest Nulls</span>
         <a class="repo-link" href="mailto:thomas.lappas1010@gmail.com?subject=Access%20request%3A%20NBA%20research%20notebooks">Notebook · email for access</a>
       </div>
-      <h2 class="reveal">What Survives the Playoffs</h2>
+      <h1 class="reveal">What Survives the Playoffs</h1>
       <p class="dek reveal">Every spring a front office asks whether its roster is built for the playoffs. The folk theory says transition-reliant teams collapse and self-creating teams hold up. <strong>This study turns the theory into a testable model and the theory fails its test</strong>, while the two features that do survive turn out to be measuring something more useful than style: which records are lying.</p>
 
       <div class="qa reveal">
@@ -52,12 +52,14 @@
         <p class="a"><strong>Style will not tell you, in five seasons of evidence.</strong> Across 80 playoff team-seasons with opponent strength controlled, no offensive style feature predicts playoff over- or underperformance: transition reliance, the trait playoff defenses supposedly punish, is the deadest feature on the board at r = +0.008. The premise of the folk theory is real, isolation rises and every play type gets harder, but its conclusion does not follow.</p>
       </div>
 
+      <div class="summary-strip reveal" aria-label="Study summary"><div><span class="k">Question</span><span class="v">Does playing style predict who translates to the playoffs?</span></div><div><span class="k">Data</span><span class="v">80 playoff team-seasons, opponent strength computed from game logs</span></div><div><span class="k">Method</span><span class="v">Bonferroni-corrected screen; leave-one-season-out validation with selection nested in folds</span></div><div><span class="k">Result</span><span class="v"><strong>Style is null across the board</strong>; the apparent 4% forecast edge vanishes under honest selection</span></div></div>
+
       <div class="case-block reveal">
-        <span class="sublabel">Executive summary</span>
+        <span class="sublabel">Overview</span>
         <p>Eighty playoff team-seasons, each carrying its regular season style profile from play-type and tracking tables and an opponent-strength control computed from game logs, because the average playoff opponent ranges from a -0.5 net rating slate to +12.7 and ignoring that difference measures the bracket instead of the team. Eleven style features are screened against opponent-adjusted overperformance with permutation p-values and a Bonferroni bar, the two survivors face per-season stability checks, a mechanism test with its prediction stated in advance, and a franchise cluster bootstrap, and every predictive claim runs through leave-one-season-out validation with feature selection nested inside each fold.</p>
       </div>
       <div class="case-block reveal">
-        <span class="sublabel">Findings</span>
+        <span class="sublabel">Results</span>
         <p>The two survivors are not style knobs. Spot-up shooting efficiency is negative, teams that shot well underperform, and isolation defense allowed is positive, teams that defended badly overperform, a sign no basketball mechanism predicts. Both behave as regression to the mean on noisy shooting components predicts: hot spot-up shooting inflates a record the playoffs regress away, and opponents making tough shots deflates a record that was better than it looked. The pattern is consistent with a luck-detection reading, and the correlational finding survives the Bonferroni correction, all five seasons, and the franchise bootstrap.</p>
       </div>
       <div class="case-block reveal">
@@ -86,6 +88,11 @@
         <p class="xp-note">All 80 playoff team-seasons with opponent strength and the opponent-adjusted residual, the number that separates a hard bracket from a real underperformance. Default sort is the adjusted residual.</p>
         <div class="xp-wrap" id="teams-po-body"></div>
       </section>
+
+      <div class="case-block reveal">
+        <span class="sublabel">What the results mean</span>
+        <p>For a front office in March, the supported use is diagnosis rather than forecasting. The two surviving features indicate which regular season records overstate their teams, nothing at the style level predicted translation, and at this sample size the best available playoff forecast remains the record and the schedule. Both halves of that sentence are findings, and the study demonstrates each directly.</p>
+      </div>
 
       <div class="case-block reveal">
         <span class="sublabel">What the adversarial review changed</span>
@@ -129,9 +136,9 @@
     </div>
     <nav class="foot-nav" aria-label="Footer">
       <a href="./">Home</a>
-      <a href="case-studies.html">Case Studies</a>
+      <a href="case-studies.html">Projects</a>
       <a href="research.html">Research</a>
-      <a href="skills.html">Skills</a>
+      <a href="skills.html">Capabilities</a>
       <a href="contact.html">Contact</a>
     </nav>
     <div class="foot-links">
@@ -142,7 +149,7 @@
   <div class="wrap foot-legal">Every metric on this site is generated by project code from project data.</div>
 </footer>
 
-<script src="assets/site.js?v=20260820"></script>
-<script src="assets/explorer.js?v=20260820"></script>
+<script src="assets/site.js?v=20260821"></script>
+<script src="assets/explorer.js?v=20260821"></script>
 </body>
 </html>

@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <title>Clutch Minutes and Bench Value · Thomas Lappas</title>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-<link rel="stylesheet" href="assets/style.css?v=20260820">
+<link rel="stylesheet" href="assets/style.css?v=20260821">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -28,9 +28,9 @@
     <a class="topbar-name" href="./">Thomas Lappas</a>
     <nav class="topbar-nav" aria-label="Site">
       <a href="./">Home</a>
-      <a href="case-studies.html">Case Studies</a>
+      <a href="case-studies.html">Projects</a>
       <a href="research.html" aria-current="page">Research</a>
-      <a href="skills.html">Skills</a>
+      <a href="skills.html">Capabilities</a>
       <a href="contact.html">Contact</a>
     </nav>
   </div>
@@ -44,7 +44,7 @@
         <span class="tag tag-domain">Reliability Analysis</span><span class="tag">Bench Evaluation</span><span class="tag">Variance Decomposition</span>
         <a class="repo-link" href="mailto:thomas.lappas1010@gmail.com?subject=Access%20request%3A%20NBA%20research%20notebooks">Notebook · email for access</a>
       </div>
-      <h2 class="reveal">Clutch Minutes and Bench Value</h2>
+      <h1 class="reveal">Clutch Minutes and Bench Value</h1>
       <p class="dek reveal">Which bench players earn minutes when the game is tight, and which perform once they are out there? The two halves of that question get opposite answers. <strong>Before modeling anything, this study tests whether clutch performance is measurable at all</strong>, and the reliability gate it builds ends up being the finding.</p>
 
       <div class="qa reveal">
@@ -52,12 +52,14 @@
         <p class="a"><strong>The data can tell you who is trusted; it cannot tell you who performs.</strong> A bench player's whole clutch season is a median of 46 possessions. Clutch shooting and clutch net rating repeat year over year at +0.03 and -0.05, statistically nothing, and a variance decomposition puts the true-skill share of clutch net rating at 0.1 percent. Coach trust is the half that exists: how much a coach promotes a bench player in the clutch repeats at +0.34, and it is predicted by age and passing, not by shooting.</p>
       </div>
 
+      <div class="summary-strip reveal" aria-label="Study summary"><div><span class="k">Question</span><span class="v">Which bench players are clutch, and is that even measurable?</span></div><div><span class="k">Data</span><span class="v">871 bench player-seasons; a median of 46 clutch possessions each</span></div><div><span class="k">Method</span><span class="v">Reliability gate, variance decomposition, Holm-corrected screen, player-clustered bootstrap</span></div><div><span class="k">Result</span><span class="v"><strong>Clutch performance is noise in this data</strong>; coach trust repeats (+0.34) and is predicted by age and passing</span></div></div>
+
       <div class="case-block reveal">
-        <span class="sublabel">Executive summary</span>
+        <span class="sublabel">Overview</span>
         <p>Eight hundred seventy-one bench player-seasons across five seasons, with clutch defined the league's way: last five minutes, margin within five. Every predictor is computed from non-clutch minutes so nothing shares a possession with the outcome. The central measure is clutch lift, a player's share of his team's clutch minutes minus his share of ordinary minutes, which isolates the coaching decision from simply playing a lot. Twenty-two candidate traits face a Holm-corrected screen and a player-clustered bootstrap, and the modest predictive claim is validated under both season-holdout and player-grouped schemes, which answer different operational questions and are reported separately.</p>
       </div>
       <div class="case-block reveal">
-        <span class="sublabel">Findings</span>
+        <span class="sublabel">Results</span>
         <p>The average bench player loses 31.9 percent of his ordinary role when the game is tight; positive lift marks the players a coach actively promotes. Three traits survive the corrected screen: age, assists per 36, and assist percentage. The nulls are the striking part: true shooting, scoring rate, usage, and free throw percentage all cross zero under the player-clustered bootstrap, and the least-trusted list is full of excellent specialist shooters. Sorted into quartiles by clutch net rating, the best and worst groups are separated by 47 points of net rating in season one and 9 points in season two: 81 percent of the apparent separation evaporates in a single year.</p>
       </div>
       <div class="case-block reveal">
@@ -89,6 +91,11 @@
         <p class="xp-note">All 688 rows, sortable by any column. Clutch lift is the coaching decision isolated from playing time; the reliability gate applies, so no column here measures clutch skill, and the bench score deliberately excludes clutch statistics.</p>
         <div class="xp-wrap" id="clutch-body"></div>
       </section>
+
+      <div class="case-block reveal">
+        <span class="sublabel">What the results mean</span>
+        <p>Bench acquisition should weight what repeats: coach trust, ordinary efficiency, and on-court impact. Ordinary quality is also the best available estimate of clutch quality, since nothing predicts clutch shooting better than shooting. A clutch reputation built on one bench season is statistically indistinguishable from noise in this data, and paying a premium for it finds no support here.</p>
+      </div>
 
       <div class="case-block reveal">
         <span class="sublabel">What the adversarial review changed</span>
@@ -132,9 +139,9 @@
     </div>
     <nav class="foot-nav" aria-label="Footer">
       <a href="./">Home</a>
-      <a href="case-studies.html">Case Studies</a>
+      <a href="case-studies.html">Projects</a>
       <a href="research.html">Research</a>
-      <a href="skills.html">Skills</a>
+      <a href="skills.html">Capabilities</a>
       <a href="contact.html">Contact</a>
     </nav>
     <div class="foot-links">
@@ -145,7 +152,7 @@
   <div class="wrap foot-legal">Every metric on this site is generated by project code from project data.</div>
 </footer>
 
-<script src="assets/site.js?v=20260820"></script>
-<script src="assets/explorer.js?v=20260820"></script>
+<script src="assets/site.js?v=20260821"></script>
+<script src="assets/explorer.js?v=20260821"></script>
 </body>
 </html>

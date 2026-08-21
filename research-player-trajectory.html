@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <title>Player Trajectory Prediction · Thomas Lappas</title>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-<link rel="stylesheet" href="assets/style.css?v=20260820">
+<link rel="stylesheet" href="assets/style.css?v=20260821">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -28,9 +28,9 @@
     <a class="topbar-name" href="./">Thomas Lappas</a>
     <nav class="topbar-nav" aria-label="Site">
       <a href="./">Home</a>
-      <a href="case-studies.html">Case Studies</a>
+      <a href="case-studies.html">Projects</a>
       <a href="research.html" aria-current="page">Research</a>
-      <a href="skills.html">Skills</a>
+      <a href="skills.html">Capabilities</a>
       <a href="contact.html">Contact</a>
     </nav>
   </div>
@@ -44,7 +44,7 @@
         <span class="tag tag-domain">Trajectory Modeling</span><span class="tag">Feature Engineering</span><span class="tag">Evaluation Geometry</span>
         <a class="repo-link" href="mailto:thomas.lappas1010@gmail.com?subject=Access%20request%3A%20NBA%20research%20notebooks">Notebook · email for access</a>
       </div>
-      <h2 class="reveal">Player Trajectory Prediction</h2>
+      <h1 class="reveal">Player Trajectory Prediction</h1>
       <p class="dek reveal">Which players are about to improve relative to the league, and which are about to decline? This study starts from everything, all 860 numeric columns across 42 player tables, and whittles them into one clean analysis table with every drop documented. <strong>Its most important result is a correction to its own headline</strong>: a bounded percentile target mechanically censors its own classes, and measuring that changed the conclusion.</p>
 
       <div class="qa reveal">
@@ -52,8 +52,10 @@
         <p class="a"><strong>Trajectory is mostly three variables: current level, age, and last year's trend.</strong> That baseline ranks next-season risers at 0.72 AUC on the full sample and 0.67 on the interior of the distribution, and no model built on the 428 cleaned features beats it on the rise side in any corrected evaluation frame. What the full stat sheet demonstrably adds is a modest fall-side signal, about four points of AUC, visible when the question is posed as deviation from expectation, carried by interior-production and role-economy features.</p>
       </div>
 
+      <div class="summary-strip reveal" aria-label="Study summary"><div><span class="k">Question</span><span class="v">Who is rising and who is falling next season?</span></div><div><span class="k">Data</span><span class="v">All 860 database columns whittled to 428 features; 1,160 season transitions</span></div><div><span class="k">Method</span><span class="v">Fold-nested feature screening; four evaluation frames, including a censoring-free interior</span></div><div><span class="k">Result</span><span class="v"><strong>Mostly three variables</strong>; roughly 5 to 7 AUC points of the original headline was boundary geometry</span></div></div>
+
       <div class="case-block reveal">
-        <span class="sublabel">Executive summary</span>
+        <span class="sublabel">Overview</span>
         <p>The preparation is the project. Eight hundred sixty raw columns become 428 honest features through seven documented rules, and the two worst hazards were caught by the outlier analysis rather than documentation: split-table volumes normalized by total minutes secretly encode who starts (r = +0.814 with starter share), and the league's own dashboards publish rate statistics computed on any sample, including a clutch pace of 1800 from 0.8 seconds of floor time. Rows removed as outliers: zero, because after the pipeline errors were fixed, the extreme rows were MVPs, not mistakes.</p>
       </div>
       <div class="case-block reveal">
@@ -61,7 +63,7 @@
         <p>The target is a within-season percentile change with classes cut at plus and minus ten points, and a percentile is bounded: a player above the 90th percentile cannot rise ten points, one below the 10th cannot fall ten. That constrains 19.5 percent of all transitions mechanically, so part of any model's apparent skill can be knowledge of where the walls are. The evaluation therefore runs in four frames, full sample, interior of the distribution, a baseline-adjusted target, and player-grouped folds, and the frame comparison is consistent with boundary geometry accounting for roughly five to seven points of the full-frame AUC.</p>
       </div>
       <div class="case-block reveal">
-        <span class="sublabel">Findings</span>
+        <span class="sublabel">Results</span>
         <p>Mean reversion and the aging curve are real and strong, and they are the baseline: the two confounds alone explain 11.7 percent of trajectory variance. Forty-nine of 428 features survive a false-discovery-corrected screen against the confound-adjusted target, clustering into interpretable families, interior touch volume, foul economy, turnover share, role shares. The prospective watch list ships with its framing sized to the evidence: probabilities driven principally by level, age, trend, and scale geometry, graded for real by the following season.</p>
       </div>
 
@@ -89,6 +91,11 @@
         <p class="xp-note">All 378 qualifying players, sortable by either probability. The study's correction applies to every row: these probabilities are driven principally by current level, age, prior trend, and the geometry of a bounded scale, and all model performance is development evidence until the 2026-27 season grades it.</p>
         <div class="xp-wrap" id="traj-body"></div>
       </section>
+
+      <div class="case-block reveal">
+        <span class="sublabel">What the results mean</span>
+        <p>The watch list should be read as what the corrected analysis showed it to be: a calibrated synthesis of current level, age, and prior trend, with the stat sheet contributing a modest fall-side signal under one target definition. That is a useful product as long as nobody mistakes it for hidden-signal discovery, and the 2026-27 season is reserved as its first clean confirmation.</p>
+      </div>
 
       <div class="case-block reveal">
         <span class="sublabel">What the adversarial review changed</span>
@@ -132,9 +139,9 @@
     </div>
     <nav class="foot-nav" aria-label="Footer">
       <a href="./">Home</a>
-      <a href="case-studies.html">Case Studies</a>
+      <a href="case-studies.html">Projects</a>
       <a href="research.html">Research</a>
-      <a href="skills.html">Skills</a>
+      <a href="skills.html">Capabilities</a>
       <a href="contact.html">Contact</a>
     </nav>
     <div class="foot-links">
@@ -145,7 +152,7 @@
   <div class="wrap foot-legal">Every metric on this site is generated by project code from project data.</div>
 </footer>
 
-<script src="assets/site.js?v=20260820"></script>
-<script src="assets/explorer.js?v=20260820"></script>
+<script src="assets/site.js?v=20260821"></script>
+<script src="assets/explorer.js?v=20260821"></script>
 </body>
 </html>

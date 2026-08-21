@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <title>Player Role Lenses · Thomas Lappas</title>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-<link rel="stylesheet" href="assets/style.css?v=20260820">
+<link rel="stylesheet" href="assets/style.css?v=20260821">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -28,9 +28,9 @@
     <a class="topbar-name" href="./">Thomas Lappas</a>
     <nav class="topbar-nav" aria-label="Site">
       <a href="./">Home</a>
-      <a href="case-studies.html">Case Studies</a>
+      <a href="case-studies.html">Projects</a>
       <a href="research.html" aria-current="page">Research</a>
-      <a href="skills.html">Skills</a>
+      <a href="skills.html">Capabilities</a>
       <a href="contact.html">Contact</a>
     </nav>
   </div>
@@ -44,7 +44,7 @@
         <span class="tag tag-domain">Role Identification</span><span class="tag">Unsupervised Learning</span><span class="tag">External Checks</span>
         <a class="repo-link" href="mailto:thomas.lappas1010@gmail.com?subject=Access%20request%3A%20NBA%20research%20notebooks">Notebook · email for access</a>
       </div>
-      <h2 class="reveal">Player Role Lenses</h2>
+      <h1 class="reveal">Player Role Lenses</h1>
       <p class="dek reveal">A single all-purpose player clustering compresses everything a player is into one label. This study clusters the same 1,350 player-seasons through four independent lenses instead, so a player becomes a coordinate: shot diet, defensive job, scoring profile, playmaking tier. <strong>Cluster counts are selected against separation, density, and player-block bootstrap stability at once</strong>, and the defensive lens is checked against an outcome measure it never saw.</p>
 
       <div class="qa reveal">
@@ -52,16 +52,18 @@
         <p class="a"><strong>Four nearly independent answers per player.</strong> Cross-lens agreement tops out at 0.168 adjusted Rand, so shot diet, defensive job, scoring profile, and playmaking tier are close to orthogonal dimensions. The league's most unusual profiles become expressible: an interior-touch big who is simultaneously a primary creator and a primary scorer, with a fit score that flags his defensive assignment as a genuine boundary case instead of forcing a clean label.</p>
       </div>
 
+      <div class="summary-strip reveal" aria-label="Study summary"><div><span class="k">Question</span><span class="v">What is a player&#x27;s role, asked four independent ways?</span></div><div><span class="k">Data</span><span class="v">1,350 player-seasons, 27 engineered features</span></div><div><span class="k">Method</span><span class="v">KMeans per lens; player-block stability selection; external check against defensive win shares</span></div><div><span class="k">Result</span><span class="v"><strong>Four near-independent lenses</strong> (max agreement 0.168); three clear the stability bar, one downgraded</span></div></div>
+
       <div class="case-block reveal">
-        <span class="sublabel">Executive summary</span>
+        <span class="sublabel">Overview</span>
         <p>Every player-season with 1,000-plus minutes across five seasons, described by 27 engineered features and clustered four ways with KMeans, with Gaussian-mixture BIC and silhouette as selection evidence and a bootstrap that resamples players as blocks, all seasons of a sampled player moving together, because the same player's seasons are near-duplicates and row-level resampling flatters stability. Each lens replicates when refit on single seasons in isolation, every player carries a per-lens fit score so hybrids are visible, and rim defense runs through empirical Bayes shrinkage so no guard is labeled by a 45-attempt rim percentage.</p>
       </div>
       <div class="case-block reveal">
-        <span class="sublabel">Question and data</span>
+        <span class="sublabel">The study and its data</span>
         <p>The use case is role identification for scouting: a trade target is acquired for a role, not a rating. Ten tables join into the pool with one-row-per-player-season assertions guarding every merge. Features are per-36 rates and opportunity-adjusted shares, power-transformed within each season so a cluster means the same thing in 2021-22 as in 2025-26 even as league behavior drifts, and every feature also gets a within-season percentile so any player-season reads as a profile independent of the labels.</p>
       </div>
       <div class="case-block reveal">
-        <span class="sublabel">Findings</span>
+        <span class="sublabel">Results</span>
         <p>Six shot diets, three defensive jobs, four scoring quadrants, three playmaking tiers, each named from its profile with exemplars printed from the data. The defensive lens is the strongest: it replicates at 0.928 when refit on single seasons, and its three roles separate on defensive win shares per 36, an outcome the lens never saw, with the separation surviving within-team demeaning (p = 1.4e-04), which rules out the objection that good defenses simply employ good defenders. Role change is real but concentrated among boundary players: above-median-fit players change roles at 4 to 16 percent per year against 31 to 44 percent for boundary cases, and a three-year average profile can land in a role the player never occupied in any actual season, which is why the deployed table is season-level.</p>
       </div>
 
@@ -95,6 +97,11 @@
         <div class="xp-controls" id="roles-chips"></div>
         <div class="xp-wrap" id="roles-body"></div>
       </section>
+
+      <div class="case-block reveal">
+        <span class="sublabel">What the results mean</span>
+        <p>The deployed table gives a scout a four-coordinate answer to what a player is, a percentile answer to how he does it, and a fit score for how much to trust the label. Role change is real but concentrated among boundary players, so season-level labels, with the trajectory read off the rows, are the defensible unit of evaluation; a three-year average can describe a player who never existed in any actual season.</p>
+      </div>
 
       <div class="case-block reveal">
         <span class="sublabel">What the adversarial review changed</span>
@@ -138,9 +145,9 @@
     </div>
     <nav class="foot-nav" aria-label="Footer">
       <a href="./">Home</a>
-      <a href="case-studies.html">Case Studies</a>
+      <a href="case-studies.html">Projects</a>
       <a href="research.html">Research</a>
-      <a href="skills.html">Skills</a>
+      <a href="skills.html">Capabilities</a>
       <a href="contact.html">Contact</a>
     </nav>
     <div class="foot-links">
@@ -151,7 +158,7 @@
   <div class="wrap foot-legal">Every metric on this site is generated by project code from project data.</div>
 </footer>
 
-<script src="assets/site.js?v=20260820"></script>
-<script src="assets/explorer.js?v=20260820"></script>
+<script src="assets/site.js?v=20260821"></script>
+<script src="assets/explorer.js?v=20260821"></script>
 </body>
 </html>
