@@ -55,7 +55,7 @@
       <p class="dek reveal">Significance-tested answers to schedule-density questions, and a win total on every team's schedule luck. <strong>Schedule luck is attribution in disguise</strong>, handled with a leakage-free counterfactual, because separating earned wins from gifted ones means holding team quality fixed while only the schedule varies.</p>
 
 
-      <div class="summary-strip reveal" aria-label="Study summary"><div><span class="k">Question</span><span class="v">How many wins does the NBA schedule actually give or take from a team?</span></div><div><span class="k">Data</span><span class="v">10 seasons of schedules, game results, and arena coordinates</span></div><div><span class="k">Method</span><span class="v">Pre-tipoff features only; logistic model; counterfactual vs a league-average schedule; permutation tests</span></div><div><span class="k">Result</span><span class="v"><strong>+4.2 to -3.5 wins at the five-season extremes</strong>; the loudest schedule narratives fail their significance tests</span></div></div>
+      <div class="summary-strip reveal" aria-label="Study summary"><div><span class="k">Question</span><span class="v">How many wins does the NBA schedule actually give or take from a team?</span></div><div><span class="k">Data</span><span class="v">10 seasons of schedules, game results, and arena coordinates</span></div><div><span class="k">Method</span><span class="v">Pre-tipoff features only; logistic model; counterfactual vs a league-average schedule; permutation tests</span></div><div><span class="k">Result</span><span class="v"><strong>+4.25 to -3.45 wins at the five-season extremes</strong>; the loudest schedule narratives fail their significance tests</span></div></div>
 
       <div class="case-block reveal toc-watch" id="overview">
         <span class="sublabel">Overview</span>
@@ -66,7 +66,7 @@
       <div class="qa reveal toc-watch" id="question">
         <span class="sublabel">The question</span>
         <p class="q">How many wins does the NBA schedule actually give or take?</p>
-        <p class="a"><strong>Less than a win per season, even at the extremes.</strong> Detroit gained the most (+4.2 wins across 2019-20 through 2023-24) and Philadelphia lost the most (-3.5). Far smaller than fans assume, but real, measurable, and with a coherent cause: a weak Eastern Conference handed its bottom teams the softest slates while contenders paid for it.</p>
+        <p class="a"><strong>Less than a win per season, even at the extremes.</strong> Detroit gained the most (+4.25 wins across 2019-20 through 2023-24) and Philadelphia lost the most (-3.45). Far smaller than fans assume, but real, measurable, and with a coherent cause: a weak Eastern Conference handed its bottom teams the softest slates while contenders paid for it.</p>
       </div>
 
 
@@ -108,8 +108,8 @@
       </div>
 
       <div class="stats reveal toc-watch" id="results" role="list" aria-label="Key results">
-        <div class="stat" role="listitem"><span class="n">+4.2</span><span class="l">wins gained by Detroit, the most schedule-helped team</span></div>
-        <div class="stat" role="listitem"><span class="n">-3.5</span><span class="l">wins lost by Philadelphia, the most schedule-hurt team</span></div>
+        <div class="stat" role="listitem"><span class="n">+4.25</span><span class="l">wins gained by Detroit, the most schedule-helped team</span></div>
+        <div class="stat" role="listitem"><span class="n">-3.45</span><span class="l">wins lost by Philadelphia, the most schedule-hurt team</span></div>
         <div class="stat" role="listitem"><span class="n">0.706</span><span class="l">out-of-sample AUC across ten held-out seasons</span></div>
         <div class="stat" role="listitem"><span class="n">p=0.89</span><span class="l">permutation test on the "unfair schedule" narrative</span></div>
       </div>
@@ -120,7 +120,7 @@
         <ul class="findings">
           <li><strong>The "some team is systematically punished" story fails its test.</strong> The spread between Charlotte (28.1) and New York (22.2) in 4-in-6 stretches per 82 games sits at permutation p = 0.89, exactly what random schedule variation produces.</li>
           <li><strong>Coefficients behave like basketball.</strong> Home court +0.59 log-odds, playing on a back-to-back -0.25, opponent on a back-to-back +0.25, stable across held-out seasons.</li>
-          <li><strong>Knowing when a split is quotable is part of the job.</strong> Brooklyn's 0.8-point defensive eFG% edge against back-to-back opponents rests on 16 games and a permutation p near 0.55. The report calls it noise, because it is.</li>
+          <li><strong>Knowing when a split is quotable is part of the job.</strong> Brooklyn defended 1.1 points of eFG% better when the opponent sat on a back-to-back, but the split rests on 16 games and a permutation p near 0.55, so the report calls it noise. The same rest effect the 16-game slice cannot see is priced at +0.25 log-odds by ten seasons of league-wide data: real, small, and invisible at n=16.</li>
           <li><strong>Out of sample beats the baseline.</strong> AUC 0.706 and log-loss 0.624 across ten seasons, against a "home team wins" baseline of 0.569 accuracy.</li>
         </ul>
       </div>
