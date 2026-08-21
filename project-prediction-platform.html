@@ -61,7 +61,7 @@
 
       <div class="case-block reveal toc-watch" id="overview">
         <span class="sublabel">Overview</span>
-        <p>A daily NBA prediction platform that ingests games, stats, and odds, builds point-in-time feature snapshots, generates and grades predictions from two model versions, and serves everything through a rate-limited public API and a Next.js UI. Seven services run under one Docker Compose file. The project's substance is operational: it demonstrates what it takes for a model to run in production every day with no one watching it.</p>
+        <p>A daily NBA prediction platform that ingests games, stats, and odds, builds point-in-time feature snapshots, generates and grades predictions from two model versions (a random forest v1 and an XGBoost v2 over the same snapshots), and serves everything through a rate-limited public API and a Next.js UI. Seven services run under one Docker Compose file. The project's substance is operational: it demonstrates what it takes for a model to run in production every day with no one watching it.</p>
       </div>
 
 
@@ -108,14 +108,14 @@
 
       <div class="case-block reveal toc-watch" id="validation">
         <span class="sublabel">Validation and reliability</span>
-        <p>Reliability here is validated operationally rather than statistically. Freshness enforcement and two circuit breakers (5% missing games, 20% feature failures) abort the cycle before degraded inputs can produce predictions; grading re-checks seven days of history because the league occasionally revises final scores; historical ROI reads only pre-tipoff odds snapshots; and monitoring alerts on staleness, coverage, and a collapse in prediction confidence. These checks establish that the served history is point-in-time correct and that failure is loud. They are claims about the system&#x27;s integrity, not about model accuracy, which is graded daily per model version and reported as its own record.</p>
+        <p>Reliability here is validated operationally rather than statistically. Freshness enforcement and two circuit breakers (5% missing games, 20% feature failures) abort the cycle before degraded inputs can produce predictions; grading re-checks seven days of history because the league occasionally revises final scores; historical ROI reads only pre-tipoff odds snapshots; and monitoring alerts on staleness, coverage, and a collapse in prediction confidence. These checks establish that the served history is point-in-time correct and that failure is loud. They are claims about the system&#x27;s integrity, not about model accuracy. The models themselves are deliberately standard, a random forest and an XGBoost classifier over the same feature snapshots, and their graded daily records live in the product; this page quotes none of those numbers because the platform, not the picks, is the deliverable.</p>
       </div>
 
       <div class="stats reveal toc-watch" id="results" role="list" aria-label="Key properties">
         <div class="stat" role="listitem"><span class="n">7</span><span class="l">services orchestrated by one compose file</span></div>
         <div class="stat" role="listitem"><span class="n">Daily</span><span class="l">automated pipeline run at a configured UTC hour</span></div>
         <div class="stat" role="listitem"><span class="n">60 min</span><span class="l">pre-tipoff window where predictions are blocked</span></div>
-        <div class="stat" role="listitem"><span class="n">2</span><span class="l">model versions predicted and graded side by side</span></div>
+        <div class="stat" role="listitem"><span class="n">2</span><span class="l">model versions, random forest and XGBoost, graded side by side</span></div>
       </div>
 
 
