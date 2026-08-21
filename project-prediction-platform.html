@@ -1,0 +1,216 @@
+<!doctype html>
+<!--
+  NBA Prediction Platform, as its own page. One project, told front to back: the question,
+  why it matters, the data, the method, how the results were generated,
+  how they were validated, what they mean, and what they do not establish.
+  The technical deep dive stays one click away at the bottom.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A daily NBA prediction product engineered to run unattended: single-writer scheduling, run-pinned feature lineage, circuit-breaker guardrails, a read-only public API, and two model versions graded side by side.">
+<meta property="og:title" content="NBA Prediction Platform · Thomas Lappas">
+<meta property="og:description" content="A daily NBA prediction product engineered to run unattended: single-writer scheduling, run-pinned feature lineage, circuit-breaker guardrails, a read-only public API, and two model versions graded side by side.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tlappas-23.github.io/project-prediction-platform.html">
+<meta property="og:image" content="https://tlappas-23.github.io/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>NBA Prediction Platform · Thomas Lappas</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/style.css?v=20260821">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="topbar-name" href="./">Thomas Lappas</a>
+    <nav class="topbar-nav" aria-label="Site">
+      <a href="./">Home</a>
+      <a href="case-studies.html" aria-current="page">Projects</a>
+      <a href="research.html">Research</a>
+      <a href="skills.html">Capabilities</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="side-toc" aria-label="On this page">
+    <a href="#overview">Overview</a><a href="#question">The question</a><a href="#data">Data</a><a href="#method">Method</a><a href="#validation">Validation</a><a href="#results">Results</a><a href="#meaning">What it means</a><a href="#limits">Limitations</a>
+  </nav>
+  <article class="case" id="platform">
+    <div class="wrap">
+      <p class="crumb reveal"><a href="case-studies.html">Projects</a><span class="sep">/</span><span>NBA Prediction Platform</span></p>
+      <div class="case-tags reveal">
+        <span class="tag tag-domain">Production System</span>
+        <span class="tag">Docker</span>
+        <span class="tag">FastAPI</span>
+        <span class="tag">Next.js</span>
+        <span class="tag">PostgreSQL · Redis</span>
+        <a class="repo-link" href="mailto:thomas.lappas1010@gmail.com?subject=Access%20request%3A%20NBA%20Prediction%20Platform%20repository">Private repo · email for access</a>
+      </div>
+
+      <h1 class="reveal">NBA Prediction Platform</h1>
+
+      <p class="dek reveal">A daily prediction product with a private ML pipeline, a read-only public API, and a web UI, engineered to run unattended. <strong>A daily prediction product is production reliability in disguise</strong>, handled with guardrails, lineage, and monitoring, because an unattended model is only as good as the pipeline feeding it.</p>
+
+
+      <div class="summary-strip reveal" aria-label="Study summary"><div><span class="k">Question</span><span class="v">Can a prediction model run itself in production, daily, with no one watching?</span></div><div><span class="k">Data</span><span class="v">Games, box stats, and betting odds ingested daily from an external API</span></div><div><span class="k">Method</span><span class="v">Single-writer scheduler, run-pinned feature snapshots, circuit-breaker guardrails, read-only public API</span></div><div><span class="k">Result</span><span class="v"><strong>An unattended daily cycle</strong> that stops loudly on bad inputs, with point-in-time lineage on every prediction</span></div></div>
+
+      <div class="case-block reveal toc-watch" id="overview">
+        <span class="sublabel">Overview</span>
+        <p>A daily NBA prediction platform that ingests games, stats, and odds, builds point-in-time feature snapshots, generates and grades predictions from two model versions, and serves everything through a rate-limited public API and a Next.js UI. Seven services run under one Docker Compose file. The project's substance is operational: it demonstrates what it takes for a model to run in production every day with no one watching it.</p>
+      </div>
+
+
+      <div class="qa reveal toc-watch" id="question">
+        <span class="sublabel">The question</span>
+        <p class="q">Can a prediction model run itself in production, every day, without a human in the loop?</p>
+        <p class="a"><strong>Yes, if the system is built to refuse bad data.</strong> A single scheduler owns the daily cycle, every feature snapshot is pinned to a run for point-in-time lineage, and guardrails abort the pipeline before it can predict from stale, incomplete, or failing inputs.</p>
+      </div>
+
+
+      <div class="case-block reveal toc-watch" id="why">
+        <span class="sublabel">Why it matters</span>
+        <p>A prediction is a perishable product: worthless after tipoff and dangerous when built from stale or incomplete data. The operational challenge is the unattended daily cycle, ingestion through features through predictions through grading, which must either complete correctly or stop loudly. The user need is a reliable daily surface: today's picks, model comparison, historical performance, and strategy tools.</p>
+      </div>
+
+
+      <div class="case-block reveal toc-watch" id="data">
+        <span class="sublabel">The data, and how it stays trustworthy</span>
+        <p>The inputs are games, box stats, and betting odds from an external API, and preparation is continuous rather than one-time, because the data changes under the system every day. Every feature-generation run snapshots its inputs under a <code>run_id</code>, so features are point-in-time correct by construction. Stats freshness is enforced before anything downstream runs, a 5% missing-game and a 20% feature-failure circuit breaker stop the cycle when inputs degrade, and grading re-checks the previous seven days because the league occasionally revises final scores after the fact. Historical ROI uses only pre-tipoff odds snapshots, so no reported number can borrow information that did not exist at decision time.</p>
+      </div>
+
+
+      <div class="case-block reveal toc-watch" id="method">
+        <span class="sublabel">Method and key decisions</span>
+        <p>The architecture makes invalid states hard to reach, and each choice was made against a specific alternative. Multiple services could each write on their own schedule; instead one scheduler container owns the daily cycle, because a single update path makes partial failure detectable rather than raced around. The public API could accept writes behind auth; making it strictly read-only removes the entire class of state-corruption risk instead of managing it. Features could be stored once and updated in place; pinning every run to its own <code>run_id</code> spends storage on purpose, and buys an audit trail where any prediction traces to the exact snapshot that produced it and historical records survive backfills untouched. The repository documents each of these decisions together with what was deliberately given up.</p>
+      </div>
+
+
+      <div class="case-block reveal toc-watch" id="generated">
+        <span class="sublabel">How the system runs, end to end</span>
+        <div class="flow" role="img" aria-label="Data flow: external API to scheduler to ingestion to feature snapshots to predictions to grading to PostgreSQL, served by a read-only FastAPI API with Redis rate limiting and a Next.js UI">
+          <span class="node">Ball Don't Lie API</span><span class="arr">→</span>
+          <span class="node">Scheduler, daily UTC run</span><span class="arr">→</span>
+          <span class="node">Ingestion: games, stats, odds</span><span class="arr">→</span>
+          <span class="node">Feature snapshots, run_id pinned</span><span class="arr">→</span>
+          <span class="node">Predictions v1 + v2</span><span class="arr">→</span>
+          <span class="node">Grading</span><span class="arr">→</span>
+          <span class="node">PostgreSQL 15</span><span class="arr">→</span>
+          <span class="node">Read-only FastAPI + Redis rate limiting</span><span class="arr">→</span>
+          <span class="node">Next.js UI</span>
+        </div>
+      </div>
+
+
+      <div class="case-block reveal toc-watch" id="validation">
+        <span class="sublabel">Validation and reliability</span>
+        <p>Reliability here is validated operationally rather than statistically. Freshness enforcement and two circuit breakers (5% missing games, 20% feature failures) abort the cycle before degraded inputs can produce predictions; grading re-checks seven days of history because the league occasionally revises final scores; historical ROI reads only pre-tipoff odds snapshots; and monitoring alerts on staleness, coverage, and a collapse in prediction confidence. These checks establish that the served history is point-in-time correct and that failure is loud. They are claims about the system&#x27;s integrity, not about model accuracy, which is graded daily per model version and reported as its own record.</p>
+      </div>
+
+      <div class="stats reveal toc-watch" id="results" role="list" aria-label="Key properties">
+        <div class="stat" role="listitem"><span class="n">7</span><span class="l">services orchestrated by one compose file</span></div>
+        <div class="stat" role="listitem"><span class="n">Daily</span><span class="l">automated pipeline run at a configured UTC hour</span></div>
+        <div class="stat" role="listitem"><span class="n">60 min</span><span class="l">pre-tipoff window where predictions are blocked</span></div>
+        <div class="stat" role="listitem"><span class="n">2</span><span class="l">model versions predicted and graded side by side</span></div>
+      </div>
+
+
+      <div class="case-block reveal">
+        <span class="sublabel">Results</span>
+        <ul class="findings">
+          <li><strong>A fully automated daily workflow.</strong> Ingestion, feature snapshots, two model versions, and grading run unattended on schedule, with a status file and monitoring endpoint reporting every run.</li>
+          <li><strong>Point-in-time lineage.</strong> Per-run feature snapshots create an audit trail: any prediction can be traced to the data that was actually available when it was made, and backfills cannot corrupt history.</li>
+          <li><strong>Defense in depth.</strong> Stats-freshness enforcement, a 5% missing-game circuit breaker, a 20% feature-failure circuit breaker, and a 60-minute tipoff blackout keep corrupted predictions from ever being generated.</li>
+          <li><strong>Monitoring that checks the model, not just the process.</strong> Alerts cover pipeline staleness and prediction coverage, and also the spread of prediction confidence, so a model that stops differentiating games is caught instead of quietly flatlining.</li>
+        </ul>
+      </div>
+
+
+      <div class="case-block reveal toc-watch" id="meaning">
+        <span class="sublabel">What the results mean</span>
+        <p>The result is a system property rather than a metric: any prediction this platform has ever served can be traced to the exact data available when it was made, and a corrupted daily run produces an alert instead of a quietly wrong slate. That is the difference between a model and a product a staff could leave running, and it is the standard the rest of this portfolio&#x27;s deployed work is held to.</p>
+      </div>
+
+      <div class="case-block reveal toc-watch" id="limits">
+        <span class="sublabel">Limitations and scope</span>
+        <p>The limitations that matter for interpretation: the platform depends on a single external data vendor, this page describes the repository snapshot while the deployed instance has continued to evolve past it, and the operational guarantees documented here are about pipeline integrity, not about the predictive quality of any model version. The engineering trade-offs behind the design:</p>
+                  <ul>
+            <li>Failing loudly is the feature: the hard part of unattended operation is not the happy path but detecting the sad one. The guardrails encode specific, observed failure modes such as late-arriving box scores and API ingestion gaps.</li>
+            <li>Point-in-time correctness end to end: features, odds, and grading each have their own notion of "what was known when," and all three have to agree for the historical record to mean anything.</li>
+            <li>Freshness at the horizon: games scheduled beyond the latest stats are legitimately stale; the system distinguishes that expected case from a real pipeline failure.</li>
+          </ul>
+      </div>
+
+      <details class="deep reveal">
+        <summary>Technical deep dive</summary>
+        <div class="deep-body">
+          <h3>Technical highlights</h3>
+          <ul>
+            <li>Guardrails as configuration: every threshold (freshness, missing-game rate, failure rate, tipoff grace) is an explicit, documented setting with its trade-off stated, not a constant buried in code.</li>
+            <li>Late score corrections are expected: grading re-checks the previous seven days because the NBA occasionally revises final scores after the fact.</li>
+            <li>Integrity in the analytics: historical ROI is computed only from pre-tipoff odds snapshots, so reported performance cannot benefit from information that did not exist at decision time.</li>
+            <li>A full product surface behind feature flags: auth, email verification, premium gating, and billing are feature-flagged and disabled by default, so the same codebase runs open or gated.</li>
+          </ul>
+
+          <h3>Key engineering decisions</h3>
+          <dl class="decisions">
+            <dt>Why Docker Compose as the only supported runtime?</dt>
+            <dd>Identical service versions across environments and atomic startup ordering (db, then schema-init, then the services that depend on them). The flexibility given up was flexibility the project did not want.</dd>
+            <dt>Why a single writer?</dt>
+            <dd>One scheduler owns the daily cycle, which eliminates race conditions between competing update paths and makes partial failure detectable: if ingestion fails, predictions are never generated from incomplete data.</dd>
+            <dt>Why a read-only public API?</dt>
+            <dd>External users can query but never mutate. That removes an entire class of authorization complexity and makes rate limiting and monitoring straightforward.</dd>
+            <dt>Why duplicate features per run?</dt>
+            <dd>Storage is spent on purpose. The return is an immutable audit trail (which feature version produced this prediction?) and safe historical backfills under new run IDs.</dd>
+          </dl>
+
+          <h3>Future improvements</h3>
+          <p>The stated next step is live updates as games finish rather than a single daily cycle. The auth, paywall, and billing flags already in place let the product surface expand without re-architecture.</p>
+
+          <h3>Technology stack</h3>
+          <div class="stack-rows">
+            <div class="stack-row"><span class="k">Backend</span><span class="v">Python pipeline services, FastAPI public API</span></div>
+            <div class="stack-row"><span class="k">Frontend</span><span class="v">Next.js 16, React 19, TypeScript</span></div>
+            <div class="stack-row"><span class="k">Data</span><span class="v">PostgreSQL 15, Alembic migrations, Redis 7</span></div>
+            <div class="stack-row"><span class="k">Infrastructure</span><span class="v">Docker Compose, Makefile workflows</span></div>
+            <div class="stack-row"><span class="k">Operations</span><span class="v">Scheduled orchestration, monitoring endpoint, pipeline status reporting, backfill scripts</span></div>
+          </div>
+        </div>
+      </details>
+
+
+      <p class="fineprint">Game and odds data ingested from the Ball Don't Lie API. The repository includes launch readiness, performance optimization, and documentation verification reports alongside the operational docs. This study describes the repository snapshot; the deployed instance has continued to evolve past it, including a third model version.</p>
+      <p class="reveal" style="margin-top:1.6rem;"><a class="btn btn-ghost" href="case-studies.html">All projects</a></p>
+    </div>
+  </article>
+</main>
+
+<!-- Site footer, identical on every page: identity, navigation, contact. -->
+<footer class="site-footer">
+  <div class="wrap foot-inner">
+    <div>
+      <p class="foot-name">Thomas Lappas</p>
+      <p class="foot-tag">Data science, analytics engineering, and production systems, demonstrated through basketball.</p>
+    </div>
+    <nav class="foot-nav" aria-label="Footer">
+      <a href="./">Home</a>
+      <a href="case-studies.html">Projects</a>
+      <a href="research.html">Research</a>
+      <a href="skills.html">Capabilities</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="foot-links">
+      <a href="mailto:thomas.lappas1010@gmail.com">thomas.lappas1010@gmail.com</a>
+      <a href="https://github.com/Tlappas-23" rel="noopener">github.com/Tlappas-23</a>
+    </div>
+  </div>
+  <div class="wrap foot-legal">Every metric on this site is generated by project code from project data.</div>
+</footer>
+
+<script src="assets/site.js?v=20260821"></script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!doctype html>
+<!--
+  Conference Imbalance Study, as its own page. One project, told front to back: the question,
+  why it matters, the data, the method, how the results were generated,
+  how they were validated, what they mean, and what they do not establish.
+  The technical deep dive stays one click away at the bottom.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Sixteen seasons of East vs West: pooled head-to-head records, logistic playoff models, and a team-level permutation test that sizes the conference penalty at the resolution the data supports.">
+<meta property="og:title" content="Conference Imbalance Study · Thomas Lappas">
+<meta property="og:description" content="Sixteen seasons of East vs West: pooled head-to-head records, logistic playoff models, and a team-level permutation test that sizes the conference penalty at the resolution the data supports.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tlappas-23.github.io/project-conference-imbalance.html">
+<meta property="og:image" content="https://tlappas-23.github.io/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>Conference Imbalance Study · Thomas Lappas</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/style.css?v=20260821">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="topbar-name" href="./">Thomas Lappas</a>
+    <nav class="topbar-nav" aria-label="Site">
+      <a href="./">Home</a>
+      <a href="case-studies.html" aria-current="page">Projects</a>
+      <a href="research.html">Research</a>
+      <a href="skills.html">Capabilities</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="side-toc" aria-label="On this page">
+    <a href="#overview">Overview</a><a href="#question">The question</a><a href="#data">Data</a><a href="#method">Method</a><a href="#validation">Validation</a><a href="#results">Results</a><a href="#meaning">What it means</a><a href="#limits">Limitations</a>
+  </nav>
+  <article class="case" id="conference">
+    <div class="wrap">
+      <p class="crumb reveal"><a href="case-studies.html">Projects</a><span class="sep">/</span><span>Conference Imbalance Study</span></p>
+      <div class="case-tags reveal">
+        <span class="tag tag-domain">Conference Analysis</span>
+        <span class="tag">Statistical Inference</span>
+        <span class="tag">Python</span>
+        <a class="repo-link" href="mailto:thomas.lappas1010@gmail.com?subject=Access%20request%3A%20Conference%20Imbalance%20Study%20notebook">Notebook · email for access</a>
+      </div>
+
+      <h1 class="reveal">Conference Imbalance Study</h1>
+
+      <p class="dek reveal">A 17-question analysis of 16 seasons of NBA standings and head-to-head records: how big the East-West gap really is, what it costs a team, and whether it survives honest inference. <strong>Conference imbalance is a measurement problem in disguise</strong>, handled with pooled rates, logistic models, and a team-level permutation test, because an effect is only worth quoting at the resolution the data supports.</p>
+
+
+      <div class="summary-strip reveal" aria-label="Study summary"><div><span class="k">Question</span><span class="v">Is the East-West imbalance real, and what does it cost a team?</span></div><div><span class="k">Data</span><span class="v">16 seasons of standings and head-to-head records; <strong>6,959 inter-conference games</strong></span></div><div><span class="k">Method</span><span class="v">Pooled rates, logistic playoff models, and a 10,000-draw team-level permutation test</span></div><div><span class="k">Result</span><span class="v">West won 55.7% head-to-head; <strong>a 61-point playoff-odds gap at .500</strong>, far outside the permutation null</span></div></div>
+
+      <div class="case-block reveal toc-watch" id="overview">
+        <span class="sublabel">Overview</span>
+        <p>Seventeen questions over 16 seasons of standings and head-to-head records, answered with pooled win rates, strength-of-schedule analysis, logistic playoff models, a permutation test, and three modeling-judgment questions. Every answer is written twice, a technical response and a plain-language version for a non-technical reader, because communicating a result is part of the job.</p>
+      </div>
+
+
+      <div class="qa reveal toc-watch" id="question">
+        <span class="sublabel">The question</span>
+        <p class="q">Is the East-West imbalance real, and what does it actually cost a team?</p>
+        <p class="a"><strong>It is real, persistent, and expensive.</strong> The West won 55.7% of 6,959 inter-conference games from 2005-06 through 2020-21 and took the season series in 15 of 16 years. At an identical 50% win rate, an Eastern team's playoff probability was 83.4% versus 22.1% in the West, and a team-level permutation test puts that conference penalty far outside anything chance produces (p &lt; 0.0001).</p>
+      </div>
+
+
+      <div class="case-block reveal toc-watch" id="why">
+        <span class="sublabel">Why it matters</span>
+        <p>Conference imbalance distorts everything a front office reads off the standings: win totals, playoff odds, strength of schedule, even how a .500 season should be judged. The analytical need is to size the imbalance with inference the data can support, and to separate what the conference label tells you (real information) from what it causes (a question this dataset cannot answer, and the writeup says so).</p>
+      </div>
+
+
+      <div class="case-block reveal toc-watch" id="data">
+        <span class="sublabel">The data, and how it was prepared</span>
+        <p>Two CSVs: 480 team-season standings rows, and a 480 by 32 head-to-head matrix whose cells are "W-L" strings, unusable as shipped. The central preparation move is a grain change: the matrix is melted into a tidy table of 13,910 team-season-opponent rows (38,236 game-records, each game counted once per side), after which every question becomes a short groupby. Franchise renames are handled by joining on season plus name, 35 names mapping to 30 franchises, and double-counting is prevented by construction: analyses slice West rows against East opponents so each inter-conference game appears exactly once. The project exists in two versions, and the contrast is the point: an original R attempt fought the wide matrix with 250 lines of nested loops over hard-coded team names; the Python rebuild starts with the reshape, and everything downstream shrinks.</p>
+      </div>
+
+
+      <div class="case-block reveal toc-watch" id="method">
+        <span class="sublabel">Method and key decisions</span>
+        <p>Three statistical decisions carry the results. Win rates are pooled across seasons rather than averaging per-season percentages, because the 66-game lockout season would otherwise be over-weighted; pooling is what makes the 55.7% headline trustworthy. Logistic models are fit with statsmodels rather than scikit-learn because the deliverable is inference, not prediction, and the coefficient table is what surfaces the study's subtlest finding: the win-percentage slope rising from 42.4 to 54.5 when conference enters the model, a textbook suppression effect. And the permutation test shuffles the 30 team labels rather than the 480 team-season rows, because conference attaches to teams and a team's sixteen seasons are correlated; shuffling rows would have shrunk the null and produced the same conclusion dishonestly. The p &lt; 0.0001 is quotable because the test was designed so it could have failed. Everything runs from two CSVs with a seeded RNG.</p>
+      </div>
+
+
+      <div class="case-block reveal toc-watch" id="generated">
+        <span class="sublabel">How the results were generated</span>
+        <p>Three kinds of numbers appear in this study, and they are produced differently. The head-to-head rates are pooled observed records. The playoff-odds gap and the conference penalty are estimates from logistic models fit on 480 team-seasons. And the significance claim comes from re-fitting that model 10,000 times with conference labels shuffled at the team level, then asking where the real coefficient falls in that null distribution:</p>
+                  <div class="flow" role="img" aria-label="Pipeline: two CSVs to tidy melt to pooled records and strength of schedule to logistic playoff models to permutation test to 17 answered questions with styled charts">
+            <span class="node">2 CSVs: standings + head-to-head W-L matrix</span><span class="arr">→</span>
+            <span class="node">Tidy melt: 13,910 team-season-opponent rows</span><span class="arr">→</span>
+            <span class="node">Pooled records + strength of schedule</span><span class="arr">→</span>
+            <span class="node">Logistic playoff models (statsmodels)</span><span class="arr">→</span>
+            <span class="node">10,000-draw team-level permutation test</span><span class="arr">→</span>
+            <span class="node">17 answered questions + styled charts</span>
+          </div>
+      </div>
+
+      <div class="case-block reveal toc-watch" id="validation">
+        <span class="sublabel">Validation and reliability</span>
+        <p>Inference is sized to the data&#x27;s structure. Win rates are pooled across seasons rather than averaged, so shortened seasons cannot silently reweight the answer. The permutation test shuffles the 30 team labels rather than the 480 team-season rows, because conference attaches to teams and a team&#x27;s sixteen seasons are correlated; the easier row-level test would have flattered the result. The observed penalty sits 4.7 standard deviations outside the null. What this establishes is that the conference label carries real information about playoff outcomes; it cannot establish causation, which would require teams that switched conferences, and the study says so.</p>
+      </div>
+
+      <div class="stats reveal toc-watch" id="results" role="list" aria-label="Key results">
+        <div class="stat" role="listitem"><span class="n">55.7%</span><span class="l">West win rate across 6,959 inter-conference games, 2005-2020</span></div>
+        <div class="stat" role="listitem"><span class="n">15 of 16</span><span class="l">season head-to-head series won by the West</span></div>
+        <div class="stat" role="listitem"><span class="n">61 pts</span><span class="l">playoff-probability gap at a .500 record: East 83.4% vs West 22.1%</span></div>
+        <div class="stat" role="listitem"><span class="n">p&lt;0.0001</span><span class="l">team-level permutation test on the conference penalty</span></div>
+      </div>
+
+
+      <div class="case-block reveal">
+        <span class="sublabel">Results</span>
+        <ul class="findings">
+          <li><strong>Persistent, not episodic.</strong> The West won the season series 15 of 16 years; the East's only winning season (2008-09) was by 12 games, while the most extreme West season (2013-14) ran 63.1%.</li>
+          <li><strong>The price of admission differed by conference.</strong> The last playoff team averaged a 55.1% win rate in the West versus 48.5% in the East, roughly five wins over 82 games, and the East's final playoff seed was below .500 in 10 of 16 seasons versus once in the West.</li>
+          <li><strong>Same record, different fate.</strong> Adding a conference term to the playoff model yields a -2.88 log-odds West penalty (odds ratio about 0.056), and the model also surfaces a textbook suppression effect: the win-percentage slope rose from 42.4 to 54.5 when conference was added.</li>
+          <li><strong>Inference sized to the data.</strong> The observed penalty sits 4.7 standard deviations outside the permutation null and is reported as p &lt; 0.0001, the resolution floor of 10,000 draws, with an explicit note that the test establishes information, not causation.</li>
+        </ul>
+      </div>
+
+
+      <div class="fig-grid reveal">
+        <figure>
+          <div class="fig-panel"><img src="assets/conference-sos.png" alt="Scatter plot of 480 team-seasons: team point margin versus average opponent point margin, colored by conference, with the West's fitted line sitting above the East's at every quality level and three labeled outliers." width="955" height="608" loading="lazy"></div>
+          <figcaption>Notebook output: Western teams face tougher schedules at every level of quality. One point per team-season, 2005-2020, least-squares fit per conference.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/conference-permutation.png" alt="Histogram of 10,000 permutation draws of the conference coefficient centered on zero, with the observed value of minus 2.88 marked far outside the null distribution." width="971" height="548" loading="lazy"></div>
+          <figcaption>Notebook output: the conference penalty versus 10,000 logistic fits with conference labels randomly reshuffled at the team level.</figcaption>
+        </figure>
+      </div>
+
+
+      <div class="case-block reveal toc-watch" id="meaning">
+        <span class="sublabel">What the results mean</span>
+        <p>Within this sixteen-season window, an identical record meant a very different season depending on conference: the model estimates an 83.4% playoff probability for a .500 team in the East against 22.1% in the West, and the last playoff seed cost roughly five more wins in the West. That is persistent information a reader of the standings should price in. Whether the conference itself causes outcomes is a separate question this dataset cannot answer; the study reports the association at the resolution the data supports and stops there.</p>
+      </div>
+
+      <div class="case-block reveal toc-watch" id="limits">
+        <span class="sublabel">Limitations and scope</span>
+        <p>The limitations that matter for interpretation:</p>
+                  <ul>
+            <li>Untangling schedule strength from team quality: the scatter's downward slope is arithmetic (a team never plays itself), so the finding is the vertical separation between conferences, a 0.35-point mean offset with the fitted lines 0.38 to 0.44 points apart across the quality range, not the slope.</li>
+            <li>Outliers that are schedule artifacts: the extreme strength-of-schedule seasons trace to the shortened 2011-12 and 2019-20 calendars, and are explained as structure, not team narratives.</li>
+            <li>Saying what the data cannot: the conference label carries real information, but the causal question would need teams that switched conferences, which this dataset does not contain.</li>
+          </ul>
+      </div>
+
+      <div class="case-block reveal">
+        <span class="sublabel">How it ships</span>
+        <p>The deliverable is a notebook that answers all seventeen questions twice, once technically and once in plain language, and regenerates every figure from the two CSVs with a seeded RNG on each run.</p>
+      </div>
+
+
+      <details class="deep reveal">
+        <summary>Technical deep dive</summary>
+        <div class="deep-body">
+          <h3>Technical highlights</h3>
+          <ul>
+            <li>Double-counting handled explicitly: the tidy table holds 38,236 game-records, each game counted once per side, and the analysis slices (West rows against East opponents) so each inter-conference game appears exactly once, with the reasoning written down.</li>
+            <li>Clustered-inference thinking without the jargon: permuting team labels rather than rows is the same principle as clustering standard errors, and the code comment explains why the wrong choice would flatter the result.</li>
+            <li>A rookie-comparison judgment question answered with arithmetic: two shooters 0.36 standard errors apart, empirical-Bayes shrinkage toward a league prior (36.1% vs 36.6% after shrinking), and a verdict stated with its confidence, near a coin flip.</li>
+            <li>Reporting discipline: p reported as below 0.0001 rather than zero, base-rate sanity checks on model predictions (58.0% at .500 versus a 53.3% unconditional rate), and franchise renames handled by joining on season plus name (35 names map to 30 franchises).</li>
+          </ul>
+
+          <h3>Key engineering decisions</h3>
+          <dl class="decisions">
+            <dt>Why melt the matrix instead of looping over it?</dt>
+            <dd>One reshape turns an unusable wide format into a table where every subsequent question is a groupby. The original R version's 250-line nested-loop attempt over hard-coded team names is the before picture.</dd>
+            <dt>Why pool wins and losses instead of averaging percentages?</dt>
+            <dd>Seasons have different game counts; the 2011-12 lockout season played 66 games and ran 72.7% intra-conference versus the usual 63.4%. Averaging per-season percentages would silently reweight it.</dd>
+            <dt>Why statsmodels rather than scikit-learn for the logit?</dt>
+            <dd>The deliverable is inference, not prediction: the coefficient, standard error, and p-value table is the model diagnostic the question asks for.</dd>
+            <dt>Why permute team labels rather than rows?</dt>
+            <dd>Conference is assigned at the team level, and a team's 16 season-rows are correlated. Shuffling rows would break that structure and understate the null spread, making the result look stronger than it is.</dd>
+          </dl>
+
+          <h3>Future improvements</h3>
+          <p>An SRS-style simultaneous-equations strength of schedule would remove the mild circularity of opponents' margins including games against you; the constant-penalty specification could be relaxed (an interaction test at p = 0.15 did not reject it); and the penalty should be re-estimated over time rather than treated as a constant.</p>
+
+          <h3>Technology stack</h3>
+          <div class="stack-rows">
+            <div class="stack-row"><span class="k">Languages</span><span class="v">Python (rebuilt from an original R Markdown attempt)</span></div>
+            <div class="stack-row"><span class="k">Data science</span><span class="v">pandas, NumPy, statsmodels (Logit)</span></div>
+            <div class="stack-row"><span class="k">Statistics</span><span class="v">Permutation testing at treatment-assignment level, empirical-Bayes shrinkage, standard-error reasoning</span></div>
+            <div class="stack-row"><span class="k">Visualization</span><span class="v">Custom Matplotlib theme with a colorblind-validated palette</span></div>
+            <div class="stack-row"><span class="k">Reproducibility</span><span class="v">Seeded RNG, everything computed from two CSVs at runtime, no hard-coded results</span></div>
+          </div>
+        </div>
+      </details>
+
+
+      <p class="fineprint">Built on league standings and head-to-head data, 2005-06 through 2020-21. The full notebook, with every answer in both technical and plain-language form, is available on request.</p>
+      <p class="reveal" style="margin-top:1.6rem;"><a class="btn btn-ghost" href="case-studies.html">All projects</a></p>
+    </div>
+  </article>
+</main>
+
+<!-- Site footer, identical on every page: identity, navigation, contact. -->
+<footer class="site-footer">
+  <div class="wrap foot-inner">
+    <div>
+      <p class="foot-name">Thomas Lappas</p>
+      <p class="foot-tag">Data science, analytics engineering, and production systems, demonstrated through basketball.</p>
+    </div>
+    <nav class="foot-nav" aria-label="Footer">
+      <a href="./">Home</a>
+      <a href="case-studies.html">Projects</a>
+      <a href="research.html">Research</a>
+      <a href="skills.html">Capabilities</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="foot-links">
+      <a href="mailto:thomas.lappas1010@gmail.com">thomas.lappas1010@gmail.com</a>
+      <a href="https://github.com/Tlappas-23" rel="noopener">github.com/Tlappas-23</a>
+    </div>
+  </div>
+  <div class="wrap foot-legal">Every metric on this site is generated by project code from project data.</div>
+</footer>
+
+<script src="assets/site.js?v=20260821"></script>
+</body>
+</html>

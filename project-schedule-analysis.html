@@ -1,0 +1,223 @@
+<!doctype html>
+<!--
+  NBA Schedule Analysis, as its own page. One project, told front to back: the question,
+  why it matters, the data, the method, how the results were generated,
+  how they were validated, what they mean, and what they do not establish.
+  The technical deep dive stays one click away at the bottom.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A leakage-free counterfactual that puts a win total on every NBA team's schedule luck across five seasons, plus permutation-tested answers to the schedule-density questions fans and front offices argue about.">
+<meta property="og:title" content="NBA Schedule Analysis · Thomas Lappas">
+<meta property="og:description" content="A leakage-free counterfactual that puts a win total on every NBA team's schedule luck across five seasons, plus permutation-tested answers to the schedule-density questions fans and front offices argue about.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tlappas-23.github.io/project-schedule-analysis.html">
+<meta property="og:image" content="https://tlappas-23.github.io/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>NBA Schedule Analysis · Thomas Lappas</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/style.css?v=20260821">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="topbar-name" href="./">Thomas Lappas</a>
+    <nav class="topbar-nav" aria-label="Site">
+      <a href="./">Home</a>
+      <a href="case-studies.html" aria-current="page">Projects</a>
+      <a href="research.html">Research</a>
+      <a href="skills.html">Capabilities</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="side-toc" aria-label="On this page">
+    <a href="#overview">Overview</a><a href="#question">The question</a><a href="#data">Data</a><a href="#method">Method</a><a href="#validation">Validation</a><a href="#results">Results</a><a href="#meaning">What it means</a><a href="#limits">Limitations</a>
+  </nav>
+  <article class="case" id="schedule">
+    <div class="wrap">
+      <p class="crumb reveal"><a href="case-studies.html">Projects</a><span class="sep">/</span><span>NBA Schedule Analysis</span></p>
+      <div class="case-tags reveal">
+        <span class="tag tag-domain">Schedule Analysis</span>
+        <span class="tag">Counterfactual Attribution</span>
+        <span class="tag">Python</span>
+        <a class="repo-link" href="mailto:thomas.lappas1010@gmail.com?subject=Access%20request%3A%20NBA%20Schedule%20Analysis%20repository">Private repo · email for access</a>
+      </div>
+
+      <h1 class="reveal">NBA Schedule Analysis</h1>
+
+      <p class="dek reveal">Significance-tested answers to schedule-density questions, and a win total on every team's schedule luck. <strong>Schedule luck is attribution in disguise</strong>, handled with a leakage-free counterfactual, because separating earned wins from gifted ones means holding team quality fixed while only the schedule varies.</p>
+
+
+      <div class="summary-strip reveal" aria-label="Study summary"><div><span class="k">Question</span><span class="v">How many wins does the NBA schedule actually give or take from a team?</span></div><div><span class="k">Data</span><span class="v">10 seasons of schedules, game results, and arena coordinates</span></div><div><span class="k">Method</span><span class="v">Pre-tipoff features only; logistic model; counterfactual vs a league-average schedule; permutation tests</span></div><div><span class="k">Result</span><span class="v"><strong>+4.2 to -3.5 wins at the five-season extremes</strong>; the loudest schedule narratives fail their significance tests</span></div></div>
+
+      <div class="case-block reveal toc-watch" id="overview">
+        <span class="sublabel">Overview</span>
+        <p>Two parts: a set of schedule-density questions settled with permutation tests, and a counterfactual model that estimates wins gained or lost to the schedule for all 30 teams across five seasons. The technical substance is the attribution design: the model is prevented, by construction, from mistaking team quality for schedule effect.</p>
+      </div>
+
+
+      <div class="qa reveal toc-watch" id="question">
+        <span class="sublabel">The question</span>
+        <p class="q">How many wins does the NBA schedule actually give or take?</p>
+        <p class="a"><strong>Less than a win per season, even at the extremes.</strong> Detroit gained the most (+4.2 wins across 2019-20 through 2023-24) and Philadelphia lost the most (-3.5). Far smaller than fans assume, but real, measurable, and with a coherent cause: a weak Eastern Conference handed its bottom teams the softest slates while contenders paid for it.</p>
+      </div>
+
+
+      <div class="case-block reveal toc-watch" id="why">
+        <span class="sublabel">Why it matters</span>
+        <p>Teams complain about schedule difficulty, media narratives assign blame to it, and internal win projections need to correct for it. The analytical question is attribution: separating what the schedule did to a team from what the team was going to do anyway. Attribution questions punish sloppy features, because a bad team's losses look like schedule effect to any feature that correlates with being bad.</p>
+        <p>The density half solves operational problems of its own. Counting 4-in-6 stretches and back-to-back clusters shows a staff where the fatigue windows are, which feeds rest and rotation planning, and the significance tests say which schedule complaints deserve a data-backed response and which are exactly what random variation produces.</p>
+      </div>
+
+
+      <div class="case-block reveal toc-watch" id="data">
+        <span class="sublabel">The data, and how it was prepared</span>
+        <p>Ten seasons of schedules, team game data, and arena coordinates, with two conventions to respect before any modeling: every game appears twice, once from each team's perspective, and a season is labeled by its starting year. Preparation is mostly derivation and discipline. Back-to-back and density flags are derived from the schedule itself rather than imported; travel is haversine distance between consecutive arenas, with timezone crossings read off the coordinates; density counts normalize to per-82 rates because the window contains a 72-game season and a pandemic-shortened one; and shooting splits pool makes and attempts before dividing, never averaging per-game percentages. The strictest preparation rule is temporal: the in-season strength feature subtracts the current game back out of its own record, so tonight's result can never leak into tonight's features.</p>
+      </div>
+
+
+      <div class="case-block reveal toc-watch" id="method">
+        <span class="sublabel">Method and key decisions</span>
+        <p>The first decision was what the model is allowed to see, and it decides everything downstream. To any feature that correlates with being bad, a bad team's losses look like schedule effect, so every feature is restricted, by construction, to information knowable before tipoff: rest and fatigue stretches for both teams, haversine travel between consecutive arenas, timezone crossings, and strictly pre-game strength priors. The second decision was how to attribute. A residual version of this question, actual wins minus expected wins, hands out schedule swings as large as 18 wins because it bundles schedule, luck, and model error into one number. The counterfactual asks it cleanly: each team's summed win probability under its actual schedule minus the same team under a league-average schedule, strength held fixed in both scenarios. Under that design the honest answer shrinks to about four wins at the extremes, team quality lands in its own column, and a bad team reads as bad rather than schedule-victimized.</p>
+        <p>Model class followed the deliverable. Logistic regression was chosen over gradient boosting because the product is a set of readable prices, and because the counterfactual feeds the model an imaginary average schedule, an input a smooth parametric model handles stably and a tree ensemble does not. The prices came out looking like basketball (home court +0.59 log-odds, a back-to-back -0.25, an opponent's back-to-back +0.25), which is the sanity check that buys the rest of the table its credibility. Evaluation is leave-one-season-out rather than random folds because games within a season share rosters and context, and random folds would leak; each of ten seasons is scored by a model that never saw it.</p>
+      </div>
+
+
+      <div class="case-block reveal toc-watch" id="generated">
+        <span class="sublabel">How the results were generated</span>
+        <p>The impact table is a model-based counterfactual, not a count of anything observed. For each team, the model sums pre-game win probabilities under the actual schedule, then under a league-average schedule with team strength held fixed in both scenarios; the difference is that team&#x27;s schedule effect in wins. The chain, end to end:</p>
+                  <div class="flow" role="img" aria-label="Pipeline: schedules and game data to pre-tipoff features to logistic regression with leave-one-season-out evaluation to counterfactual attribution to outputs">
+            <span class="node">10 seasons: schedules, game data, arena coordinates</span><span class="arr">→</span>
+            <span class="node">Pre-tipoff features: rest, density, travel, timezones, priors</span><span class="arr">→</span>
+            <span class="node">Logistic regression, leave-one-season-out</span><span class="arr">→</span>
+            <span class="node">Counterfactual: actual vs league-average schedule</span><span class="arr">→</span>
+            <span class="node">30-team impact table + coefficients + chart</span>
+          </div>
+      </div>
+
+      <div class="case-block reveal toc-watch" id="validation">
+        <span class="sublabel">Validation and reliability</span>
+        <p>Every game is scored by a model that never saw its season: leave-one-season-out evaluation across ten seasons gives AUC 0.706 and log-loss 0.624 against a home-team-wins baseline of 0.569 accuracy. Features are restricted by construction to pre-tipoff information, so the attribution cannot leak outcomes into itself, and every quotable density split ships with a permutation test. This establishes that the attribution design is leakage-free and beats its baseline out of sample; the win figures remain model estimates under that design, not observed facts.</p>
+      </div>
+
+      <div class="stats reveal toc-watch" id="results" role="list" aria-label="Key results">
+        <div class="stat" role="listitem"><span class="n">+4.2</span><span class="l">wins gained by Detroit, the most schedule-helped team</span></div>
+        <div class="stat" role="listitem"><span class="n">-3.5</span><span class="l">wins lost by Philadelphia, the most schedule-hurt team</span></div>
+        <div class="stat" role="listitem"><span class="n">0.706</span><span class="l">out-of-sample AUC across ten held-out seasons</span></div>
+        <div class="stat" role="listitem"><span class="n">p=0.89</span><span class="l">permutation test on the "unfair schedule" narrative</span></div>
+      </div>
+
+
+      <div class="case-block reveal">
+        <span class="sublabel">Results</span>
+        <ul class="findings">
+          <li><strong>The "some team is systematically punished" story fails its test.</strong> The spread between Charlotte (28.1) and New York (22.2) in 4-in-6 stretches per 82 games sits at permutation p = 0.89, exactly what random schedule variation produces.</li>
+          <li><strong>Coefficients behave like basketball.</strong> Home court +0.59 log-odds, playing on a back-to-back -0.25, opponent on a back-to-back +0.25, stable across held-out seasons.</li>
+          <li><strong>Knowing when a split is quotable is part of the job.</strong> Brooklyn's 0.8-point defensive eFG% edge against back-to-back opponents rests on 16 games and a permutation p near 0.55. The report calls it noise, because it is.</li>
+          <li><strong>Out of sample beats the baseline.</strong> AUC 0.706 and log-loss 0.624 across ten seasons, against a "home team wins" baseline of 0.569 accuracy.</li>
+        </ul>
+      </div>
+
+
+      <figure class="reveal">
+        <div class="fig-panel"><img src="assets/schedule-impact.png" alt="Diverging horizontal bar chart of all thirty NBA teams showing wins gained or lost versus a league-average schedule from 2019-20 through 2023-24, from Detroit at plus 4.2 to Philadelphia at minus 3.5." width="1600" height="1800" loading="lazy"></div>
+        <figcaption>Generated output: wins gained or lost versus a league-average schedule, 2019-20 through 2023-24. Out-of-sample counterfactual with team quality held constant.</figcaption>
+      </figure>
+
+
+      <div class="case-block reveal toc-watch" id="meaning">
+        <span class="sublabel">What the results mean</span>
+        <p>Under this design, schedule luck is real but small: less than a win per season even at the five-year extremes, far below the narratives it replaces, with a coherent cause in conference imbalance. The two most-quoted unfairness claims are indistinguishable from what random scheduling produces. The practical read for a front office is that schedule correction belongs in win projections at the margin, and that most schedule complaints do not survive a significance test; the density tables still earn their keep operationally, by locating the real fatigue windows.</p>
+      </div>
+
+      <div class="case-block reveal toc-watch" id="limits">
+        <span class="sublabel">Limitations and scope</span>
+        <p>The limitations that matter for interpretation:</p>
+                  <ul>
+            <li>Structurally unusual seasons: the window includes the 2019-20 bubble and the 72-game 2020-21 season. Season-fraction normalization helps; the residual limitation is stated, not hidden.</li>
+            <li>Mid-season roster upheaval: priors cannot fully see trades and collapses; the shrunk in-season blend mitigates without eliminating.</li>
+            <li>Resisting a bigger number: the honest answer, about 0.8 wins per season at the extremes, is less quotable than the narratives it replaces. The analysis says so anyway.</li>
+          </ul>
+      </div>
+
+      <div class="case-block reveal">
+        <span class="sublabel">How it ships</span>
+        <p>Two deterministic scripts regenerate every number, table, and chart in this study from the raw schedule files, and a re-run reproduces the shipped outputs byte for byte. The 30-team impact table, the coefficient table, and the chart above are the deliverables.</p>
+      </div>
+
+
+      <details class="deep reveal">
+        <summary>Technical deep dive</summary>
+        <div class="deep-body">
+          <h3>Technical highlights</h3>
+          <ul>
+            <li>Leakage prevention as a design constraint: no feature can contain post-tipoff information, which is what makes the output an attribution rather than a description.</li>
+            <li>Travel modeled physically: haversine distance between consecutive game arenas, timezone crossings, and a back-to-back-with-long-travel interaction.</li>
+            <li>Strength priors that can see trades: prior-season and three-year rolling win percentage blended with a shrunk in-season record, strictly pre-game.</li>
+            <li>Significance testing throughout: every quotable split in the density analysis ships with a permutation test, and two headline narratives fail theirs.</li>
+          </ul>
+
+          <h3>Key engineering decisions</h3>
+          <dl class="decisions">
+            <dt>Why logistic regression over gradient boosting?</dt>
+            <dd>Every coefficient is inspectable, which is the point when the output is an attribution claim rather than a prediction service. A sanity-checkable home-court coefficient buys more credibility than a marginal AUC gain.</dd>
+            <dt>Why a counterfactual instead of residual analysis?</dt>
+            <dd>Residuals mix schedule with everything else the model missed. The counterfactual isolates the schedule by holding team strength fixed and varying only the slate.</dd>
+            <dt>Why leave-one-season-out instead of random folds?</dt>
+            <dd>Games within a season share teams and context; random folds would leak. Scoring each season with a model that never saw it is the honest test.</dd>
+            <dt>Why deliberately collinear strength priors?</dt>
+            <dd>Collinearity among prior-season, three-year, and in-season strength is good for prediction. The cost is that individual strength coefficients cannot be read causally, so they are not; the schedule coefficients, which are stable, are.</dd>
+          </dl>
+
+          <h3>Future improvements</h3>
+          <p>Altitude for Denver and Utah is unmodeled because arena coordinates carry no elevation. Player-level rest and load management would sharpen the fatigue features, and an in-season strength update such as an Elo variant could replace the shrunk blend.</p>
+
+          <h3>Technology stack</h3>
+          <div class="stack-rows">
+            <div class="stack-row"><span class="k">Languages</span><span class="v">Python</span></div>
+            <div class="stack-row"><span class="k">Data science</span><span class="v">pandas, NumPy, scikit-learn</span></div>
+            <div class="stack-row"><span class="k">Statistics</span><span class="v">Logistic regression, permutation testing, leave-one-season-out validation</span></div>
+            <div class="stack-row"><span class="k">Visualization</span><span class="v">Matplotlib</span></div>
+          </div>
+        </div>
+      </details>
+
+
+      <p class="fineprint">Built on ten seasons of NBA schedules, team game data, and arena locations, 2014-15 through 2023-24. Data used for portfolio demonstration only. Both scripts are deterministic and regenerate every table and chart from raw data.</p>
+      <p class="reveal" style="margin-top:1.6rem;"><a class="btn btn-ghost" href="case-studies.html">All projects</a></p>
+    </div>
+  </article>
+</main>
+
+<!-- Site footer, identical on every page: identity, navigation, contact. -->
+<footer class="site-footer">
+  <div class="wrap foot-inner">
+    <div>
+      <p class="foot-name">Thomas Lappas</p>
+      <p class="foot-tag">Data science, analytics engineering, and production systems, demonstrated through basketball.</p>
+    </div>
+    <nav class="foot-nav" aria-label="Footer">
+      <a href="./">Home</a>
+      <a href="case-studies.html">Projects</a>
+      <a href="research.html">Research</a>
+      <a href="skills.html">Capabilities</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="foot-links">
+      <a href="mailto:thomas.lappas1010@gmail.com">thomas.lappas1010@gmail.com</a>
+      <a href="https://github.com/Tlappas-23" rel="noopener">github.com/Tlappas-23</a>
+    </div>
+  </div>
+  <div class="wrap foot-legal">Every metric on this site is generated by project code from project data.</div>
+</footer>
+
+<script src="assets/site.js?v=20260821"></script>
+</body>
+</html>

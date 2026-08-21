@@ -1,0 +1,278 @@
+<!doctype html>
+<!--
+  International Scouting Board, as its own page. One project, told front to back: the question,
+  why it matters, the data, the method, how the results were generated,
+  how they were validated, what they mean, and what they do not establish.
+  The technical deep dive stays one click away at the bottom.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A translation pipeline from European leagues to the NBA: 118 observed transitions fit a joint hierarchical Bayesian model that projects and ranks 431 players, validated per stat against a naive baseline.">
+<meta property="og:title" content="International Scouting Board · Thomas Lappas">
+<meta property="og:description" content="A translation pipeline from European leagues to the NBA: 118 observed transitions fit a joint hierarchical Bayesian model that projects and ranks 431 players, validated per stat against a naive baseline.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tlappas-23.github.io/project-scouting-board.html">
+<meta property="og:image" content="https://tlappas-23.github.io/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>International Scouting Board · Thomas Lappas</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/style.css?v=20260821">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="topbar-name" href="./">Thomas Lappas</a>
+    <nav class="topbar-nav" aria-label="Site">
+      <a href="./">Home</a>
+      <a href="case-studies.html" aria-current="page">Projects</a>
+      <a href="research.html">Research</a>
+      <a href="skills.html">Capabilities</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="side-toc" aria-label="On this page">
+    <a href="#overview">Overview</a><a href="#question">The question</a><a href="#data">Data</a><a href="#method">Method</a><a href="#validation">Validation</a><a href="#results">Results</a><a href="#meaning">What it means</a><a href="#limits">Limitations</a>
+  </nav>
+  <article class="case" id="scouting-board">
+    <div class="wrap">
+      <p class="crumb reveal"><a href="case-studies.html">Projects</a><span class="sep">/</span><span>International Scouting Board</span></p>
+      <div class="case-tags reveal">
+        <span class="tag tag-domain">International Scouting</span>
+        <span class="tag">Hierarchical Bayes</span>
+        <span class="tag">Python</span>
+        <a class="repo-link" href="mailto:thomas.lappas1010@gmail.com?subject=Access%20request%3A%20International%20Scouting%20Board%20repository">Private repo · email for access</a>
+      </div>
+
+      <h1 class="reveal">International Scouting Board</h1>
+
+      <p class="dek reveal">A translation pipeline from European leagues to the NBA, built twice: a v2 board of validated per-stat translations, then a v3 hierarchical Bayesian re-evaluation that overturned half of v2's top targets. <strong>A stat line moving between leagues is domain shift in disguise</strong>, handled with a joint hierarchical Bayesian model, because small transition samples demand pooled strength and a scouting board needs honest uncertainty.</p>
+
+
+      <div class="summary-strip reveal" aria-label="Study summary"><div><span class="k">Question</span><span class="v">What does a European stat line really mean in NBA terms, and with how much certainty?</span></div><div><span class="k">Data</span><span class="v">3 vendor feeds reconciled; <strong>118 INTL-to-NBA transitions</strong>; 431 players projected</span></div><div><span class="k">Method</span><span class="v">Joint hierarchical Bayesian translation with a hand-rolled Gibbs sampler; every stat validated against a naive baseline</span></div><div><span class="k">Result</span><span class="v"><strong>50% lower usage error than naive</strong>; 5 of the prior board's top 10 displaced under the stricter re-evaluation</span></div></div>
+
+      <div class="case-block reveal toc-watch" id="overview">
+        <span class="sublabel">Overview</span>
+        <p>The project turns scattered, incompatible international data into a defensible answer to a signing decision. Three vendor data feeds with inconsistent conventions are reconciled into one clean history covering NBA and four European league careers, and everything downstream is built on that foundation. Version 2 learned per-stat INTL to NBA translations empirically and validated each against a naive baseline with leave-one-out prediction error. Version 3 rebuilt the pipeline around a joint hierarchical Bayesian translation model with a hand-rolled Gibbs sampler, hardened the ingestion (103 to 118 training transitions, 392 to 431 ranked players), let the data choose the archetypes, and replaced the point ranking with an upside probability computed from posterior draws. Both versions end in a written scouting report; v3 also reports, openly, what it changed about v2's conclusions.</p>
+      </div>
+
+
+      <div class="qa reveal toc-watch" id="question">
+        <span class="sublabel">The question</span>
+        <p class="q">What does a EuroLeague stat line really mean in NBA terms?</p>
+        <p class="a"><strong>Learned from the 118 players who actually made the jump:</strong> scoring and usage translate strongly with age priced in, rebounds and assists carry over nearly one for one, and three-point volume fails validation in both versions. The v3 re-evaluation adds the harder lesson: a board is only as good as its test, and under a stricter one, five of v2's top ten fell out of the top ten, with the #1 and #3 targets removed from the board entirely.</p>
+      </div>
+
+
+      <div class="case-block reveal toc-watch" id="why">
+        <span class="sublabel">Why it matters</span>
+        <p>International signings commit roster spots and money on the basis of production in leagues with different pace, spacing, and competition levels. Intuition about translation is largely untested, and the analytical question is precise: which parts of a European stat line carry over, by how much, and with what uncertainty? The v2 to v3 arc adds a second question every front office should ask of its own models: when the method improves, which recommendations flip?</p>
+      </div>
+
+
+      <div class="case-block reveal toc-watch" id="data">
+        <span class="sublabel">The data, and how it was prepared</span>
+        <p>Three vendor feeds arrive with incompatible schemas and no shared player key: NBA box seasons, international box seasons across four European leagues, and a bio file of names and birth dates. Cleaning is where the project earns its sample. Joins run on unicode-normalized name keys (accents, hyphens, suffixes, casing) because raw-string joins silently split careers in two; duplicate names in the bio file get no birth date rather than a guessed one, and the decision is logged; and missing values stay missing, no zero-fills, a rule reinforced by finding vendor columns that were 100% populated yet 100% zero on the international side, placeholders for stats those leagues never tracked. Features are per-40 rates plus pace-free efficiency and role measures, careers collapse into minutes-weighted league runs ordered INTL before NBA within a season, and eligibility floors (300 international minutes, 100 NBA) apply to aggregated season totals rather than single rows, which is what recovered 39 split-season players. Every exclusion prints as a logged decision, 123 low-minute transitions out by rule, so no player is lost silently.</p>
+      </div>
+
+
+      <div class="case-block reveal toc-watch" id="method">
+        <span class="sublabel">Method and key decisions</span>
+        <p>The first decision was where the truth comes from: instead of borrowing league-strength coefficients or scouting folklore, both versions learn translation only from the players who actually made the jump. v2 kept the modeling deliberately simple, ten per-stat regressions, because with 103 transitions the first job was proving any signal existed. Each stat competed in two forms (stat only, stat plus age) on leave-one-out error against the naive assumption that stats carry over unchanged, leave-one-out because 103 examples cannot spare a holdout set, and the payoff was a clean verdict per stat: usage and scoring translate strongly, rebounds and assists carry over, and three-point volume failed its baseline and was down-weighted instead of kept.</p>
+        <p>v3 asked the question v2 could not answer: how sure are we about any single player? The ingestion hardening above came first because at this sample size data recovery beats model capacity: it grew the training set 15% before a single new equation. Then one joint hierarchical Bayesian model replaced the ten separate fits, chosen not for accuracy (on identical folds it ties per-stat OLS within 1.5% on every stat, and the table below says so) but because pooled slopes and a latent per-player factor produce one coherent posterior, which is what makes per-player uncertainty and an upside probability computable at all. The archetypes moved from an assumed k=3 to a BIC-chosen k=4 Gaussian mixture because the peer group a player is graded against is part of the model, not a styling choice, and the sort key moved from a point composite to P(upside) from 1,000 posterior draws because recruitment is a search for upside, not for the best average. Those last two decisions, not the sampler, are what reshuffled the board. Both pipelines stay deterministic and seeded end to end.</p>
+      </div>
+
+
+      <div class="case-block reveal toc-watch" id="generated">
+        <span class="sublabel">How the results were generated</span>
+        <p>Every number on the board is a model estimate, not an observed stat. Raw vendor feeds pass through hardened ingestion into minutes-weighted career runs; the 118 observed transitions fit the joint model; and each ranked player&#x27;s posterior produces the translated projections, soft archetype membership, and the upside probability the board prints. The chain, end to end:</p>
+                  <div class="flow" role="img" aria-label="Pipeline: vendor JSONs to hardened ingestion to career runs to 118 transitions to joint hierarchical Bayesian model with fold-identical CV to projection of 431 players to soft archetypes to upside probability ranking to board and report">
+            <span class="node">3 vendor JSONs</span><span class="arr">→</span>
+            <span class="node">Hardened ingestion: name keys, ambiguity-safe joins</span><span class="arr">→</span>
+            <span class="node">Minutes-weighted career runs</span><span class="arr">→</span>
+            <span class="node">118 INTL→NBA transitions</span><span class="arr">→</span>
+            <span class="node">Joint hierarchical Bayes (Gibbs)</span><span class="arr">→</span>
+            <span class="node">Fold-identical CV: HB vs OLS vs naive</span><span class="arr">→</span>
+            <span class="node">431-player pool projection</span><span class="arr">→</span>
+            <span class="node">Soft archetypes (GMM, BIC k=4)</span><span class="arr">→</span>
+            <span class="node">P(upside) from 1,000 posterior draws</span><span class="arr">→</span>
+            <span class="node">Board CSV + report + charts</span>
+          </div>
+      </div>
+
+      <div class="case-block reveal toc-watch" id="validation">
+        <span class="sublabel">Validation and reliability</span>
+        <p>Every translated stat competed against the naive assumption that stats carry over unchanged, on leave-one-out error in v2 and seeded fold-identical cross-validation in v3, and the stat that failed its baseline (three-point volume) was down-weighted rather than kept. The hierarchical model was scored against per-stat OLS and the naive baseline on identical folds, and the sampler&#x27;s convergence was checked directly rather than assumed. What this establishes is predictive accuracy against stated baselines within this transition sample; it does not correct for who reaches the NBA in the first place, a limitation treated below.</p>
+      </div>
+
+      <div class="case-block reveal">
+        <span class="sublabel">The v2 vs v3 re-evaluation: what a stricter test changed</span>
+        <p>v3 was validated with seeded 10-fold cross-validation on folds shared by all three competitors: the hierarchical Bayesian model, v2-style per-stat OLS, and the naive carry-over baseline. The comparison came back a tie, and it is reported as one: the Bayesian model matches OLS on point accuracy, with CV error within 1.5% on every stat. Its value is the coherent posterior, which yields per-player uncertainty and the upside-probability ranking, and that ranking, plus stricter playing-time legitimacy accounting, is what reshuffled the board.</p>
+        <div class="table-scroll">
+          <table class="data">
+            <caption>Where v2's top ten targets landed under v3</caption>
+            <thead><tr><th>v2 rank</th><th>Player</th><th>v2 composite</th><th>v3 outcome</th></tr></thead>
+            <tbody>
+              <tr><td class="num">1</td><td>Mattia O'Bryant</td><td class="num">1.02</td><td class="drop">Removed: fails v3's playing-time legitimacy test</td></tr>
+              <tr><td class="num">2</td><td>Fontecchio Muric</td><td class="num">0.69</td><td class="num">v3 #1 · P(upside) 0.79</td></tr>
+              <tr><td class="num">3</td><td>Luol Palumbo</td><td class="num">0.65</td><td class="drop">Removed: fails v3's playing-time legitimacy test</td></tr>
+              <tr><td class="num">4</td><td>Roko Blackmon</td><td class="num">0.64</td><td class="num">v3 #12 · P(upside) 0.24</td></tr>
+              <tr><td class="num">5</td><td>Bargnani Turiaf</td><td class="num">0.61</td><td class="num">v3 #6 · P(upside) 0.54</td></tr>
+              <tr><td class="num">6</td><td>Gaffney Bozeman</td><td class="num">0.54</td><td class="num">v3 #2 · P(upside) 0.68</td></tr>
+              <tr><td class="num">7</td><td>Ntilikina Higgins</td><td class="num">0.52</td><td class="num">v3 #3 · P(upside) 0.57</td></tr>
+              <tr><td class="num">8</td><td>Kwan Poirier</td><td class="num">0.43</td><td class="num">v3 #7 · P(upside) 0.51</td></tr>
+              <tr><td class="num">9</td><td>Yakuba Shirley</td><td class="num">0.43</td><td class="drop">v3 #39 · P(upside) 0.02</td></tr>
+              <tr><td class="num">10</td><td>Poythress Wigginton</td><td class="num">0.41</td><td class="num">v3 #14 · P(upside) 0.22</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">Computed from both branches' board CSVs using each version's own target filters (playing-time standout, age 30 and under, no prior NBA experience). Target lists: 43 players in v2, 50 in v3; Spearman rank correlation 0.73 across the 38 shared players. Player names are randomized in the source dataset.</p>
+
+        <div class="table-scroll">
+          <table class="data">
+            <caption>Validation vs the naive baseline: v2 (LOO, n=103) and v3 (fold-identical 10-fold CV, n=118)</caption>
+            <thead><tr><th>Stat</th><th>v2 error reduction</th><th>v3 error reduction</th><th>Verdict</th></tr></thead>
+            <tbody>
+              <tr><td>Usage</td><td class="num">46%</td><td class="num">50%</td><td>translates strongly</td></tr>
+              <tr><td>Scoring (pts/40)</td><td class="num">35%</td><td class="num">36%</td><td>translates strongly</td></tr>
+              <tr><td>True shooting</td><td class="num">23%</td><td class="num">25%</td><td>translates</td></tr>
+              <tr><td>Steals</td><td class="num">27%</td><td class="num">24%</td><td>translates</td></tr>
+              <tr><td>Turnovers</td><td class="num">17%</td><td class="num">19%</td><td>translates</td></tr>
+              <tr><td>Assists</td><td class="num">9%</td><td class="num">12%</td><td>mostly carries over (r 0.86)</td></tr>
+              <tr><td>Rebounds</td><td class="num">2%</td><td class="num">2%</td><td>carries over about 1-for-1</td></tr>
+              <tr><td>Blocks</td><td class="num">2%</td><td class="num">2%</td><td>carries over about 1-for-1</td></tr>
+              <tr><td>3PM/40</td><td class="num">-6%</td><td class="num">-8%</td><td class="drop">fails the baseline in both versions</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">Percentages are the reduction in mean absolute prediction error versus assuming stats carry over unchanged. On the same folds, the v3 Bayesian model and per-stat OLS differ by less than 1.5% on every stat; the CV table reports the tie rather than hiding it.</p>
+      </div>
+
+
+      <div class="stats reveal toc-watch" id="results" role="list" aria-label="Key results">
+        <div class="stat" role="listitem"><span class="n">118</span><span class="l">transitions learned from in v3, up from 103 in v2</span></div>
+        <div class="stat" role="listitem"><span class="n">431</span><span class="l">international players projected and ranked, up from 392</span></div>
+        <div class="stat" role="listitem"><span class="n">50%</span><span class="l">lower usage prediction error than the naive baseline (v3 CV)</span></div>
+        <div class="stat" role="listitem"><span class="n">5 of 10</span><span class="l">v2 top-ten targets displaced by the v3 re-evaluation</span></div>
+      </div>
+
+
+      <div class="case-block reveal">
+        <span class="sublabel">Results</span>
+        <ul class="findings">
+          <li><strong>The re-evaluation overturned the board.</strong> v2's #1 (composite 1.02) and #3 targets fail v3's stricter playing-time legitimacy accounting entirely, and v2's #9 collapses to rank 39 with P(upside) 0.02. A 19-year-old enters the v3 top ten on upside probability that a point ranking missed.</li>
+          <li><strong>Validation held or improved on a larger sample.</strong> With 15% more training transitions, usage error fell 50% versus naive and scoring 36%; three-point volume still fails its baseline and stays flagged.</li>
+          <li><strong>Sampler quality is checked, not assumed.</strong> Split-half slope drift across 1,000 kept posterior draws is 0.009, and every ingestion exclusion is printed as a logged decision.</li>
+          <li><strong>Known limitations are stated in the README.</strong> Including one inherited inconsistency, kept deliberately: 3PM/40 fails the MAE gate yet keeps composite weight 0.16 because weights come from CV correlation. It is documented, with the fix described, rather than silently patched after shipping.</li>
+        </ul>
+      </div>
+
+
+      <div class="fig-grid reveal">
+        <figure>
+          <div class="fig-panel"><img src="assets/target-board-v2.png" alt="v2 target board: horizontal bar chart of the top ten international targets ranked by age-adjusted composite, led by Mattia O'Bryant at 1.02." width="1700" height="1160" loading="lazy"></div>
+          <figcaption>v2 board: age-adjusted composite point ranking. Its #1 and #3 do not survive v3's re-evaluation.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/target-board-v3.png" alt="v3 target board: horizontal bar chart of the top ten international targets ranked by upside probability, led by Fontecchio Muric at 0.79, with a fourth archetype color present." width="1700" height="1160" loading="lazy"></div>
+          <figcaption>v3 board: P(upside), the probability the translated composite clears the pool's top-decile bar, from posterior draws.</figcaption>
+        </figure>
+      </div>
+
+
+      <div class="case-block reveal toc-watch" id="meaning">
+        <span class="sublabel">What the results mean</span>
+        <p>Within this sample of players who actually made the jump, scoring and usage translate strongly once age is priced in, rebounds and assists carry over nearly one for one, and three-point volume does not survive its baseline in either version. The board&#x27;s rankings are estimates conditional on the model and on survivorship: they order the pool under stated assumptions rather than predict any individual career. The v2-to-v3 comparison is the study&#x27;s most transferable lesson: half of a top-ten list can change when the evaluation standard tightens, which is an argument for re-testing any board before acting on it.</p>
+      </div>
+
+      <div class="case-block reveal toc-watch" id="limits">
+        <span class="sublabel">Limitations and scope</span>
+        <p>The limitations that matter for interpretation, stated rather than implied:</p>
+                  <ul>
+            <li>Survivorship, stated in both versions: the transition sample only contains players who reached the NBA, so projections are ranking context, not expectations.</li>
+            <li>Honest clustering: the mixture's fourth component is a residual group of low-event profiles, and the README says so rather than naming it a position.</li>
+            <li>Uncertainty that varies where it should: the raw points band is nearly constant across the pool, so per-player uncertainty is read from the composite's posterior spread instead; making observation noise heteroskedastic in minutes is the named fix.</li>
+          </ul>
+      </div>
+
+      <div class="case-block reveal">
+        <span class="sublabel">How it ships</span>
+        <p>Each version ships as one deterministic, seeded script that regenerates the board CSV, the written scouting report, and the charts from raw data, with versioned branches preserving exactly what each version shipped. A re-run reproduces the outputs byte for byte, which is what makes the v2 vs v3 comparison above auditable.</p>
+      </div>
+
+
+      <details class="deep reveal">
+        <summary>Technical deep dive</summary>
+        <div class="deep-body">
+          <h3>Technical highlights</h3>
+          <ul>
+            <li>One joint model instead of ten fits: translation slopes partially pool across stats, per-stat age effects share a prior, and a latent per-player factor captures "translates better or worse than their stats say," fit with an all-conjugate Gibbs sampler written from scratch, no MCMC library.</li>
+            <li>Fold-identical three-way CV: hierarchical Bayes, per-stat OLS, and the naive baseline are scored on the same seeded folds, so the comparison is apples to apples by construction.</li>
+            <li>Data-chosen archetypes: BIC selects k=4 over v2's assumed k=3; memberships are soft, so combo profiles are graded against a blended peer group, a membership-entropy column flags straddlers, and a mixture-density pass flags "unicorns" that fit no archetype.</li>
+            <li>Hardened ingestion as a modeling contribution: normalized name keys (accents, hyphens, suffixes) and same-season league ordering grew the training sample 15%; ambiguous duplicate names get no birth date rather than a guessed one.</li>
+          </ul>
+
+          <h3>Key engineering decisions</h3>
+          <dl class="decisions">
+            <dt>Why a hierarchical model when OLS ties it on accuracy?</dt>
+            <dd>Because the deliverable is a ranking under uncertainty, not a point forecast. Partial pooling produces a coherent joint posterior, which is what makes per-player uncertainty and P(upside) computable at all. The CV table states the point-accuracy tie plainly.</dd>
+            <dt>Why a hand-rolled Gibbs sampler?</dt>
+            <dd>The model was designed to be all-conjugate, so exact conditional draws are available without an MCMC library, the sampler is fully inspectable, and convergence is checked directly (split-half slope drift 0.009).</dd>
+            <dt>Why an upside probability instead of a point rank?</dt>
+            <dd>Recruitment lists exist to find upside. P(composite clears the pool's top-decile bar) ranks players by the chance they are worth a roster spot, which is the actual decision, and it is what elevated a 19-year-old the v2 point ranking buried.</dd>
+            <dt>Why keep a known inconsistency in the shipped board?</dt>
+            <dd>The 3PM weight disagreement between the MAE gate and correlation weighting existed in the shipped v2 board. v3 documents it and describes the fix rather than silently changing a shipped artifact, because reproducibility of what actually shipped matters.</dd>
+          </dl>
+
+          <h3>Future improvements</h3>
+          <p>Gate composite weights on the baseline test, which moves weight toward blocks and assists; make observation noise heteroskedastic in minutes; and model the selection process itself, who receives NBA offers, to address survivorship directly.</p>
+
+          <h3>Technology stack</h3>
+          <div class="stack-rows">
+            <div class="stack-row"><span class="k">Languages</span><span class="v">Python</span></div>
+            <div class="stack-row"><span class="k">Modeling</span><span class="v">Hand-rolled all-conjugate Gibbs sampler, Gaussian mixture archetypes (BIC selection), per-stat OLS baselines</span></div>
+            <div class="stack-row"><span class="k">Data science</span><span class="v">pandas, NumPy, statsmodels, scikit-learn</span></div>
+            <div class="stack-row"><span class="k">Visualization</span><span class="v">Matplotlib</span></div>
+            <div class="stack-row"><span class="k">Reproducibility</span><span class="v">Deterministic seeded pipelines, logged exclusions, versioned branches (main = v2, v3)</span></div>
+          </div>
+        </div>
+      </details>
+
+
+      <p class="fineprint">Built on an NBA team's public data-science dataset, anonymized and randomized by the team (Apache 2.0). Because names and bios are randomized, the boards demonstrate process on realistic data rather than live recruiting advice. The v2 vs v3 comparison above was computed from the two branches' generated board CSVs.</p>
+      <p class="reveal" style="margin-top:1.6rem;"><a class="btn btn-ghost" href="case-studies.html">All projects</a></p>
+    </div>
+  </article>
+</main>
+
+<!-- Site footer, identical on every page: identity, navigation, contact. -->
+<footer class="site-footer">
+  <div class="wrap foot-inner">
+    <div>
+      <p class="foot-name">Thomas Lappas</p>
+      <p class="foot-tag">Data science, analytics engineering, and production systems, demonstrated through basketball.</p>
+    </div>
+    <nav class="foot-nav" aria-label="Footer">
+      <a href="./">Home</a>
+      <a href="case-studies.html">Projects</a>
+      <a href="research.html">Research</a>
+      <a href="skills.html">Capabilities</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="foot-links">
+      <a href="mailto:thomas.lappas1010@gmail.com">thomas.lappas1010@gmail.com</a>
+      <a href="https://github.com/Tlappas-23" rel="noopener">github.com/Tlappas-23</a>
+    </div>
+  </div>
+  <div class="wrap foot-legal">Every metric on this site is generated by project code from project data.</div>
+</footer>
+
+<script src="assets/site.js?v=20260821"></script>
+</body>
+</html>
