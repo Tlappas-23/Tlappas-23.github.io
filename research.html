@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <title>Research · Thomas Lappas</title>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-<link rel="stylesheet" href="assets/style.css?v=20260821b">
+<link rel="stylesheet" href="assets/style.css?v=20260822a">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -43,7 +43,7 @@
       <span class="label">Research</span>
       <h1>Six questions, one database, one standard</h1>
       <p class="dek">Six self-contained analyses built on the same five-season NBA database: 97 tables of box score, tracking, hustle, play-type, and lineup-split data, 2021-22 through 2025-26. Each analysis stands alone with its own question, methods, and findings. What they share is the standard: confounds named before results, permutation tests with corrected p-values, resampling units that match the data's dependence structure, feature selection nested inside validation folds, and nulls reported as findings.</p>
-      <p class="dek">After all six were finished, I reviewed the suite the way a head of analytics would review an analyst's work, then fixed what the review found instead of arguing with it. Three headline claims came out weaker: a neural network's edge over PCA dissolved on a properly firewalled test, a clustering solution fell below its own pre-registered stability bar, and a fifth of one model's apparent skill turned out to be the geometry of a bounded scale. All three are published in their corrected form, with the correction documented on each page,</p>
+      <p class="dek">After all six were finished, I reviewed the suite the way a head of analytics would review an analyst's work, then fixed what the review found instead of arguing with it. Three headline claims came out weaker: a neural network's edge over PCA dissolved on a properly firewalled test, a clustering solution fell below its own pre-registered stability bar, and a fifth of one model's apparent skill turned out to be the geometry of a bounded scale. All three are published in their corrected form, with the correction documented on each page.</p>
     </div>
 
     <!-- Suite-level totals, same box-score treatment as the home page. -->
@@ -60,8 +60,9 @@
     </div>
 
     <div class="section-head reveal" style="margin-top:3rem;" id="studies">
+      <span class="label">In method order</span>
       <h2>The analyses</h2>
-      <p>Ordered by what each contributes methodologically, not chronologically. Every page ends with the same two sections: what the adversarial review changed, and what the results still cannot claim.</p>
+      <p>Ordered by what each one adds to the method, starting with whether the quantity can be measured at all and ending with a model made to earn its place against a simpler one. The second tag on each card names that contribution. Four of the six report a null or a tie as the headline finding.</p>
     </div>
   </div>
 
@@ -69,39 +70,32 @@
     <div class="wrap">
       <div class="work-grid">
         <a class="work-card reveal" href="research-bench-clutch.html">
-          <span class="tag tag-domain">Reliability Analysis</span>
+          <div class="card-tags">
+            <span class="tag tag-domain">Reliability Analysis</span>
+            <span class="tag tag-method">Reliability before prediction</span>
+          </div>
           <h3>Clutch Minutes and Bench Value</h3>
           <p class="q">Which bench players are clutch, and is that even measurable?</p>
           <p>The performance half of the clutch question turns out to be unmeasurable noise; the trust half is stable, modestly predictable, and has nothing to do with shooting.</p>
           <span class="stat-line">871 player-seasons · 0.1% true-skill share · trust repeats at +0.34</span>
           <span class="go">Read the analysis</span>
         </a>
-        <a class="work-card reveal" href="research-playoff-translation.html">
-          <span class="tag tag-domain">Playoff Translation</span>
-          <h3>What Survives the Playoffs</h3>
-          <p class="q">Does playing style predict who translates to the playoffs?</p>
-          <p>No style trait predicts playoff translation, and the nested-selection check that erased its own forecasting edge is the centerpiece.</p>
-          <span class="stat-line">80 team-seasons · style all null · nested 6.07 vs baseline 6.06</span>
-          <span class="go">Read the analysis</span>
-        </a>
         <a class="work-card reveal" href="research-player-trajectory.html">
-          <span class="tag tag-domain">Trajectory Modeling</span>
+          <div class="card-tags">
+            <span class="tag tag-domain">Trajectory Modeling</span>
+            <span class="tag tag-method">860-column leakage audit</span>
+          </div>
           <h3>Player Trajectory Prediction</h3>
           <p class="q">Who is rising and who is falling next season?</p>
           <p>All 860 database columns whittled to 428, then a self-correction: one fifth of the apparent model skill was the geometry of a bounded scale.</p>
           <span class="stat-line">860 → 428 features · 19.5% censored · rise AUC 0.72 → 0.67 interior</span>
           <span class="go">Read the analysis</span>
         </a>
-        <a class="work-card reveal" href="research-style-embeddings.html">
-          <span class="tag tag-domain">Representation Learning</span>
-          <h3>Player Style Embeddings</h3>
-          <p class="q">Does a neural network beat PCA for player similarity?</p>
-          <p>A neural network made to earn its place against PCA on an untouched verdict season. It ties, and the search shows why reconstruction is the wrong yardstick.</p>
-          <span class="stat-line">81 → 32 dims · verdict 72.1% vs 71.1%, p=0.83 · stability 0.941</span>
-          <span class="go">Read the analysis</span>
-        </a>
         <a class="work-card reveal" href="research-player-clustering.html">
-          <span class="tag tag-domain">Role Identification</span>
+          <div class="card-tags">
+            <span class="tag tag-domain">Role Identification</span>
+            <span class="tag tag-method">Player-block resampling</span>
+          </div>
           <h3>Player Role Lenses</h3>
           <p class="q">What is a player&#x27;s role, asked four independent ways?</p>
           <p>Four near-independent clusterings replace one blurry label, with player-block stability selection and an external check the defensive lens survives.</p>
@@ -109,11 +103,36 @@
           <span class="go">Read the analysis</span>
         </a>
         <a class="work-card reveal" href="research-bench-usage.html">
-          <span class="tag tag-domain">Team Construction</span>
+          <div class="card-tags">
+            <span class="tag tag-domain">Team Construction</span>
+            <span class="tag tag-method">Confounds named first</span>
+          </div>
           <h3>Bench Usage and Team Success</h3>
           <p class="q">Does leaning on your bench actually cost games?</p>
           <p>The bench-usage penalty is a starter-quality artifact, bench scorers are a null, and efficiency is the trait that survives every control.</p>
           <span class="stat-line">150 team-seasons · -0.386 → +0.08 controlled · effort CI +0.09 to +0.36</span>
+          <span class="go">Read the analysis</span>
+        </a>
+        <a class="work-card reveal" href="research-playoff-translation.html">
+          <div class="card-tags">
+            <span class="tag tag-domain">Playoff Translation</span>
+            <span class="tag tag-method">Selection nested in the fold</span>
+          </div>
+          <h3>What Survives the Playoffs</h3>
+          <p class="q">Does playing style predict who translates to the playoffs?</p>
+          <p>No style trait predicts playoff translation, and the nested-selection check that erased its own forecasting edge is the centerpiece.</p>
+          <span class="stat-line">80 team-seasons · style all null · nested 6.07 vs baseline 6.06</span>
+          <span class="go">Read the analysis</span>
+        </a>
+        <a class="work-card reveal" href="research-style-embeddings.html">
+          <div class="card-tags">
+            <span class="tag tag-domain">Representation Learning</span>
+            <span class="tag tag-method">One untouched verdict set</span>
+          </div>
+          <h3>Player Style Embeddings</h3>
+          <p class="q">Does a neural network beat PCA for player similarity?</p>
+          <p>A neural network made to earn its place against PCA on an untouched verdict season. It ties, and the search shows why reconstruction is the wrong yardstick.</p>
+          <span class="stat-line">81 → 32 dims · verdict 72.1% vs 71.1%, p=0.83 · stability 0.941</span>
           <span class="go">Read the analysis</span>
         </a>
       </div>
@@ -151,6 +170,6 @@
   </div>
 </footer>
 
-<script src="assets/site.js?v=20260821b"></script>
+<script src="assets/site.js?v=20260822a"></script>
 </body>
 </html>
