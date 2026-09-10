@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500..700&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=20260910c">
+<link rel="stylesheet" href="assets/style.css?v=20260910d">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -70,23 +70,23 @@
       <div class="crisp-steps reveal">
         <figure>
           <div class="fig-panel"><img src="assets/crisp-embeddings-1-data.png" alt="Left: cumulative PCA variance against components, reaching 90 percent at about 20 of 81. Right: four tracking features named as four measurements of one behaviour." width="2101" height="989" loading="lazy"></div>
-          <figcaption><strong>Step 1 · Data understanding.</strong> The question only has an answer once you know how much structure is there to find. These features are heavily redundant by construction, because drives, drive attempts, drive free throws and paint touches all measure getting to the rim. A space this compressible is exactly where a linear method should be hard to beat, which is the honest expectation to set before testing.</figcaption>
+          <figcaption><strong>Step 1 · Data understanding.</strong> The question only has an answer once you know how much structure is there to find.</figcaption>
         </figure>
         <figure>
           <div class="fig-panel"><img src="assets/crisp-embeddings-2-model.png" alt="Left: the autoencoder beating PCA on held-out reconstruction at all five bottlenecks. Right: the autoencoder losing to PCA on role recovery at three of four bottlenecks." width="2136" height="1008" loading="lazy"></div>
-          <figcaption><strong>Step 2 · Modeling.</strong> Reconstruction is the loss the autoencoder was trained on, so winning there says only that the optimiser worked. What the embedding is for is similarity, and the diagnostic that matters is whether the space still knows a player&#x27;s role under four independent clusterings. Selecting on reconstruction would have shipped the wrong model with a confident number attached.</figcaption>
+          <figcaption><strong>Step 2 · Modeling.</strong> Reconstruction is the loss the autoencoder was trained on, so winning there says only that the optimiser worked.</figcaption>
         </figure>
         <figure>
           <div class="fig-panel"><img src="assets/crisp-embeddings-3-prep.png" alt="Left: 800 similarity pairs split into 610 development and 190 untouched verdict pairs. Right: nine architectures ranked on development self-match, the winner at 74.4 percent against PCA&#x27;s 73.6." width="2136" height="1028" loading="lazy"></div>
-          <figcaption><strong>Step 3 · Data preparation.</strong> An architecture search is a form of fitting, and grading it on the pairs that later report the result would turn the headline into a measurement of how many configurations were tried. Splitting first costs nothing and lets the final number be quoted without an asterisk. Determinism is engineered in, so a rerun returns identical numbers rather than a fresh draw.</figcaption>
+          <figcaption><strong>Step 3 · Data preparation.</strong> An architecture search is a form of fitting, and grading it on the pairs that later report the result would turn the headline into a measurement of how many configurations were tried.</figcaption>
         </figure>
         <figure>
           <div class="fig-panel"><img src="assets/crisp-embeddings-4-evaluation.png" alt="Left: 72.1 percent for the autoencoder against 71.1 for PCA on the verdict set, error bars overlapping. Right: the 22 disagreements split 12 to 10, McNemar p = 0.83." width="2136" height="1028" loading="lazy"></div>
-          <figcaption><strong>Step 4 · Evaluation.</strong> A one-point gap on 190 pairs is worth exactly one significance test, and McNemar is the right one because both methods are graded on the same pairs. It compares only the pairs they disagree on, and they split them almost evenly. Reporting this as a win for the autoencoder would have been defensible arithmetic and indefensible statistics.</figcaption>
+          <figcaption><strong>Step 4 · Evaluation.</strong> A one-point gap on 190 pairs is worth exactly one significance test, and McNemar is the right one because both methods are graded on the same pairs.</figcaption>
         </figure>
         <figure>
           <div class="fig-panel"><img src="assets/crisp-embeddings-5-decision.png" alt="Left: per-feature reconstruction quality, strongest for passing statistics and weakest for screen assists and box-outs, nothing below 0.877. Right: distance from the league centroid across 1,350 player-seasons." width="2286" height="1048" loading="lazy"></div>
-          <figcaption><strong>Step 5 · Deployment.</strong> The verdict said the two methods are indistinguishable, so the deployment choice was made on operational grounds: 32 coordinates per player-season need no serving stack, and similarity search is a SQL distance. The per-feature audit ships alongside so a user can see what the space blurs, which is rare, teammate-dependent events. Distinctiveness falls out of the same geometry for free.</figcaption>
+          <figcaption><strong>Step 5 · Deployment.</strong> The verdict said the two methods are indistinguishable, so the deployment choice was made on operational grounds: 32 coordinates per player-season need no serving stack, and similarity search is a SQL distance.</figcaption>
         </figure>
       </div>
       <!-- /CRISP-DM walk-through -->
@@ -189,6 +189,7 @@
   </div>
 </footer>
 
+<script src="assets/figure-zoom.js?v=20260910d" defer></script>
 <script src="assets/site.js?v=20260822a"></script>
 <script src="assets/explorer.js?v=20260822a"></script>
 </body>

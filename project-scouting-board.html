@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500..700&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=20260910c">
+<link rel="stylesheet" href="assets/style.css?v=20260910d">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -87,23 +87,23 @@
       <div class="crisp-steps reveal">
         <figure>
           <div class="fig-panel"><img src="assets/crisp-scouting-1-data.png" alt="Left: v2 versus v3 counts, 103 to 118 training transitions and 392 to 431 pool players. Right: the 118-player training sample drawn to scale against the 431 players it has to project." width="2136" height="1008" loading="lazy"></div>
-          <figcaption><strong>Step 1 · Data understanding.</strong> The translation is learned only from players who actually made the jump, which keeps the sample small and the answer checkable. At 118 examples the binding constraint is data, not model capacity, which is why v3 spent its effort on ingestion first: normalised name keys and same-season league ordering recovered 15 transitions and 39 split-season players that v2 was silently dropping.</figcaption>
+          <figcaption><strong>Step 1 · Data understanding.</strong> The translation is learned only from players who actually made the jump, which keeps the sample small and the answer checkable.</figcaption>
         </figure>
         <figure>
           <div class="fig-panel"><img src="assets/crisp-scouting-2-prep.png" alt="Left: the 431-player pool split into four BIC-chosen archetypes. Right: a histogram of archetype membership entropy showing 48 percent of players sitting between archetypes." width="2166" height="1008" loading="lazy"></div>
-          <figcaption><strong>Step 2 · Data preparation.</strong> A z-score only means something against a reference group, so choosing that group by hand quietly decides half the board. Letting a Gaussian mixture pick k on BIC makes it a modelling decision with evidence behind it, and soft membership means a big who handles is graded against his own blend rather than forced into a bucket.</figcaption>
+          <figcaption><strong>Step 2 · Data preparation.</strong> A z-score only means something against a reference group, so choosing that group by hand quietly decides half the board.</figcaption>
         </figure>
         <figure>
           <div class="fig-panel"><img src="assets/crisp-scouting-3-model.png" alt="Fitted INTL to NBA translation slopes for ten statistics, from true shooting at 0.40 to three-point rate at 0.998." width="1995" height="1165" loading="lazy"></div>
-          <figcaption><strong>Step 3 · Modeling.</strong> Scoring, usage, steals and true shooting take the biggest cut across the jump; rebounds, blocks and three-point rate carry over almost one for one. Slopes are partially pooled across statistics so the well-measured ones stabilise the noisy ones, which is the right structure for ten correlated outcomes on 118 rows.</figcaption>
+          <figcaption><strong>Step 3 · Modeling.</strong> Scoring, usage, steals and true shooting take the biggest cut across the jump; rebounds, blocks and three-point rate carry over almost one for one.</figcaption>
         </figure>
         <figure>
           <div class="fig-panel"><img src="assets/crisp-scouting-4-evaluation.png" alt="Left: cross-validated error reduction against a naive carry-over baseline for ten stats, from usage at +49.6 percent to three-point makes at -8.3 percent. Right: hierarchical Bayes minus per-stat OLS, every stat within 1.4 percent." width="2207" height="1087" loading="lazy"></div>
-          <figcaption><strong>Step 4 · Evaluation.</strong> Seven of ten statistics beat assuming the line carries over unchanged. Three-point makes fail their baseline outright and are down-weighted rather than kept, which is the finding the board most needed before anyone signed a shooter on it. The right panel is reported as what it is: the elegant model ties the boring one on accuracy, and what the posterior buys is per-player uncertainty, not a better mean.</figcaption>
+          <figcaption><strong>Step 4 · Evaluation.</strong> Seven of ten statistics beat assuming the line carries over unchanged.</figcaption>
         </figure>
         <figure>
           <div class="fig-panel"><img src="assets/crisp-scouting-5-decision.png" alt="Left: v2&#x27;s top ten targets with what v3 says about each, two of them off the board entirely. Right: the distribution of upside probability across 431 players." width="2520" height="1126" loading="lazy"></div>
-          <figcaption><strong>Step 5 · Deployment.</strong> Five of v2&#x27;s top ten fall out of the v3 top ten and two leave the target board altogether. The reshuffle comes from recovered data, stricter playing-time accounting and re-drawn peer groups, not from the sampler: the probability sort correlates 0.95 by rank with the old composite sort. A project that reports which of its own conclusions it just overturned is worth more than one that quietly ships a new list.</figcaption>
+          <figcaption><strong>Step 5 · Deployment.</strong> Five of v2&#x27;s top ten fall out of the v3 top ten and two leave the target board altogether.</figcaption>
         </figure>
       </div>
       <!-- /CRISP-DM walk-through -->
@@ -303,6 +303,7 @@
   </div>
 </footer>
 
+<script src="assets/figure-zoom.js?v=20260910d" defer></script>
 <script src="assets/site.js?v=20260822a"></script>
 </body>
 </html>

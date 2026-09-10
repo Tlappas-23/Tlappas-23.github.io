@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500..700&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=20260910c">
+<link rel="stylesheet" href="assets/style.css?v=20260910d">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -70,23 +70,23 @@
       <div class="crisp-steps reveal">
         <figure>
           <div class="fig-panel"><img src="assets/crisp-trajectory-1-data.png" alt="Left: the percentile scale with shaded bands at each end where a class is unavailable, 143 players above the 90th and 83 below the 10th. Right: the three class counts, with 177 of 596 stable cases boundary-forced." width="2136" height="1008" loading="lazy"></div>
-          <figcaption><strong>Step 1 · Data understanding.</strong> A fifth of all transitions cannot move the way the label asks, because a percentile has walls. This is worth stating plainly as a flaw in the target rather than a quirk of the data: the outcome is a within-season percentile change cut at plus or minus ten, which is zero-sum by construction, so it measures whether a player gained ground on his peers rather than whether he improved. The rest of the project is partly scaffolding around that choice.</figcaption>
+          <figcaption><strong>Step 1 · Data understanding.</strong> A fifth of all transitions cannot move the way the label asks, because a percentile has walls.</figcaption>
         </figure>
         <figure>
           <div class="fig-panel"><img src="assets/crisp-trajectory-2-prep.png" alt="Left: a funnel from 860 raw columns to 428 through six documented rules. Right: a starter-split volume divided by total minutes correlating +0.814 with who starts." width="2309" height="1048" loading="lazy"></div>
-          <figcaption><strong>Step 2 · Data preparation.</strong> The preparation is the strongest part of this project. Dividing starter-split rebounds by total minutes produces a column that measures who starts and would have entered the model as a rebounding feature; 69 split-table columns needed their own denominators. A second rule nulled 56,252 cells where the league published rate statistics on samples as small as 0.8 seconds of floor time. No rows were dropped as outliers, because once the pipeline errors were fixed the extreme rows were MVPs.</figcaption>
+          <figcaption><strong>Step 2 · Data preparation.</strong> The preparation is the strongest part of this project.</figcaption>
         </figure>
         <figure>
           <div class="fig-panel"><img src="assets/crisp-trajectory-3-model.png" alt="Left: mean reversion and the aging curve alone explaining 11.7 percent of trajectory variance. Right: 428 features screened, 147 nominally significant against 21 expected by chance, 49 surviving FDR correction." width="2159" height="1008" loading="lazy"></div>
-          <figcaption><strong>Step 3 · Modeling.</strong> Mean reversion and aging are real, boring and large, so they go into the baseline rather than being reported as findings. Screening against a target with both already removed is the only way to see whether anything else carries information; 49 features survive the correction, clustering into interior touch volume, foul economy, turnover share and role shares.</figcaption>
+          <figcaption><strong>Step 3 · Modeling.</strong> Mean reversion and aging are real, boring and large, so they go into the baseline rather than being reported as findings.</figcaption>
         </figure>
         <figure>
           <div class="fig-panel"><img src="assets/crisp-trajectory-4-evaluation.png" alt="Grouped bars of rising-class AUC across four evaluation frames and three models, falling from 0.72 on the full sample to 0.67 in the interior and 0.63 against the confound-adjusted target." width="2065" height="1087" loading="lazy"></div>
-          <figcaption><strong>Step 4 · Evaluation.</strong> Between five and seven points of the headline AUC was knowing where the boundaries are. Grouping folds by player rather than season leaves the number unchanged, which says the model is not memorising individuals. Running four frames is the right response to a compromised target, but the better fix would have been not to create the problem: a continuous quality metric with an explicit aging curve and player random effects avoids the censoring entirely.</figcaption>
+          <figcaption><strong>Step 4 · Evaluation.</strong> Between five and seven points of the headline AUC was knowing where the boundaries are.</figcaption>
         </figure>
         <figure>
           <div class="fig-panel"><img src="assets/crisp-trajectory-5-decision.png" alt="Left: predicted rise and fall probabilities against age for all 378 shipped players. Right: the shipped rise probability correlating -0.69 with current percentile and -0.42 with age." width="2136" height="1048" loading="lazy"></div>
-          <figcaption><strong>Step 5 · Deployment.</strong> The honest description is that this model knows young players with room above them tend to rise and old players near the top tend to fall, plus a modest amount of signal from touch volume and foul economy. Publishing the list is still useful; publishing it without that sentence would not be. It is dated and gets graded for real by the following season, which is the only test that finally settles it.</figcaption>
+          <figcaption><strong>Step 5 · Deployment.</strong> The honest description is that this model knows young players with room above them tend to rise and old players near the top tend to fall, plus a modest amount of signal from touch volume and foul economy.</figcaption>
         </figure>
       </div>
       <!-- /CRISP-DM walk-through -->
@@ -183,6 +183,7 @@
   </div>
 </footer>
 
+<script src="assets/figure-zoom.js?v=20260910d" defer></script>
 <script src="assets/site.js?v=20260822a"></script>
 <script src="assets/explorer.js?v=20260822a"></script>
 </body>
