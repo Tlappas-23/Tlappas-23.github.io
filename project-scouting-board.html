@@ -41,7 +41,7 @@
 
 <main id="main">
   <nav class="side-toc" aria-label="On this page">
-    <a href="#overview">Overview</a><a href="#question">The question</a><a href="#crisp">Step by step</a><a href="#data">Data</a><a href="#method">Method</a><a href="#validation">Validation</a><a href="#results">Results</a><a href="#meaning">What it means</a><a href="#limits">Limitations</a>
+    <a href="#overview">Overview</a><a href="#question">The question</a><a href="#crisp">Step by step</a><a href="#data">Data</a><a href="#method">Method</a><a href="#validation">Validation</a><a href="#results">Results</a><a href="#meaning">What it means</a><a href="#limits">Limitations</a><a href="#architecture">Architecture</a>
   </nav>
   <article class="case" id="scouting-board">
     <div class="wrap">
@@ -240,6 +240,21 @@
       </div>
 
 
+      <div class="case-block reveal toc-watch" id="architecture">
+        <span class="sublabel">Architecture and the decisions behind it</span>
+        <p>The sampler is one file. Most of the decisions below are about what the pipeline refuses to do rather than what it computes.</p>
+        <dl class="decisions">
+            <dt>Why a hierarchical model when OLS ties it on accuracy?</dt>
+            <dd>Because the deliverable is a ranking under uncertainty, not a point forecast. Partial pooling produces a coherent joint posterior, which is what makes per-player uncertainty and P(upside) computable at all. The CV table states the point-accuracy tie plainly.</dd>
+            <dt>Why a hand-rolled Gibbs sampler?</dt>
+            <dd>The model was designed to be all-conjugate, so exact conditional draws are available without an MCMC library, the sampler is fully inspectable, and convergence is checked directly (split-half slope drift 0.009).</dd>
+            <dt>Why an upside probability instead of a point rank?</dt>
+            <dd>Recruitment lists exist to find upside. P(composite clears the pool's top-decile bar) ranks players by the chance they are worth a roster spot, which is the actual decision, and it is what elevated a 19-year-old the v2 point ranking buried.</dd>
+            <dt>Why keep a known inconsistency in the shipped board?</dt>
+            <dd>The 3PM weight disagreement between the MAE gate and correlation weighting existed in the shipped v2 board. v3 documents it and describes the fix rather than silently changing a shipped artifact, because reproducibility of what actually shipped matters.</dd>
+          </dl>
+      </div>
+
       <details class="deep reveal">
         <summary>Technical deep dive</summary>
         <div class="deep-body">
@@ -251,17 +266,6 @@
             <li>Hardened ingestion as a modeling contribution: normalized name keys (accents, hyphens, suffixes) and same-season league ordering grew the training sample 15%; ambiguous duplicate names get no birth date rather than a guessed one.</li>
           </ul>
 
-          <h3>Key engineering decisions</h3>
-          <dl class="decisions">
-            <dt>Why a hierarchical model when OLS ties it on accuracy?</dt>
-            <dd>Because the deliverable is a ranking under uncertainty, not a point forecast. Partial pooling produces a coherent joint posterior, which is what makes per-player uncertainty and P(upside) computable at all. The CV table states the point-accuracy tie plainly.</dd>
-            <dt>Why a hand-rolled Gibbs sampler?</dt>
-            <dd>The model was designed to be all-conjugate, so exact conditional draws are available without an MCMC library, the sampler is fully inspectable, and convergence is checked directly (split-half slope drift 0.009).</dd>
-            <dt>Why an upside probability instead of a point rank?</dt>
-            <dd>Recruitment lists exist to find upside. P(composite clears the pool's top-decile bar) ranks players by the chance they are worth a roster spot, which is the actual decision, and it is what elevated a 19-year-old the v2 point ranking buried.</dd>
-            <dt>Why keep a known inconsistency in the shipped board?</dt>
-            <dd>The 3PM weight disagreement between the MAE gate and correlation weighting existed in the shipped v2 board. v3 documents it and describes the fix rather than silently changing a shipped artifact, because reproducibility of what actually shipped matters.</dd>
-          </dl>
 
           <h3>Future improvements</h3>
           <p>Gate composite weights on the baseline test, which moves weight toward blocks and assists; make observation noise heteroskedastic in minutes; and model the selection process itself, who receives NBA offers, to address survivorship directly.</p>

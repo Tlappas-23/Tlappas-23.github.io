@@ -41,7 +41,7 @@
 
 <main id="main">
   <nav class="side-toc" aria-label="On this page">
-    <a href="#overview">Overview</a><a href="#question">The question</a><a href="#crisp">Step by step</a><a href="#data">Data</a><a href="#method">Method</a><a href="#validation">Validation</a><a href="#results">Results</a><a href="#meaning">What it means</a><a href="#limits">Limitations</a>
+    <a href="#overview">Overview</a><a href="#question">The question</a><a href="#crisp">Step by step</a><a href="#data">Data</a><a href="#method">Method</a><a href="#validation">Validation</a><a href="#results">Results</a><a href="#meaning">What it means</a><a href="#limits">Limitations</a><a href="#architecture">Architecture</a>
   </nav>
   <article class="case" id="schedule">
     <div class="wrap">
@@ -186,6 +186,21 @@
       </div>
 
 
+      <div class="case-block reveal toc-watch" id="architecture">
+        <span class="sublabel">Architecture and the decisions behind it</span>
+        <p>The model class, the feature set and the attribution design were each chosen against a cheaper alternative that would have looked perfectly fine in a chart.</p>
+        <dl class="decisions">
+            <dt>Why logistic regression over gradient boosting?</dt>
+            <dd>Every coefficient is inspectable, which is the point when the output is an attribution claim rather than a prediction service. A sanity-checkable home-court coefficient buys more credibility than a marginal AUC gain.</dd>
+            <dt>Why a counterfactual instead of residual analysis?</dt>
+            <dd>Residuals mix schedule with everything else the model missed. The counterfactual isolates the schedule by holding team strength fixed and varying only the slate.</dd>
+            <dt>Why leave-one-season-out instead of random folds?</dt>
+            <dd>Games within a season share teams and context; random folds would leak. Scoring each season with a model that never saw it is the test that matches the use case.</dd>
+            <dt>Why deliberately collinear strength priors?</dt>
+            <dd>Collinearity among prior-season, three-year, and in-season strength is good for prediction. The cost is that individual strength coefficients cannot be read causally, so they are not; the schedule coefficients, which are stable, are.</dd>
+          </dl>
+      </div>
+
       <details class="deep reveal">
         <summary>Technical deep dive</summary>
         <div class="deep-body">
@@ -197,17 +212,6 @@
             <li>Significance testing throughout: every quotable split in the density analysis ships with a permutation test, and two headline narratives fail theirs.</li>
           </ul>
 
-          <h3>Key engineering decisions</h3>
-          <dl class="decisions">
-            <dt>Why logistic regression over gradient boosting?</dt>
-            <dd>Every coefficient is inspectable, which is the point when the output is an attribution claim rather than a prediction service. A sanity-checkable home-court coefficient buys more credibility than a marginal AUC gain.</dd>
-            <dt>Why a counterfactual instead of residual analysis?</dt>
-            <dd>Residuals mix schedule with everything else the model missed. The counterfactual isolates the schedule by holding team strength fixed and varying only the slate.</dd>
-            <dt>Why leave-one-season-out instead of random folds?</dt>
-            <dd>Games within a season share teams and context; random folds would leak. Scoring each season with a model that never saw it is the test that matches the use case.</dd>
-            <dt>Why deliberately collinear strength priors?</dt>
-            <dd>Collinearity among prior-season, three-year, and in-season strength is good for prediction. The cost is that individual strength coefficients cannot be read causally, so they are not; the schedule coefficients, which are stable, are.</dd>
-          </dl>
 
           <h3>Future improvements</h3>
           <p>Altitude for Denver and Utah is unmodeled because arena coordinates carry no elevation. Player-level rest and load management would sharpen the fatigue features, and an in-season strength update such as an Elo variant could replace the shrunk blend.</p>

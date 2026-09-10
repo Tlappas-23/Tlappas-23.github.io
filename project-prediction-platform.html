@@ -41,7 +41,7 @@
 
 <main id="main">
   <nav class="side-toc" aria-label="On this page">
-    <a href="#overview">Overview</a><a href="#question">The question</a><a href="#data">Data</a><a href="#method">Method</a><a href="#validation">Validation</a><a href="#results">Results</a><a href="#meaning">What it means</a><a href="#limits">Limitations</a>
+    <a href="#overview">Overview</a><a href="#question">The question</a><a href="#data">Data</a><a href="#method">Method</a><a href="#validation">Validation</a><a href="#results">Results</a><a href="#meaning">What it means</a><a href="#limits">Limitations</a><a href="#architecture">Architecture</a>
   </nav>
   <article class="case" id="platform">
     <div class="wrap">
@@ -148,6 +148,21 @@
           </ul>
       </div>
 
+      <div class="case-block reveal toc-watch" id="architecture">
+        <span class="sublabel">Architecture and the decisions behind it</span>
+        <p>The model was never the hard part. The hard part is a system that keeps being right on a day when nobody is watching it.</p>
+        <dl class="decisions">
+            <dt>Why Docker Compose as the only supported runtime?</dt>
+            <dd>Identical service versions across environments and atomic startup ordering (db, then schema-init, then the services that depend on them). The flexibility given up was flexibility the project did not want.</dd>
+            <dt>Why a single writer?</dt>
+            <dd>One scheduler owns the daily cycle, which eliminates race conditions between competing update paths and makes partial failure detectable: if ingestion fails, predictions are never generated from incomplete data.</dd>
+            <dt>Why a read-only public API?</dt>
+            <dd>External users can query but never mutate. That removes an entire class of authorization complexity and makes rate limiting and monitoring straightforward.</dd>
+            <dt>Why duplicate features per run?</dt>
+            <dd>Storage is spent on purpose. The return is an immutable audit trail (which feature version produced this prediction?) and safe historical backfills under new run IDs.</dd>
+          </dl>
+      </div>
+
       <details class="deep reveal">
         <summary>Technical deep dive</summary>
         <div class="deep-body">
@@ -159,17 +174,6 @@
             <li>A full product surface behind feature flags: auth, email verification, premium gating, and billing are feature-flagged and disabled by default, so the same codebase runs open or gated.</li>
           </ul>
 
-          <h3>Key engineering decisions</h3>
-          <dl class="decisions">
-            <dt>Why Docker Compose as the only supported runtime?</dt>
-            <dd>Identical service versions across environments and atomic startup ordering (db, then schema-init, then the services that depend on them). The flexibility given up was flexibility the project did not want.</dd>
-            <dt>Why a single writer?</dt>
-            <dd>One scheduler owns the daily cycle, which eliminates race conditions between competing update paths and makes partial failure detectable: if ingestion fails, predictions are never generated from incomplete data.</dd>
-            <dt>Why a read-only public API?</dt>
-            <dd>External users can query but never mutate. That removes an entire class of authorization complexity and makes rate limiting and monitoring straightforward.</dd>
-            <dt>Why duplicate features per run?</dt>
-            <dd>Storage is spent on purpose. The return is an immutable audit trail (which feature version produced this prediction?) and safe historical backfills under new run IDs.</dd>
-          </dl>
 
           <h3>Future improvements</h3>
           <p>The stated next step is live updates as games finish rather than a single daily cycle. The auth, paywall, and billing flags already in place let the product surface expand without re-architecture.</p>
