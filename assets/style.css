@@ -625,3 +625,17 @@ html.js .reveal.in { opacity: 1; transform: none; }
 .case h1 { font-size: clamp(1.7rem, 3.2vw, 2.35rem); font-weight: 700; letter-spacing: -0.02em; }
 .case .case-block[id], .case .qa[id], .case .stats[id], .case details[id] { scroll-margin-top: 4.5rem; }
 .work-card .q { color: var(--ink); font-weight: 600; font-size: 0.95rem; margin-top: 0.2rem; }
+
+/* ---------------------------------------------------------------------------
+   CRISP-DM method walk-throughs.
+
+   Each project page carries one figure per CRISP-DM phase, stacked full width
+   rather than in the two-up .fig-grid. These charts are wide and dense: at
+   half width the axis labels stop being legible, which defeats the point of
+   leading with charts instead of prose. The stack also enforces reading order,
+   and the order is the argument, since each phase depends on the one above it.
+--------------------------------------------------------------------------- */
+.crisp-steps { margin-top: 1.2rem; }
+.crisp-steps > figure { margin: 2.2rem 0 0; }
+.crisp-steps > figure > .fig-panel { padding: 0.6rem; }
+.crisp-steps figcaption { max-width: 60rem; }

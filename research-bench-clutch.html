@@ -58,6 +58,35 @@
         <span class="sublabel">Overview</span>
         <p>Eight hundred seventy-one bench player-seasons across five seasons, with clutch defined the league's way: last five minutes, margin within five. Every predictor is computed from non-clutch minutes so nothing shares a possession with the outcome. The central measure is clutch lift, a player's share of his team's clutch minutes minus his share of ordinary minutes, which isolates the coaching decision from simply playing a lot. Twenty-two candidate traits face a Holm-corrected screen and a player-clustered bootstrap, and the modest predictive claim is validated under both season-holdout and player-grouped schemes, which answer different operational questions and are reported separately.</p>
       </div>
+
+            <!-- CRISP-DM walk-through: generated, see scratchpad/crispdm -->
+      <div class="case-block reveal toc-watch" id="crisp">
+        <span class="sublabel">The method, step by step</span>
+        <p>Five steps, ending in a decision to leave clutch statistics out of the product they were supposed to power.</p>
+      </div>
+      <div class="crisp-steps reveal">
+        <figure>
+          <div class="fig-panel"><img src="assets/crisp-benchclutch-1-data.png" alt="Left: histogram of clutch possessions per season, median 60, long right tail. Right: clutch minutes drawn as 2.5 percent of a season." width="2136" height="969" loading="lazy"></div>
+          <figcaption><strong>Step 1 · Data understanding.</strong> Before asking whether clutch performance is a skill, the study asks how much evidence exists per player, because that ceiling caps what any later test can show. Two and a half percent of a season is not merely inconvenient; it is small enough that sampling noise will dominate whatever real differences exist.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/crisp-benchclutch-2-prep.png" alt="Left: scatter of clutch minutes share against ordinary minutes share for 688 bench player-seasons, most below the diagonal. Right: the distribution of clutch lift, centred slightly below zero." width="2130" height="989" loading="lazy"></div>
+          <figcaption><strong>Step 2 · Data preparation.</strong> The average bench player loses 31.9 percent of his ordinary role when the game tightens. Clutch lift subtracts a player&#x27;s ordinary share so that a player who simply plays a lot does not register as trusted, which isolates the coaching decision. Every predictor is computed from non-clutch minutes, so nothing on the right-hand side shares a possession with the outcome.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/crisp-benchclutch-3-evaluation.png" alt="Left: year-over-year correlations, usage +0.80 and true shooting +0.58 against clutch true shooting +0.03 and clutch net rating -0.05. Right: a variance decomposition attributing 99.9 percent of clutch net rating spread to sampling noise." width="2268" height="1028" loading="lazy"></div>
+          <figcaption><strong>Step 3 · Evaluation.</strong> Everything ordinary repeats from season to season; nothing clutch does. The decomposition says why: fitted against possession counts, real between-player differences account for a tenth of one percent of the observed spread. This is a clean answer to a well-posed question, not a modelling failure, and it is the point at which the study stops trying to model clutch results.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/crisp-benchclutch-4-model.png" alt="Left: 22 candidate traits screened against clutch lift, three clearing Holm correction. Right: player-clustered bootstrap intervals, with true shooting, usage and free throw percentage all crossing zero." width="2320" height="1323" loading="lazy"></div>
+          <figcaption><strong>Step 4 · Modeling.</strong> Three traits survive the correction and none is a shooting statistic: age, assists per 36 and assist percentage. The nulls are the informative part. The traits a scout would name first all have intervals containing zero, and the least-trusted list is full of excellent specialist shooters.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/crisp-benchclutch-5-decision.png" alt="Left: bench players sorted into quartiles by season-one clutch net rating, with season two showing almost no separation. Right: 47.4 points of quartile spread collapsing to 9.2." width="2136" height="1008" loading="lazy"></div>
+          <figcaption><strong>Step 5 · Deployment.</strong> Eighty-one percent of the apparent clutch separation is gone one season later. So the shipped per-player table scores bench players on trust and general quality and deliberately excludes clutch statistics from the composite, because a clutch rating built from clutch statistics would rank noise. Ordinary shooting predicts clutch shooting at +0.259, and nothing predicts it better.</figcaption>
+        </figure>
+      </div>
+      <!-- /CRISP-DM walk-through -->
       <div class="case-block reveal">
         <span class="sublabel">Results</span>
         <p>The average bench player loses 31.9 percent of his ordinary role when the game is tight; positive lift marks the players a coach actively promotes. Three traits survive the corrected screen: age, assists per 36, and assist percentage. The nulls are the striking part: true shooting, scoring rate, usage, and free throw percentage all cross zero under the player-clustered bootstrap, and the least-trusted list is full of excellent specialist shooters. Sorted into quartiles by clutch net rating, the best and worst groups are separated by 47 points of net rating in season one and 9 points in season two: 81 percent of the apparent separation evaporates in a single year.</p>

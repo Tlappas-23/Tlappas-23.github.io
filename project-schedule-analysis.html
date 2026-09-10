@@ -38,7 +38,7 @@
 
 <main id="main">
   <nav class="side-toc" aria-label="On this page">
-    <a href="#overview">Overview</a><a href="#question">The question</a><a href="#data">Data</a><a href="#method">Method</a><a href="#validation">Validation</a><a href="#results">Results</a><a href="#meaning">What it means</a><a href="#limits">Limitations</a>
+    <a href="#overview">Overview</a><a href="#crisp">Step by step</a><a href="#question">The question</a><a href="#data">Data</a><a href="#method">Method</a><a href="#validation">Validation</a><a href="#results">Results</a><a href="#meaning">What it means</a><a href="#limits">Limitations</a>
   </nav>
   <article class="case" id="schedule">
     <div class="wrap">
@@ -55,12 +55,41 @@
       <p class="dek reveal">Significance-tested answers to schedule-density questions, and a win total on every team's schedule luck. <strong>Schedule luck is attribution in disguise</strong>, handled with a leakage-free counterfactual, because separating earned wins from gifted ones means holding team quality fixed while only the schedule varies.</p>
 
 
-      <div class="summary-strip reveal" aria-label="Study summary"><div><span class="k">Question</span><span class="v">How many wins does the NBA schedule actually give or take from a team?</span></div><div><span class="k">Data</span><span class="v">10 seasons of schedules, game results, and arena coordinates</span></div><div><span class="k">Method</span><span class="v">Pre-tipoff features only; logistic model; counterfactual vs a league-average schedule; permutation tests</span></div><div><span class="k">Result</span><span class="v"><strong>+4.25 to -3.45 wins at the five-season extremes</strong>; the loudest schedule narratives fail their significance tests</span></div></div>
+      <div class="summary-strip reveal" aria-label="Study summary"><div><span class="k">Question</span><span class="v">How many wins does the NBA schedule actually give or take from a team?</span></div><div><span class="k">Data</span><span class="v">10 seasons of schedules, game results, and arena coordinates</span></div><div><span class="k">Method</span><span class="v">Pre-tipoff features only; logistic model; counterfactual vs a league-average schedule; permutation tests</span></div><div><span class="k">Result</span><span class="v"><strong>+4.25 to -3.45 wins at the five-season extremes</strong>; the loudest schedule narratives shrink to what their tests actually support</span></div></div>
 
       <div class="case-block reveal toc-watch" id="overview">
         <span class="sublabel">Overview</span>
         <p>Two parts: a set of schedule-density questions settled with permutation tests, and a counterfactual model that estimates wins gained or lost to the schedule for all 30 teams across five seasons. The technical substance is the attribution design: the model is prevented, by construction, from mistaking team quality for schedule effect.</p>
       </div>
+
+            <!-- CRISP-DM walk-through: generated, see scratchpad/crispdm -->
+      <div class="case-block reveal toc-watch" id="crisp">
+        <span class="sublabel">The method, step by step</span>
+        <p>Attribution done in five steps, with the leakage rule that decides everything downstream shown first.</p>
+      </div>
+      <div class="crisp-steps reveal">
+        <figure>
+          <div class="fig-panel"><img src="assets/crisp-schedule-1-prep.png" alt="Left: correlation with tonight&#x27;s result for a team record that includes tonight&#x27;s game (+0.348) versus one that excludes it (+0.203). Right: the leaked feature alone scores 0.697 AUC against the honest model&#x27;s 0.706 and a 0.569 baseline." width="2099" height="969" loading="lazy"></div>
+          <figcaption><strong>Step 1 · Data preparation.</strong> One leaked feature, on its own, nearly matches the entire honest model. That is the size of the temptation, and why the in-season strength feature subtracts the current game back out of its own record. Attribution punishes leakage harder than accuracy does: a bad team&#x27;s losses look like schedule effect to any feature that quietly knows the outcome.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/crisp-schedule-2-data.png" alt="Dot plot of all 30 teams by 4-in-6 stretches per 82 games, from New York at 22.2 to Charlotte at 28.1, against a league mean of 25.1." width="1852" height="1362" loading="lazy"></div>
+          <figcaption><strong>Step 2 · Data understanding.</strong> A 5.9-game spread between the busiest and quietest schedule. Counts are normalised per 82 because the ten-season window contains two short seasons; unnormalised rates would rank teams by which years they happened to play in. This spread is the quantity the evaluation step puts on trial.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/crisp-schedule-3-model.png" alt="Two coefficient panels. Left, schedule and situation terms: home +0.59, opponent on a back-to-back +0.25, own back-to-back -0.25. Right, strength controls on their own much larger scale." width="2369" height="1087" loading="lazy"></div>
+          <figcaption><strong>Step 3 · Modeling.</strong> The prices came out looking like basketball, which is what buys the rest of the table its credibility. A back-to-back costs you almost exactly what it hands the other side, so the model has learned the situation rather than memorising teams. Logistic rather than boosted trees, because the counterfactual feeds the model an imaginary league-average schedule and a smooth model extrapolates to that sensibly.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/crisp-schedule-4-evaluation.png" alt="Left: leave-one-season-out AUC for ten held-out seasons, mean 0.706. Right: two permutation nulls for the same observed 4-in-6 spread, giving p = 0.90 pooled and p = 0.07 reassigned within season." width="2306" height="989" loading="lazy"></div>
+          <figcaption><strong>Step 4 · Evaluation.</strong> The model clears its baseline out of sample. The density test is the honest correction: the original null pooled all 300 team-seasons, letting a team draw ten slates from years whose density means run from 19.5 to 33.9, which widened the null until nothing could look unusual. Holding the season fixed gives p = 0.07. The conclusion survives at the 0.05 line; the confidence behind it does not.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/crisp-schedule-5-decision.png" alt="Left: scatter of residual attribution against counterfactual schedule impact for 30 teams, correlation -0.63, with Detroit at far left. Right: the residual spans 42 wins, the counterfactual 7.7." width="2172" height="1048" loading="lazy"></div>
+          <figcaption><strong>Step 5 · Deployment.</strong> The residual and the counterfactual disagree almost completely, and only one is measuring the schedule. Detroit finished 24 wins below expectation, which the residual hands over as evidence of a brutal slate; holding team strength fixed shows its schedule was worth +4.25 wins, the softest in the league. The easy attribution was measuring a bad team, and pointing backwards.</figcaption>
+        </figure>
+      </div>
+      <!-- /CRISP-DM walk-through -->
 
 
       <div class="qa reveal toc-watch" id="question">
@@ -111,14 +140,14 @@
         <div class="stat" role="listitem"><span class="n">+4.25</span><span class="l">wins gained by Detroit, the most schedule-helped team</span></div>
         <div class="stat" role="listitem"><span class="n">-3.45</span><span class="l">wins lost by Philadelphia, the most schedule-hurt team</span></div>
         <div class="stat" role="listitem"><span class="n">0.706</span><span class="l">out-of-sample AUC across ten held-out seasons</span></div>
-        <div class="stat" role="listitem"><span class="n">p=0.89</span><span class="l">permutation test on the "unfair schedule" narrative</span></div>
+        <div class="stat" role="listitem"><span class="n">p=0.07</span><span class="l">permutation test on the "unfair schedule" narrative, schedules reassigned within season</span></div>
       </div>
 
 
       <div class="case-block reveal">
         <span class="sublabel">Results</span>
         <ul class="findings">
-          <li><strong>The "some team is systematically punished" story fails its test.</strong> The spread between Charlotte (28.1) and New York (22.2) in 4-in-6 stretches per 82 games sits at permutation p = 0.89, exactly what random schedule variation produces.</li>
+          <li><strong>The "some team is systematically punished" story survives its test, but only just, and the first version of that test was wrong.</strong> Charlotte starts 28.1 4-in-6 stretches per 82 games and New York 22.2, a spread of 5.9. The original permutation drew its null from all 300 team-seasons pooled, which lets a team collect ten slates from ten different years; season means run from 19.5 to 33.9 across this window, so that between-season swing landed in the null and widened it to a mean spread of 7.4, making the observed 5.9 look unremarkable at p = 0.89. Holding the season fixed and reassigning the thirty schedules within it is the exchangeability the question actually implies, and under it the null mean is 4.7 and the spread reads p = 0.07. Borderline, not comfortably ordinary. The conclusion is unchanged at the 0.05 line; the confidence behind it is not.</li>
           <li><strong>Coefficients behave like basketball.</strong> Home court +0.59 log-odds, playing on a back-to-back -0.25, opponent on a back-to-back +0.25, stable across held-out seasons.</li>
           <li><strong>Knowing when a split is quotable is part of the job.</strong> Brooklyn defended 1.1 points of eFG% better when the opponent sat on a back-to-back, but the split rests on 16 games and a permutation p near 0.55, so the report calls it noise. The same rest effect the 16-game slice cannot see is priced at +0.25 log-odds by ten seasons of league-wide data: real, small, and invisible at n=16.</li>
           <li><strong>Out of sample beats the baseline.</strong> AUC 0.706 and log-loss 0.624 across ten seasons, against a "home team wins" baseline of 0.569 accuracy.</li>

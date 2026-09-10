@@ -58,6 +58,35 @@
         <span class="sublabel">Overview</span>
         <p>Every player-season with 1,000-plus minutes across five seasons, described by 27 engineered features and clustered four ways with KMeans, with Gaussian-mixture BIC and silhouette as selection evidence and a bootstrap that resamples players as blocks, all seasons of a sampled player moving together, because the same player's seasons are near-duplicates and row-level resampling flatters stability. Each lens replicates when refit on single seasons in isolation, every player carries a per-lens fit score so hybrids are visible, and rim defense runs through empirical Bayes shrinkage so no guard is labeled by a 45-attempt rim percentage.</p>
       </div>
+
+            <!-- CRISP-DM walk-through: generated, see scratchpad/crispdm -->
+      <div class="case-block reveal toc-watch" id="crisp">
+        <span class="sublabel">The method, step by step</span>
+        <p>Five steps, including the external test that separates a reproducible clustering from a meaningful one.</p>
+      </div>
+      <div class="crisp-steps reveal">
+        <figure>
+          <div class="fig-panel"><img src="assets/crisp-clustering-1-data.png" alt="Left: four lenses shown as separate partitions of 1,350 player-seasons into 6, 3, 4 and 3 roles. Right: a cross-lens agreement matrix whose largest off-diagonal value is 0.168." width="2146" height="1008" loading="lazy"></div>
+          <figcaption><strong>Step 1 · Data understanding.</strong> A trade target is acquired for a role, and role is not one question. Asking it four ways only earns its keep if the four answers differ, which is what the agreement matrix checks. At a maximum pairwise agreement of 0.168 the lenses are close to independent, so each carries information the others do not.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/crisp-clustering-2-model.png" alt="Four small panels showing bootstrap stability against k from 2 to 6 for each lens, with mean and worst-cluster curves and the selected k marked." width="2420" height="930" loading="lazy"></div>
+          <figcaption><strong>Step 2 · Modeling.</strong> Silhouette peaks at k = 2 on all four lenses, which would have collapsed each question to a single axis and answered none of them, so it is not decisive on its own. The bootstrap resamples players as blocks because a player&#x27;s consecutive seasons are near-duplicates, and the chosen k is the largest whose worst cluster still holds together.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/crisp-clustering-3-evaluation.png" alt="Left: single-season refit agreement per lens, defence 0.928 and scoring 0.733 against a 0.70 bar. Right: violin plots of per-player fit score for each lens." width="2136" height="1008" loading="lazy"></div>
+          <figcaption><strong>Step 3 · Evaluation.</strong> A clustering that exists only because seasons were pooled is an artifact of pooling, so each lens is refit on single seasons and asked to return the same partition. Three clear the bar; scoring does not and is labelled the weak lens rather than presented at the same confidence. Fit scores ship per player, because a label on a boundary player is close to a coin flip.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/crisp-clustering-4-external.png" alt="Left: defensive win shares per 36 by defensive role, active roles above the low-event group. Right: the same comparison after demeaning within team, separation intact at p = 1.4e-04." width="2197" height="1008" loading="lazy"></div>
+          <figcaption><strong>Step 4 · Evaluation.</strong> Internal stability only says a clustering is reproducible, not that it means anything, so the roles are tested against defensive win shares, which no lens feature touches. The obvious objection is that good defences employ good defenders, and that confound is real at -0.83. Demeaning within team removes it and the separation holds. This anchor exists for the defensive lens only; the other three are validated for stability alone.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/crisp-clustering-5-decision.png" alt="Season-to-season role change rates by lens, split between well-fitting players (4 to 16 percent) and boundary players (31 to 44 percent)." width="1994" height="1048" loading="lazy"></div>
+          <figcaption><strong>Step 5 · Deployment.</strong> Role change is real but concentrated among the players the labels fit worst. A well-fitting player keeps his defensive role 96 percent of the time, so a season label is stable where it matters. Averaging seasons looked tidier and was checked rather than assumed: two of 150 players average into a role they never occupied in any season, so the shipped table stays season-level.</figcaption>
+        </figure>
+      </div>
+      <!-- /CRISP-DM walk-through -->
       <div class="case-block reveal">
         <span class="sublabel">The analysis and its data</span>
         <p>The use case is role identification for scouting: a trade target is acquired for a role, not a rating. Ten tables join into the pool with one-row-per-player-season assertions guarding every merge. Features are per-36 rates and opportunity-adjusted shares, power-transformed within each season so a cluster means the same thing in 2021-22 as in 2025-26 even as league behavior drifts, and every feature also gets a within-season percentile so any player-season reads as a profile independent of the labels.</p>
