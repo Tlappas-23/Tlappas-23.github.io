@@ -38,7 +38,7 @@
 
 <main id="main">
   <nav class="side-toc" aria-label="On this page">
-    <a href="#overview">Overview</a><a href="#question">The question</a><a href="#data">Data</a><a href="#method">Method</a><a href="#validation">Validation</a><a href="#results">Results</a><a href="#meaning">What it means</a><a href="#limits">Limitations</a>
+    <a href="#overview">Overview</a><a href="#crisp">Step by step</a><a href="#question">The question</a><a href="#data">Data</a><a href="#method">Method</a><a href="#validation">Validation</a><a href="#results">Results</a><a href="#meaning">What it means</a><a href="#limits">Limitations</a>
   </nav>
   <article class="case" id="scouting-board">
     <div class="wrap">
@@ -61,6 +61,35 @@
         <span class="sublabel">Overview</span>
         <p>The project turns scattered, incompatible international data into a defensible answer to a signing decision. Three vendor data feeds with inconsistent conventions are reconciled into one clean history covering NBA and four European league careers, and everything downstream is built on that foundation. Version 2 learned per-stat INTL to NBA translations empirically and validated each against a naive baseline with leave-one-out prediction error. Version 3 rebuilt the pipeline around a joint hierarchical Bayesian translation model with a hand-rolled Gibbs sampler, hardened the ingestion (103 to 118 training transitions, 392 to 431 ranked players), let the data choose the archetypes, and replaced the point ranking with an upside probability computed from posterior draws. Both versions end in a written scouting report; v3 also reports, openly, what it changed about v2's conclusions.</p>
       </div>
+
+            <!-- CRISP-DM walk-through: generated, see scratchpad/crispdm -->
+      <div class="case-block reveal toc-watch" id="crisp">
+        <span class="sublabel">The method, step by step</span>
+        <p>The v3 pipeline in five steps, including the step where it overturns half of what v2 concluded.</p>
+      </div>
+      <div class="crisp-steps reveal">
+        <figure>
+          <div class="fig-panel"><img src="assets/crisp-scouting-1-data.png" alt="Left: v2 versus v3 counts, 103 to 118 training transitions and 392 to 431 pool players. Right: the 118-player training sample drawn to scale against the 431 players it has to project." width="2136" height="1008" loading="lazy"></div>
+          <figcaption><strong>Step 1 · Data understanding.</strong> The translation is learned only from players who actually made the jump, which keeps the sample small and the answer checkable. At 118 examples the binding constraint is data, not model capacity, which is why v3 spent its effort on ingestion first: normalised name keys and same-season league ordering recovered 15 transitions and 39 split-season players that v2 was silently dropping.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/crisp-scouting-2-prep.png" alt="Left: the 431-player pool split into four BIC-chosen archetypes. Right: a histogram of archetype membership entropy showing 48 percent of players sitting between archetypes." width="2166" height="1008" loading="lazy"></div>
+          <figcaption><strong>Step 2 · Data preparation.</strong> A z-score only means something against a reference group, so choosing that group by hand quietly decides half the board. Letting a Gaussian mixture pick k on BIC makes it a modelling decision with evidence behind it, and soft membership means a big who handles is graded against his own blend rather than forced into a bucket.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/crisp-scouting-3-model.png" alt="Fitted INTL to NBA translation slopes for ten statistics, from true shooting at 0.40 to three-point rate at 0.998." width="1995" height="1165" loading="lazy"></div>
+          <figcaption><strong>Step 3 · Modeling.</strong> Scoring, usage, steals and true shooting take the biggest cut across the jump; rebounds, blocks and three-point rate carry over almost one for one. Slopes are partially pooled across statistics so the well-measured ones stabilise the noisy ones, which is the right structure for ten correlated outcomes on 118 rows.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/crisp-scouting-4-evaluation.png" alt="Left: cross-validated error reduction against a naive carry-over baseline for ten stats, from usage at +49.6 percent to three-point makes at -8.3 percent. Right: hierarchical Bayes minus per-stat OLS, every stat within 1.4 percent." width="2207" height="1087" loading="lazy"></div>
+          <figcaption><strong>Step 4 · Evaluation.</strong> Seven of ten statistics beat assuming the line carries over unchanged. Three-point makes fail their baseline outright and are down-weighted rather than kept, which is the finding the board most needed before anyone signed a shooter on it. The right panel is reported as what it is: the elegant model ties the boring one on accuracy, and what the posterior buys is per-player uncertainty, not a better mean.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/crisp-scouting-5-decision.png" alt="Left: v2&#x27;s top ten targets with what v3 says about each, two of them off the board entirely. Right: the distribution of upside probability across 431 players." width="2520" height="1126" loading="lazy"></div>
+          <figcaption><strong>Step 5 · Deployment.</strong> Five of v2&#x27;s top ten fall out of the v3 top ten and two leave the target board altogether. The reshuffle comes from recovered data, stricter playing-time accounting and re-drawn peer groups, not from the sampler: the probability sort correlates 0.95 by rank with the old composite sort. A project that reports which of its own conclusions it just overturned is worth more than one that quietly ships a new list.</figcaption>
+        </figure>
+      </div>
+      <!-- /CRISP-DM walk-through -->
 
 
       <div class="qa reveal toc-watch" id="question">
@@ -117,7 +146,7 @@
         <div class="table-scroll">
           <table class="data">
             <caption>Where v2's top ten targets landed under v3</caption>
-            <thead><tr><th>v2 rank</th><th>Player</th><th>v2 composite</th><th>v3 outcome</th></tr></thead>
+            <thead><tr><th>v2 rank</th><th>Player</th><th>v2 age-adj composite</th><th>v3 outcome</th></tr></thead>
             <tbody>
               <tr><td class="num">1</td><td>Mattia O'Bryant</td><td class="num">1.02</td><td class="drop">Removed: fails v3's playing-time legitimacy test</td></tr>
               <tr><td class="num">2</td><td>Fontecchio Muric</td><td class="num">0.69</td><td class="num">v3 #1 · P(upside) 0.79</td></tr>

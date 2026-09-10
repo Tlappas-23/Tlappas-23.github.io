@@ -58,6 +58,35 @@
         <span class="sublabel">Overview</span>
         <p>Eighty playoff team-seasons, each carrying its regular season style profile from play-type and tracking tables and an opponent-strength control computed from game logs, because the average playoff opponent ranges from a -0.5 net rating slate to +12.7 and ignoring that difference measures the bracket instead of the team. Eleven style features are screened against opponent-adjusted overperformance with permutation p-values and a Bonferroni bar, the two survivors face per-season stability checks, a mechanism test with its prediction stated in advance, and a franchise cluster bootstrap, and every predictive claim runs through leave-one-season-out validation with feature selection nested inside each fold.</p>
       </div>
+
+            <!-- CRISP-DM walk-through: generated, see scratchpad/crispdm -->
+      <div class="case-block reveal toc-watch" id="crisp">
+        <span class="sublabel">The method, step by step</span>
+        <p>Five steps, and the one check that decided which half of the analysis could be published as a forecast.</p>
+      </div>
+      <div class="crisp-steps reveal">
+        <figure>
+          <div class="fig-panel"><img src="assets/crisp-playoff-1-data.png" alt="Left: distribution of average playoff opponent net rating across 80 team-seasons, ranging -0.5 to 12.7. Right: raw overperformance against opponent strength, r = -0.397." width="2101" height="989" loading="lazy"></div>
+          <figcaption><strong>Step 1 · Data understanding.</strong> The single largest input to playoff overperformance is who you happened to draw. A study that skips this control is largely ranking bracket luck and calling it translation. Computing opponent strength from game logs before any modelling is what makes the rest of the analysis about teams rather than about seeding.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/crisp-playoff-2-prep.png" alt="The same 80 teams before and after opponent strength is partialled out, the slope against opponent strength flattening to near zero." width="2101" height="989" loading="lazy"></div>
+          <figcaption><strong>Step 2 · Data preparation.</strong> The target has to be the thing the question is about. Raw overperformance carries a clear opponent-strength slope, so any feature correlated with seeding would score as a translation effect. An endogeneity check backs the adjustment up: swapping in a purely exogenous round-one-only measure gives a stronger relationship, not a weaker one.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/crisp-playoff-3-model.png" alt="Eleven style features screened against opponent-adjusted overperformance, transition reliance at r = +0.008 and only isolation defence allowed clearing the Bonferroni bar." width="2125" height="1165" loading="lazy"></div>
+          <figcaption><strong>Step 3 · Modeling.</strong> The folk theory&#x27;s key trait, transition reliance, is the most null thing in the table. What clears the bar is isolation defence allowed, positive, meaning teams that defended badly overperformed; the runner-up is spot-up efficiency, negative, meaning teams that shot well underperformed. No basketball mechanism predicts either sign, which is the first sign these are detecting luck rather than style.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/crisp-playoff-4-evaluation.png" alt="Left: leave-one-season-out RMSE of 6.058 baseline, 5.811 with the screen seeing all rows, and 6.076 with the screen nested inside folds. Right: seven learners, all honest ones landing on the baseline." width="2263" height="1048" loading="lazy"></div>
+          <figcaption><strong>Step 4 · Evaluation.</strong> Choosing which features to use is part of the model, so it has to happen inside the validation loop. With the screen allowed to see all eighty rows it picks the two features that happen to correlate and is then graded on those same rows, which is how a four percent improvement appears out of nothing. Nested, the improvement disappears. Both halves are findings.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/crisp-playoff-5-decision.png" alt="Left: the final model&#x27;s four coefficients, with isolation defence at +35.64 and spot-up efficiency at -32.74. Right: the feature pair the nested screen selected in each of five folds, changing twice." width="2358" height="1028" loading="lazy"></div>
+          <figcaption><strong>Step 5 · Deployment.</strong> The two claims are not equally supported, so the product distinguishes them. The correlational finding survived a Bonferroni bar, all five seasons and a franchise bootstrap, and it ships. The forecasting claim died under nested selection, so nothing in the deployed table is presented as a prediction.</figcaption>
+        </figure>
+      </div>
+      <!-- /CRISP-DM walk-through -->
       <div class="case-block reveal">
         <span class="sublabel">Results</span>
         <p>The two survivors are not style knobs. Spot-up shooting efficiency is negative, teams that shot well underperform, and isolation defense allowed is positive, teams that defended badly overperform, a sign no basketball mechanism predicts. Both behave as regression to the mean on noisy shooting components predicts: hot spot-up shooting inflates a record the playoffs regress away, and opponents making tough shots deflates a record that was better than it looked. The pattern is consistent with a luck-detection reading, and the correlational finding survives the Bonferroni correction, all five seasons, and the franchise bootstrap.</p>
