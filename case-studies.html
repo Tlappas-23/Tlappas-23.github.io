@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500..700&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=20260910b">
+<link rel="stylesheet" href="assets/style.css?v=20260910c">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -43,25 +43,20 @@
   <div class="wrap">
     <div class="page-head">
       <span class="label">Projects</span>
-      <h1>Five projects, each told front to back</h1>
-      <p class="dek">Two deployed platforms and three validated modeling projects. Every page follows the same arc: the question, why it matters, the data, the method, how the results were generated, how they were validated, what they mean, and what they do not establish. The technical deep dive waits at the bottom of each page for anyone who wants it.</p>
+      <h1>Five projects, grouped by the problem</h1>
+      <p class="dek">Three kinds of problem, five projects. Every page opens with the question it is answering, then walks the method one chart at a time: the data, how it was prepared, the model, how it was tested, and what shipped.</p>
     </div>
 
-    <div class="project-index">
+      <section class="project-group">
+        <h2 class="group-head">Valuation under uncertainty</h2>
+        <p class="group-blurb">Put a defensible number on a player nobody has seen do the job yet, and say how sure you are.</p>
+        <div class="project-index">
         <a class="work-card reveal" id="prospectiq" href="project-prospectiq.html">
           <span class="tag tag-domain">Deployed Platform</span>
           <h2>ProspectIQ</h2>
           <p class="q">Which college players are worth a roster spot, a portal offer, or an NIL dollar?</p>
           <p>Four scouting products in one deployed platform: calibrated career projections trained on 147K+ player-seasons, an Excel-fit transfer index backtested on 3,110 transfers, play-by-play scouting reports, and production-based NIL valuation.</p>
           <span class="stat-line">147K+ player-seasons · board top-5: 25 of 30 first-round picks, 2020-25 · 90+ endpoints</span>
-          <span class="go">Read the case study</span>
-        </a>
-        <a class="work-card reveal" id="platform" href="project-prediction-platform.html">
-          <span class="tag tag-domain">Production System</span>
-          <h2>NBA Prediction Platform</h2>
-          <p class="q">Can a prediction model run itself in production, daily, with no one watching?</p>
-          <p>A daily prediction product engineered to refuse bad data: single-writer scheduling, run-pinned feature lineage, circuit-breaker guardrails, a read-only public API, and two model versions graded side by side.</p>
-          <span class="stat-line">7 services · unattended daily cycle · point-in-time lineage</span>
           <span class="go">Read the case study</span>
         </a>
         <a class="work-card reveal" id="scouting-board" href="project-scouting-board.html">
@@ -72,6 +67,12 @@
           <span class="stat-line">118 transitions · 431 players ranked · 50% error cut vs naive</span>
           <span class="go">Read the case study</span>
         </a>
+        </div>
+      </section>
+      <section class="project-group">
+        <h2 class="group-head">Attribution</h2>
+        <p class="group-blurb">Separate what a team did from what was done to it, which means holding everything else still while one thing varies.</p>
+        <div class="project-index">
         <a class="work-card reveal" id="schedule" href="project-schedule-analysis.html">
           <span class="tag tag-domain">Counterfactual Analysis</span>
           <h2>NBA Schedule Analysis</h2>
@@ -88,7 +89,22 @@
           <span class="stat-line">55.7% West head-to-head · 61-point playoff-odds gap at .500</span>
           <span class="go">Read the case study</span>
         </a>
-    </div>
+        </div>
+      </section>
+      <section class="project-group">
+        <h2 class="group-head">Systems that run unattended</h2>
+        <p class="group-blurb">Modelling is the easy half. The product has to keep being right on a Tuesday when nobody is looking at it.</p>
+        <div class="project-index">
+        <a class="work-card reveal" id="platform" href="project-prediction-platform.html">
+          <span class="tag tag-domain">Production System</span>
+          <h2>NBA Prediction Platform</h2>
+          <p class="q">Can a prediction model run itself in production, daily, with no one watching?</p>
+          <p>A daily prediction product engineered to refuse bad data: single-writer scheduling, run-pinned feature lineage, circuit-breaker guardrails, a read-only public API, and two model versions graded side by side.</p>
+          <span class="stat-line">7 services · unattended daily cycle · point-in-time lineage</span>
+          <span class="go">Read the case study</span>
+        </a>
+        </div>
+      </section>
 
     <p class="fineprint" style="margin-top:2.5rem;">Repositories are private; access to any of them is available by email.</p>
   </div>

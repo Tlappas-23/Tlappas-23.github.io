@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500..700&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=20260910b">
+<link rel="stylesheet" href="assets/style.css?v=20260910c">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -41,7 +41,7 @@
 
 <main id="main">
   <nav class="side-toc" aria-label="On this page">
-    <a href="#overview">Overview</a><a href="#crisp">Step by step</a><a href="#question">The question</a><a href="#data">Data</a><a href="#method">Method</a><a href="#validation">Validation</a><a href="#results">Results</a><a href="#meaning">What it means</a><a href="#limits">Limitations</a>
+    <a href="#overview">Overview</a><a href="#question">The question</a><a href="#crisp">Step by step</a><a href="#data">Data</a><a href="#method">Method</a><a href="#validation">Validation</a><a href="#results">Results</a><a href="#meaning">What it means</a><a href="#limits">Limitations</a>
   </nav>
   <article class="case" id="schedule">
     <div class="wrap">
@@ -64,6 +64,21 @@
         <span class="sublabel">Overview</span>
         <p>Two parts: a set of schedule-density questions settled with permutation tests, and a counterfactual model that estimates wins gained or lost to the schedule for all 30 teams across five seasons. The technical substance is the attribution design: the model is prevented, by construction, from mistaking team quality for schedule effect.</p>
       </div>
+
+
+      <div class="qa reveal toc-watch" id="question">
+        <span class="sublabel">The question</span>
+        <p class="q">How many wins does the NBA schedule actually give or take?</p>
+        <p class="a"><strong>Less than a win per season, even at the extremes.</strong> Detroit gained the most (+4.25 wins across 2019-20 through 2023-24) and Philadelphia lost the most (-3.45). Far smaller than fans assume, but real, measurable, and with a coherent cause: a weak Eastern Conference handed its bottom teams the softest slates while contenders paid for it.</p>
+      </div>
+
+
+      <div class="case-block reveal toc-watch" id="why">
+        <span class="sublabel">Why it matters</span>
+        <p>Teams complain about schedule difficulty, media narratives assign blame to it, and internal win projections need to correct for it. The analytical question is attribution: separating what the schedule did to a team from what the team was going to do anyway. Attribution questions punish sloppy features, because a bad team's losses look like schedule effect to any feature that correlates with being bad.</p>
+        <p>The density half solves operational problems of its own. Counting 4-in-6 stretches and back-to-back clusters shows a staff where the fatigue windows are, which feeds rest and rotation planning, and the significance tests say which schedule complaints deserve a data-backed response and which are exactly what random variation produces.</p>
+      </div>
+
 
             <!-- CRISP-DM walk-through: generated, see scratchpad/crispdm -->
       <div class="case-block reveal toc-watch" id="crisp">
@@ -93,20 +108,6 @@
         </figure>
       </div>
       <!-- /CRISP-DM walk-through -->
-
-
-      <div class="qa reveal toc-watch" id="question">
-        <span class="sublabel">The question</span>
-        <p class="q">How many wins does the NBA schedule actually give or take?</p>
-        <p class="a"><strong>Less than a win per season, even at the extremes.</strong> Detroit gained the most (+4.25 wins across 2019-20 through 2023-24) and Philadelphia lost the most (-3.45). Far smaller than fans assume, but real, measurable, and with a coherent cause: a weak Eastern Conference handed its bottom teams the softest slates while contenders paid for it.</p>
-      </div>
-
-
-      <div class="case-block reveal toc-watch" id="why">
-        <span class="sublabel">Why it matters</span>
-        <p>Teams complain about schedule difficulty, media narratives assign blame to it, and internal win projections need to correct for it. The analytical question is attribution: separating what the schedule did to a team from what the team was going to do anyway. Attribution questions punish sloppy features, because a bad team's losses look like schedule effect to any feature that correlates with being bad.</p>
-        <p>The density half solves operational problems of its own. Counting 4-in-6 stretches and back-to-back clusters shows a staff where the fatigue windows are, which feeds rest and rotation planning, and the significance tests say which schedule complaints deserve a data-backed response and which are exactly what random variation produces.</p>
-      </div>
 
 
       <div class="case-block reveal toc-watch" id="data">
