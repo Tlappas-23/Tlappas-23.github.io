@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500..700&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=20260910c">
+<link rel="stylesheet" href="assets/style.css?v=20260910d">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -88,23 +88,23 @@
       <div class="crisp-steps reveal">
         <figure>
           <div class="fig-panel"><img src="assets/crisp-schedule-1-prep.png" alt="Left: correlation with tonight&#x27;s result for a team record that includes tonight&#x27;s game (+0.348) versus one that excludes it (+0.203). Right: the leaked feature alone scores 0.697 AUC against the honest model&#x27;s 0.706 and a 0.569 baseline." width="2099" height="969" loading="lazy"></div>
-          <figcaption><strong>Step 1 · Data preparation.</strong> One leaked feature, on its own, nearly matches the entire honest model. That is the size of the temptation, and why the in-season strength feature subtracts the current game back out of its own record. Attribution punishes leakage harder than accuracy does: a bad team&#x27;s losses look like schedule effect to any feature that quietly knows the outcome.</figcaption>
+          <figcaption><strong>Step 1 · Data preparation.</strong> One leaked feature, on its own, nearly matches the entire honest model.</figcaption>
         </figure>
         <figure>
           <div class="fig-panel"><img src="assets/crisp-schedule-2-data.png" alt="Dot plot of all 30 teams by 4-in-6 stretches per 82 games, from New York at 22.2 to Charlotte at 28.1, against a league mean of 25.1." width="1852" height="1362" loading="lazy"></div>
-          <figcaption><strong>Step 2 · Data understanding.</strong> A 5.9-game spread between the busiest and quietest schedule. Counts are normalised per 82 because the ten-season window contains two short seasons; unnormalised rates would rank teams by which years they happened to play in. This spread is the quantity the evaluation step puts on trial.</figcaption>
+          <figcaption><strong>Step 2 · Data understanding.</strong> A 5.9-game spread between the busiest and quietest schedule.</figcaption>
         </figure>
         <figure>
           <div class="fig-panel"><img src="assets/crisp-schedule-3-model.png" alt="Two coefficient panels. Left, schedule and situation terms: home +0.59, opponent on a back-to-back +0.25, own back-to-back -0.25. Right, strength controls on their own much larger scale." width="2369" height="1087" loading="lazy"></div>
-          <figcaption><strong>Step 3 · Modeling.</strong> The prices came out looking like basketball, which is what buys the rest of the table its credibility. A back-to-back costs you almost exactly what it hands the other side, so the model has learned the situation rather than memorising teams. Logistic rather than boosted trees, because the counterfactual feeds the model an imaginary league-average schedule and a smooth model extrapolates to that sensibly.</figcaption>
+          <figcaption><strong>Step 3 · Modeling.</strong> The prices came out looking like basketball, which is what buys the rest of the table its credibility.</figcaption>
         </figure>
         <figure>
           <div class="fig-panel"><img src="assets/crisp-schedule-4-evaluation.png" alt="Left: leave-one-season-out AUC for ten held-out seasons, mean 0.706. Right: two permutation nulls for the same observed 4-in-6 spread, giving p = 0.90 pooled and p = 0.07 reassigned within season." width="2306" height="989" loading="lazy"></div>
-          <figcaption><strong>Step 4 · Evaluation.</strong> The model clears its baseline out of sample. The density test is the honest correction: the original null pooled all 300 team-seasons, letting a team draw ten slates from years whose density means run from 19.5 to 33.9, which widened the null until nothing could look unusual. Holding the season fixed gives p = 0.07. The conclusion survives at the 0.05 line; the confidence behind it does not.</figcaption>
+          <figcaption><strong>Step 4 · Evaluation.</strong> The model clears its baseline out of sample.</figcaption>
         </figure>
         <figure>
           <div class="fig-panel"><img src="assets/crisp-schedule-5-decision.png" alt="Left: scatter of residual attribution against counterfactual schedule impact for 30 teams, correlation -0.63, with Detroit at far left. Right: the residual spans 42 wins, the counterfactual 7.7." width="2172" height="1048" loading="lazy"></div>
-          <figcaption><strong>Step 5 · Deployment.</strong> The residual and the counterfactual disagree almost completely, and only one is measuring the schedule. Detroit finished 24 wins below expectation, which the residual hands over as evidence of a brutal slate; holding team strength fixed shows its schedule was worth +4.25 wins, the softest in the league. The easy attribution was measuring a bad team, and pointing backwards.</figcaption>
+          <figcaption><strong>Step 5 · Deployment.</strong> The residual and the counterfactual disagree almost completely, and only one is measuring the schedule.</figcaption>
         </figure>
       </div>
       <!-- /CRISP-DM walk-through -->
@@ -246,6 +246,7 @@
   </div>
 </footer>
 
+<script src="assets/figure-zoom.js?v=20260910d" defer></script>
 <script src="assets/site.js?v=20260822a"></script>
 </body>
 </html>

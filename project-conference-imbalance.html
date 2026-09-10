@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500..700&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=20260910c">
+<link rel="stylesheet" href="assets/style.css?v=20260910d">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -87,23 +87,23 @@
       <div class="crisp-steps reveal">
         <figure>
           <div class="fig-panel"><img src="assets/crisp-conference-1-prep.png" alt="Left: the shipped 480 by 30 head-to-head matrix drawn as a heatmap of win shares, with grey gaps. Right: a count ladder falling from 14,400 cells to 6,959 inter-conference games." width="2030" height="989" loading="lazy"></div>
-          <figcaption><strong>Step 1 · Data preparation.</strong> The reshape is the whole analysis. On the wide matrix every question needs nested loops over hard-coded team names and a double count is invisible; on the tidy grain, counting each game once is a property of the slice. The grey cells are 480 self-matchups plus five team pairs that never met when 2019-20 was cut short.</figcaption>
+          <figcaption><strong>Step 1 · Data preparation.</strong> The reshape is the whole analysis.</figcaption>
         </figure>
         <figure>
           <div class="fig-panel"><img src="assets/crisp-conference-2-data.png" alt="Left: West inter-conference win rate by season, above 50 percent in 15 of 16 years. Right: pooled versus averaged win rate, 55.73 against 55.77 percent." width="2065" height="969" loading="lazy"></div>
-          <figcaption><strong>Step 2 · Data understanding.</strong> The West won 55.7 percent of 6,959 games and took the season series 15 times in 16 years. Pooling over games rather than averaging season percentages matters because the window holds a 66-game lockout season and a 72-game one; here the two answers differ by 0.04 points, which is small only because it was checked.</figcaption>
+          <figcaption><strong>Step 2 · Data understanding.</strong> The West won 55.7 percent of 6,959 games and took the season series 15 times in 16 years.</figcaption>
         </figure>
         <figure>
           <div class="fig-panel"><img src="assets/crisp-conference-3-tests.png" alt="Two chi-square tests as stacked bars. Left, all 480 team-seasons: 128 East and 128 West made the playoffs, chi-square 0.00. Right, teams near .500: 52 of 67 East against 19 of 49 West, chi-square 16.38." width="2065" height="989" loading="lazy"></div>
-          <figcaption><strong>Step 3 · Evaluation.</strong> The obvious test is incapable of finding anything, because eight teams per conference qualify by rule and the margins are fixed. The question was never whether the conferences send equal numbers; it is whether the same record buys a berth in both. Conditioned on record, it plainly does not.</figcaption>
+          <figcaption><strong>Step 3 · Evaluation.</strong> The obvious test is incapable of finding anything, because eight teams per conference qualify by rule and the margins are fixed.</figcaption>
         </figure>
         <figure>
           <div class="fig-panel"><img src="assets/crisp-conference-4-model.png" alt="Left: fitted logistic playoff-probability curves for East and West against win percentage, 61 points apart at .500. Right: the win-percentage slope rising from 42.4 to 54.5 when conference enters the model." width="2101" height="989" loading="lazy"></div>
-          <figcaption><strong>Step 4 · Modeling.</strong> At an identical .500 record an Eastern team&#x27;s fitted playoff probability was 83.4 percent against the West&#x27;s 22.1. The right panel is the subtler result: adding conference raises the slope on record, so the conference label had been masking how much record actually matters. Only a coefficient table fitted for inference surfaces that.</figcaption>
+          <figcaption><strong>Step 4 · Modeling.</strong> At an identical .500 record an Eastern team&#x27;s fitted playoff probability was 83.4 percent against the West&#x27;s 22.1.</figcaption>
         </figure>
         <figure>
           <div class="fig-panel"><img src="assets/crisp-conference-5-permutation.png" alt="Two overlaid null distributions from 10,000 permutation draws each, with the observed conference coefficient of -2.88 far to the left of both." width="1923" height="1028" loading="lazy"></div>
-          <figcaption><strong>Step 5 · Evaluation.</strong> The observed penalty sits 4.7 standard deviations outside the team-level null. Shuffling rows instead of team labels produces the narrower grey null and would have handed the same conclusion on weaker evidence, because a franchise&#x27;s sixteen seasons are not sixteen independent facts. What this establishes is that the conference label carries information, not that it causes anything.</figcaption>
+          <figcaption><strong>Step 5 · Evaluation.</strong> The observed penalty sits 4.7 standard deviations outside the team-level null.</figcaption>
         </figure>
       </div>
       <!-- /CRISP-DM walk-through -->
@@ -255,6 +255,7 @@
   </div>
 </footer>
 
+<script src="assets/figure-zoom.js?v=20260910d" defer></script>
 <script src="assets/site.js?v=20260822a"></script>
 </body>
 </html>

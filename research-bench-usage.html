@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500..700&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=20260910c">
+<link rel="stylesheet" href="assets/style.css?v=20260910d">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -70,23 +70,23 @@
       <div class="crisp-steps reveal">
         <figure>
           <div class="fig-panel"><img src="assets/crisp-benchusage-1-data.png" alt="Two scatter plots of 150 team-seasons: bench share of points against net rating (r = -0.386) and bench share of minutes against net rating (r = -0.270), both sloping down." width="2132" height="989" loading="lazy"></div>
-          <figcaption><strong>Step 1 · Data understanding.</strong> Leaning on the bench looks unambiguously bad, and both raw correlations clear a permutation test. The study opens by drawing the relationship it expects to have to explain away, because two confounds would produce exactly this picture with no causal story at all: good starters shrink the bench&#x27;s role while winning, and good teams generate garbage time.</figcaption>
+          <figcaption><strong>Step 1 · Data understanding.</strong> Leaning on the bench looks unambiguously bad, and both raw correlations clear a permutation test.</figcaption>
         </figure>
         <figure>
           <div class="fig-panel"><img src="assets/crisp-benchusage-2-prep.png" alt="Left: starter net rating against bench share of minutes, r = -0.290. Right: the bench-scorer correlation tested at three usage thresholds, all near zero." width="2101" height="989" loading="lazy"></div>
-          <figcaption><strong>Step 2 · Data preparation.</strong> A control is only worth adding if the thing it controls for actually moves, so the confound is drawn rather than asserted. The bench-scorer question is asked at three thresholds so the answer cannot be an artifact of where the line was drawn, and it is null at all three.</figcaption>
+          <figcaption><strong>Step 2 · Data preparation.</strong> A control is only worth adding if the thing it controls for actually moves, so the confound is drawn rather than asserted.</figcaption>
         </figure>
         <figure>
           <div class="fig-panel"><img src="assets/crisp-benchusage-3-model.png" alt="Slope chart of seven bench measures from raw correlation to partial correlation with starter net rating held fixed. Three cross zero; true shooting and the effort index hold their size." width="1994" height="1205" loading="lazy"></div>
-          <figcaption><strong>Step 3 · Modeling.</strong> Every usage-level finding is a starter artifact: bench usage travels from -0.326 to -0.045 and bench scoring share from -0.386 to +0.083. The two measures that survive are about how well the bench plays rather than how much it plays, and the effort index survives on hustle statistics that contain no points at all.</figcaption>
+          <figcaption><strong>Step 3 · Modeling.</strong> Every usage-level finding is a starter artifact: bench usage travels from -0.326 to -0.045 and bench scoring share from -0.386 to +0.083.</figcaption>
         </figure>
         <figure>
           <div class="fig-panel"><img src="assets/crisp-benchusage-4-evaluation.png" alt="Left: franchise cluster bootstrap intervals for bench true shooting (+0.03 to +0.38) and the effort index (+0.09 to +0.36), both excluding zero. Right: the same two measures season by season, one steady and one not." width="2179" height="1028" loading="lazy"></div>
-          <figcaption><strong>Step 4 · Evaluation.</strong> One hundred and fifty rows from thirty franchises are not 150 independent facts, so the bootstrap resamples whole franchises, which widens the intervals to something honest. True shooting is positive in all five seasons individually; the effort index is near zero in two of them, misses Holm on the raw screen at 0.0756, and survives only on the partial. It is reported as the weaker claim.</figcaption>
+          <figcaption><strong>Step 4 · Evaluation.</strong> One hundred and fifty rows from thirty franchises are not 150 independent facts, so the bootstrap resamples whole franchises, which widens the intervals to something honest.</figcaption>
         </figure>
         <figure>
           <div class="fig-panel"><img src="assets/crisp-benchusage-5-decision.png" alt="Left: the effort index rebuilt four ways, partial correlations ranging +0.10 to +0.32. Right: bench true shooting against offensive rating (+0.45 partial) and defensive rating (+0.31 partial)." width="2314" height="1028" loading="lazy"></div>
-          <figcaption><strong>Step 5 · Deployment.</strong> Both survivors ship with the caveat that would let someone else overturn them. Rebuilding the effort index four ways never flips its sign, which is the good case. Bench true shooting is the awkward one: it runs +0.45 with offensive rating after the control, and bench points sit inside that outcome, so part of the effect is definitional rather than causal.</figcaption>
+          <figcaption><strong>Step 5 · Deployment.</strong> Both survivors ship with the caveat that would let someone else overturn them.</figcaption>
         </figure>
       </div>
       <!-- /CRISP-DM walk-through -->
@@ -178,6 +178,7 @@
   </div>
 </footer>
 
+<script src="assets/figure-zoom.js?v=20260910d" defer></script>
 <script src="assets/site.js?v=20260822a"></script>
 <script src="assets/explorer.js?v=20260822a"></script>
 </body>
