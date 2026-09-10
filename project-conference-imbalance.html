@@ -41,7 +41,7 @@
 
 <main id="main">
   <nav class="side-toc" aria-label="On this page">
-    <a href="#overview">Overview</a><a href="#question">The question</a><a href="#crisp">Step by step</a><a href="#data">Data</a><a href="#method">Method</a><a href="#validation">Validation</a><a href="#results">Results</a><a href="#meaning">What it means</a><a href="#limits">Limitations</a>
+    <a href="#overview">Overview</a><a href="#question">The question</a><a href="#crisp">Step by step</a><a href="#data">Data</a><a href="#method">Method</a><a href="#validation">Validation</a><a href="#results">Results</a><a href="#meaning">What it means</a><a href="#limits">Limitations</a><a href="#architecture">Architecture</a>
   </nav>
   <article class="case" id="conference">
     <div class="wrap">
@@ -191,6 +191,21 @@
       </div>
 
 
+      <div class="case-block reveal toc-watch" id="architecture">
+        <span class="sublabel">Architecture and the decisions behind it</span>
+        <p>Three statistical decisions carry every number on this page, and each one had a more convenient alternative that would have produced a stronger-looking result.</p>
+        <dl class="decisions">
+            <dt>Why melt the matrix instead of looping over it?</dt>
+            <dd>One reshape turns an unusable wide format into a table where every subsequent question is a groupby. The original R version's 250-line nested-loop attempt over hard-coded team names is the before picture.</dd>
+            <dt>Why pool wins and losses instead of averaging percentages?</dt>
+            <dd>Seasons have different game counts; the 2011-12 lockout season played 66 games and ran 72.7% intra-conference versus the usual 63.4%. Averaging per-season percentages would silently reweight it.</dd>
+            <dt>Why statsmodels rather than scikit-learn for the logit?</dt>
+            <dd>The deliverable is inference, not prediction: the coefficient, standard error, and p-value table is the model diagnostic the question asks for.</dd>
+            <dt>Why permute team labels rather than rows?</dt>
+            <dd>Conference is assigned at the team level, and a team's 16 season-rows are correlated. Shuffling rows would break that structure and understate the null spread, making the result look stronger than it is.</dd>
+          </dl>
+      </div>
+
       <details class="deep reveal">
         <summary>Technical deep dive</summary>
         <div class="deep-body">
@@ -202,17 +217,6 @@
             <li>Reporting discipline: p reported as below 0.0001 rather than zero, base-rate sanity checks on model predictions (58.0% at .500 versus a 53.3% unconditional rate), and franchise renames handled by joining on season plus name (35 names map to 30 franchises).</li>
           </ul>
 
-          <h3>Key engineering decisions</h3>
-          <dl class="decisions">
-            <dt>Why melt the matrix instead of looping over it?</dt>
-            <dd>One reshape turns an unusable wide format into a table where every subsequent question is a groupby. The original R version's 250-line nested-loop attempt over hard-coded team names is the before picture.</dd>
-            <dt>Why pool wins and losses instead of averaging percentages?</dt>
-            <dd>Seasons have different game counts; the 2011-12 lockout season played 66 games and ran 72.7% intra-conference versus the usual 63.4%. Averaging per-season percentages would silently reweight it.</dd>
-            <dt>Why statsmodels rather than scikit-learn for the logit?</dt>
-            <dd>The deliverable is inference, not prediction: the coefficient, standard error, and p-value table is the model diagnostic the question asks for.</dd>
-            <dt>Why permute team labels rather than rows?</dt>
-            <dd>Conference is assigned at the team level, and a team's 16 season-rows are correlated. Shuffling rows would break that structure and understate the null spread, making the result look stronger than it is.</dd>
-          </dl>
 
           <h3>Future improvements</h3>
           <p>An SRS-style simultaneous-equations strength of schedule would remove the mild circularity of opponents' margins including games against you; the constant-penalty specification could be relaxed (an interaction test at p = 0.15 did not reject it); and the penalty should be re-estimated over time rather than treated as a constant.</p>
