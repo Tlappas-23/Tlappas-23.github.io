@@ -21,6 +21,13 @@
   --accent-soft: rgba(190, 84, 32, 0.07);
   --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  /* Display face. The body stays on the system stack because it is fast and
+     renders natively everywhere; only the voice of the page changes. A serif
+     is the right register here: these pages are studies with findings,
+     figures and tables, and an editorial face says that before a word is
+     read. Newsreader is drawn for screens and carries an optical-size axis,
+     so headlines tighten up at large sizes without going spindly. */
+  --display: "Newsreader", Georgia, "Times New Roman", serif;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -72,6 +79,11 @@ a { color: var(--accent-ink); text-decoration-thickness: 1px; text-underline-off
 a:hover { color: var(--accent); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
 h1, h2, h3, h4 { text-wrap: balance; letter-spacing: -0.015em; }
+.hero h1, .page-head h1, .section-head h2, .case h1, .case h2,
+.work-card h3, .phil h3, .q, .topbar-name, .foot-name {
+  font-family: var(--display);
+  font-optical-sizing: auto;
+}
 
 .wrap { max-width: 70rem; margin: 0 auto; padding: 0 1.5rem; }
 
@@ -112,7 +124,7 @@ h1, h2, h3, h4, p, li, dt, dd, span, a, code, td, th, caption, figcaption, summa
   max-width: 70rem; margin: 0 auto; padding: 0.7rem 1.5rem;
   display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
 }
-.topbar-name { font-weight: 650; font-size: 0.95rem; color: var(--ink); text-decoration: none; white-space: nowrap; letter-spacing: -0.01em; }
+.topbar-name { font-weight: 600; font-size: 0.95rem; color: var(--ink); text-decoration: none; white-space: nowrap; letter-spacing: -0.01em; }
 .topbar-nav { display: flex; gap: 1.5rem; overflow-x: auto; scrollbar-width: none; }
 .topbar-nav::-webkit-scrollbar { display: none; }
 .topbar-nav a {
@@ -136,7 +148,7 @@ h1, h2, h3, h4, p, li, dt, dd, span, a, code, td, th, caption, figcaption, summa
 /* Page intro used on the case studies, skills, and contact pages:
    an eyebrow label, the page title, and a one-paragraph summary. */
 .page-head { padding: 4rem 0 1rem; }
-.page-head h1 { font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 700; margin-top: 0.6rem; letter-spacing: -0.025em; }
+.page-head h1 { font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 700; margin-top: 0.6rem; letter-spacing: -0.01em; }
 .page-head .dek { color: var(--muted); max-width: 47rem; margin-top: 0.8rem; font-size: 1.08rem; }
 
 /* Home hero. My positioning statement plus a photo placeholder,
@@ -149,7 +161,7 @@ h1, h2, h3, h4, p, li, dt, dd, span, a, code, td, th, caption, figcaption, summa
 .hero-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 3rem; align-items: start; }
 .hero h1 {
   font-size: clamp(2.3rem, 5.2vw, 3.6rem); font-weight: 700; line-height: 1.08;
-  margin: 0.9rem 0 1.4rem; letter-spacing: -0.028em; max-width: 20ch;
+  margin: 0.9rem 0 1.4rem; letter-spacing: -0.012em; max-width: 20ch;
 }
 .hero-lede { max-width: 46rem; font-size: 1.13rem; color: var(--muted); }
 .hero-lede strong { color: var(--ink); font-weight: 600; }
@@ -283,7 +295,7 @@ section[id], article[id] { scroll-margin-top: 4.5rem; }
   margin: 2.1rem 0; max-width: 47rem; padding: 1.35rem 1.5rem;
   border-left: 3px solid var(--accent); background: var(--accent-soft); border-radius: 0 10px 10px 0;
 }
-.q { font-size: 1.28rem; font-weight: 650; line-height: 1.35; letter-spacing: -0.015em; }
+.q { font-size: 1.34rem; font-weight: 600; line-height: 1.38; letter-spacing: -0.004em; }
 .a { margin-top: 0.7rem; color: var(--muted); font-size: 0.98rem; }
 .a strong { color: var(--ink); }
 
@@ -622,7 +634,7 @@ html.js .reveal.in { opacity: 1; transform: none; }
 
 /* Case pages promote their title to h1 with the same scale the h2
    carried, and section anchors clear the sticky header. */
-.case h1 { font-size: clamp(1.7rem, 3.2vw, 2.35rem); font-weight: 700; letter-spacing: -0.02em; }
+.case h1 { font-size: clamp(1.7rem, 3.2vw, 2.35rem); font-weight: 700; letter-spacing: -0.008em; }
 .case .case-block[id], .case .qa[id], .case .stats[id], .case details[id] { scroll-margin-top: 4.5rem; }
 .work-card .q { color: var(--ink); font-weight: 600; font-size: 0.95rem; margin-top: 0.2rem; }
 
