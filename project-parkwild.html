@@ -1,0 +1,137 @@
+<!doctype html>
+<!--
+  NBA Schedule Analysis, as its own page. One project, told front to back: the question,
+  why it matters, the data, the method, how the results were generated,
+  how they were validated, what they mean, and what they do not establish.
+  The technical deep dive stays one click away at the bottom.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A free, serverless map of wildlife sightings across America's national parks, built from reconciled iNaturalist and GBIF records with an honest accuracy ledger.">
+<meta property="og:title" content="Parkwild · Thomas Lappas">
+<meta property="og:description" content="A free, serverless map of wildlife sightings across America's national parks, built from reconciled iNaturalist and GBIF records with an honest accuracy ledger.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tlappas-23.github.io/project-parkwild.html">
+<meta property="og:image" content="https://tlappas-23.github.io/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>Parkwild · Thomas Lappas</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500..700&display=swap">
+<link rel="stylesheet" href="assets/style.css?v=20260910d">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="topbar-name" href="./">Thomas Lappas</a>
+    <nav class="topbar-nav" aria-label="Site">
+      <a href="./">Home</a>
+      <a href="case-studies.html" aria-current="page">Projects</a>
+      <a href="research.html">Research</a>
+      <a href="skills.html">Capabilities</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="side-toc" aria-label="On this page">
+    <a href="#overview">Overview</a><a href="#question">The question</a><a href="#architecture">Architecture</a><a href="#results">Results</a><a href="#limits">Limitations</a>
+  </nav>
+  <article class="case" id="parkwild">
+    <div class="wrap">
+      <p class="crumb reveal"><a href="case-studies.html">Projects</a><span class="sep">/</span><span>Parkwild</span></p>
+      <div class="case-tags reveal">
+        <span class="tag tag-domain">Deployed · Public</span>
+        <span class="tag">Geospatial</span>
+        <span class="tag">Python</span>
+        <span class="tag">Static build</span>
+        <a class="repo-link" href="https://tlappas-23.github.io/parkwild/">Open the map</a>
+        <a class="repo-link" href="https://github.com/Tlappas-23/parkwild">Source</a>
+      </div>
+
+      <h1 class="reveal">Parkwild</h1>
+
+      <p class="dek reveal">A free map of where people have actually seen wild animals in America's national parks, built from two public occurrence databases that disagree with each other. <strong>No server, no accounts, no tracking</strong>, and an accuracy ledger that publishes the bad numbers too.</p>
+
+      <div class="summary-strip reveal" aria-label="Study summary"><div><span class="k">Question</span><span class="v">Where in a park have people actually seen this animal?</span></div><div><span class="k">Data</span><span class="v"><strong>Research-grade iNaturalist and reviewed GBIF records</strong> for mammals and birds, park by park</span></div><div><span class="k">Method</span><span class="v">Reconciliation and dedup into ~170 m hexagonal cells, precomputed to a fully static build</span></div><div><span class="k">Result</span><span class="v"><strong>11 of 63 parks live</strong> with an unattended pipeline working through the rest</span></div></div>
+
+      <div class="case-block reveal toc-watch" id="overview">
+        <span class="sublabel">Overview</span>
+        <p>A free map of where people have actually seen wild animals in America's national parks. Research-grade iNaturalist observations and reviewed GBIF records for mammals and birds, gathered park by park, deduplicated, and drawn as hexagonal cells about 170 metres across. On top of that: species pages, a route planner over the park's real roads and trails, live USGS stream and earthquake data, and a 3D tour of each park's landmarks. No server, no accounts, no tracking, and nothing paid anywhere in the chain.</p>
+      </div>
+
+      <div class="qa reveal toc-watch" id="question">
+        <span class="sublabel">The question</span>
+        <p class="q">Where in a park have people actually seen this animal?</p>
+        <p class="a"><strong>Answerable from public records, if you are willing to do the reconciliation.</strong> Two occurrence databases with different review standards, overlapping records and no shared identifier are merged park by park, deduplicated, and binned into hexagons small enough to point at a trailhead. Eleven parks are live; an unattended pipeline is working through the remaining 52.</p>
+      </div>
+
+      <div class="case-block reveal toc-watch" id="why">
+        <span class="sublabel">Why it matters</span>
+        <p>The data exists and is public, and it is close to unusable in its raw form: millions of point records across two APIs, one of which mirrors the other, with licences that differ per photograph. Turning that into something a person can open on a phone at a trailhead is entirely a data-engineering problem, and the honest version of it involves throwing a lot of records away.</p>
+      </div>
+
+      <div class="case-block reveal toc-watch" id="architecture">
+        <span class="sublabel">Architecture and the decisions behind it</span>
+        <p>The whole application is static. That constraint drove most of what follows.</p>
+        <dl class="decisions">
+          <dt>Why no server at all?</dt>
+          <dd>A static build on GitHub Pages has no bill, no credentials to leak and nothing to keep patched, so the project can stay live indefinitely without maintenance. Everything a visitor needs is precomputed into GeoJSON, JSON and Parquet at build time; the optional assistant runs in the browser rather than calling anything.</dd>
+          <dt>Why precision with a Wilson interval, and no recall figure?</dt>
+          <dd>Recall would require knowing every animal actually present, which nobody does. Reporting a number that cannot be computed honestly is worse than reporting none, so the ledger carries precision with an interval and says plainly that recall is unavailable.</dd>
+          <dt>Why is raw model output append-only?</dt>
+          <dd>Detections from the vision model are never edited in place. Corrections are new rows, so the provenance of any sighting on the map can be traced back to the run that produced it and the confidence it carried at the time.</dd>
+          <dt>Why skip the iNaturalist mirror inside GBIF?</dt>
+          <dd>GBIF republishes iNaturalist, so ingesting both double-counts the same sighting under two identifiers. The ingest excludes the mirror rather than deduplicating afterwards, because the join key is unreliable and a missed duplicate becomes a false hotspot on a map.</dd>
+        </dl>
+      </div>
+
+      <div class="stats reveal toc-watch" id="results" role="list" aria-label="Key results">
+        <div class="stat" role="listitem"><span class="n">11 of 63</span><span class="l">national parks live, the rest queued behind an unattended pipeline</span></div>
+        <div class="stat" role="listitem"><span class="n">~170 m</span><span class="l">hexagonal cells, small enough to point at a trailhead</span></div>
+        <div class="stat" role="listitem"><span class="n">15</span><span class="l">architecture decision records, written before the code they govern</span></div>
+        <div class="stat" role="listitem"><span class="n">0</span><span class="l">servers, accounts, trackers or paid services in the chain</span></div>
+      </div>
+
+      <div class="case-block reveal toc-watch" id="limits">
+        <span class="sublabel">Limitations and scope</span>
+        <p>This is a map of where people <em>reported</em> animals, which is a map of where people go as much as where animals are: roads, trailheads and popular overlooks are over-represented, and the ledger says so. Several build phases are unfinished and marked as such rather than quietly omitted. The vision-model layer is explicitly supplementary, contributing 31 predicted sightings against a reference dataset of human observations, and is labelled that way on the map.</p>
+      </div>
+
+    <p class="fineprint">Data: iNaturalist and GBIF, under their respective licences, with photograph rights checked per record. Sightings are observations reported by the public, not a survey of what is present.</p>
+      <p class="reveal" style="margin-top:1.6rem;"><a class="btn btn-ghost" href="case-studies.html">All projects</a></p>
+    </div>
+  </article>
+</main>
+
+<!-- Site footer, identical on every page: identity, navigation, contact. -->
+<footer class="site-footer">
+  <div class="wrap foot-inner">
+    <div>
+      <p class="foot-name">Thomas Lappas</p>
+      <p class="foot-tag">Data science, analytics engineering, and production systems, demonstrated through basketball.</p>
+    </div>
+    <nav class="foot-nav" aria-label="Footer">
+      <a href="./">Home</a>
+      <a href="case-studies.html">Projects</a>
+      <a href="research.html">Research</a>
+      <a href="skills.html">Capabilities</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="foot-links">
+      <a href="mailto:thomas.lappas1010@gmail.com">thomas.lappas1010@gmail.com</a>
+      <a href="https://github.com/Tlappas-23" rel="noopener">github.com/Tlappas-23</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/figure-zoom.js?v=20260910d" defer></script>
+<script src="assets/site.js?v=20260822a"></script>
+</body>
+</html>

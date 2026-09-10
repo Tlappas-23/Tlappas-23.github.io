@@ -43,10 +43,32 @@
   <div class="wrap">
     <div class="page-head">
       <span class="label">Projects</span>
-      <h1>Five projects, grouped by the problem</h1>
-      <p class="dek">Three kinds of problem, five projects. Every page opens with the question it is answering, then walks the method one chart at a time: the data, how it was prepared, the model, how it was tested, and what shipped.</p>
+      <h1>Eight projects, grouped by the problem</h1>
+      <p class="dek">Four kinds of problem, eight projects. Every page opens with the question it is answering, then walks the method one chart at a time: the data, how it was prepared, the model, how it was tested, and what shipped.</p>
     </div>
 
+      <section class="project-group">
+        <h2 class="group-head">Products anyone can open</h2>
+        <p class="group-blurb">Two live sites with nothing between the reader and the thing: open them, use them, and the engineering is underneath if you want it.</p>
+        <div class="project-index">
+        <a class="work-card reveal" id="clean-sweep" href="project-clean-sweep.html">
+          <span class="tag tag-domain">Deployed · Playable</span>
+          <h2>Clean Sweep</h2>
+          <p class="q">Can a model tell a great film from a decorated one?</p>
+          <p>Three games on 76 years of Academy records joined to the IMDb co-star graph. The game engine is pure by rule, and an architecture test parses the source to keep it that way.</p>
+          <span class="stat-line">0.927 held-out AUC · 21 rolling-origin folds · tuning that made it worse</span>
+          <span class="go">Read the case study</span>
+        </a>
+        <a class="work-card reveal" id="parkwild" href="project-parkwild.html">
+          <span class="tag tag-domain">Deployed · Public</span>
+          <h2>Parkwild</h2>
+          <p class="q">Where in a park have people actually seen this animal?</p>
+          <p>Two public occurrence databases reconciled park by park and binned into 170-metre hexagons, precomputed into a fully static site with no server, accounts or tracking anywhere in the chain.</p>
+          <span class="stat-line">11 of 63 parks live · 15 decision records · zero servers</span>
+          <span class="go">Read the case study</span>
+        </a>
+        </div>
+      </section>
       <section class="project-group">
         <h2 class="group-head">Valuation under uncertainty</h2>
         <p class="group-blurb">Put a defensible number on a player nobody has seen do the job yet, and say how sure you are.</p>
@@ -93,7 +115,7 @@
       </section>
       <section class="project-group">
         <h2 class="group-head">Systems that run unattended</h2>
-        <p class="group-blurb">Modelling is the easy half. The product has to keep being right on a Tuesday when nobody is looking at it.</p>
+        <p class="group-blurb">Modelling is the easy half. These keep working on a Tuesday when nobody is looking at them, and one of them exists to make somebody else's system fail.</p>
         <div class="project-index">
         <a class="work-card reveal" id="platform" href="project-prediction-platform.html">
           <span class="tag tag-domain">Production System</span>
@@ -101,6 +123,14 @@
           <p class="q">Can a prediction model run itself in production, daily, with no one watching?</p>
           <p>A daily prediction product engineered to refuse bad data: single-writer scheduling, run-pinned feature lineage, circuit-breaker guardrails, a read-only public API, and two model versions graded side by side.</p>
           <span class="stat-line">7 services · unattended daily cycle · point-in-time lineage</span>
+          <span class="go">Read the case study</span>
+        </a>
+        <a class="work-card reveal" id="voice-bot" href="project-voice-bot.html">
+          <span class="tag tag-domain">Adversarial testing</span>
+          <h2>Patient Voice Bot</h2>
+          <p class="q">Does this voice agent fail in ways that matter?</p>
+          <p>An automated caller that role-plays patients against a clinic's AI phone agent over real telephony, bridging Twilio Media Streams to a realtime model through a hand-written server.</p>
+          <span class="stat-line">10 findings · 3 safety or privacy failures · ~$0.13 per call</span>
           <span class="go">Read the case study</span>
         </a>
         </div>

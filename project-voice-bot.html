@@ -1,0 +1,140 @@
+<!doctype html>
+<!--
+  NBA Schedule Analysis, as its own page. One project, told front to back: the question,
+  why it matters, the data, the method, how the results were generated,
+  how they were validated, what they mean, and what they do not establish.
+  The technical deep dive stays one click away at the bottom.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="An automated adversarial caller that role-plays patients against a clinic's AI phone agent over real telephony, and produces a bug report verified against the audio.">
+<meta property="og:title" content="Patient Voice Bot · Thomas Lappas">
+<meta property="og:description" content="An automated adversarial caller that role-plays patients against a clinic's AI phone agent over real telephony, and produces a bug report verified against the audio.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tlappas-23.github.io/project-voice-bot.html">
+<meta property="og:image" content="https://tlappas-23.github.io/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>Patient Voice Bot · Thomas Lappas</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500..700&display=swap">
+<link rel="stylesheet" href="assets/style.css?v=20260910d">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="topbar-name" href="./">Thomas Lappas</a>
+    <nav class="topbar-nav" aria-label="Site">
+      <a href="./">Home</a>
+      <a href="case-studies.html" aria-current="page">Projects</a>
+      <a href="research.html">Research</a>
+      <a href="skills.html">Capabilities</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="side-toc" aria-label="On this page">
+    <a href="#overview">Overview</a><a href="#question">The question</a><a href="#architecture">Architecture</a><a href="#results">Results</a><a href="#limits">Limitations</a>
+  </nav>
+  <article class="case" id="voice-bot">
+    <div class="wrap">
+      <p class="crumb reveal"><a href="case-studies.html">Projects</a><span class="sep">/</span><span>Patient Voice Bot</span></p>
+      <div class="case-tags reveal">
+        <span class="tag tag-domain">Adversarial testing</span>
+        <span class="tag">Realtime audio</span>
+        <span class="tag">Python</span>
+        <span class="tag">FastAPI</span>
+        <a class="repo-link" href="mailto:thomas.lappas1010@gmail.com?subject=Access%20request%3A%20Patient%20Voice%20Bot">Private repo · email for access</a>
+      </div>
+
+      <h1 class="reveal">Patient Voice Bot</h1>
+
+      <p class="dek reveal">An automated caller that role-plays realistic patients against a clinic's AI phone agent over real telephony, then documents what breaks. <strong>Testing a voice agent is a systems problem, not a prompting one</strong>, because the failures that matter live in the calls nobody scripts.</p>
+
+      <div class="summary-strip reveal" aria-label="Study summary"><div><span class="k">Question</span><span class="v">Does this voice agent fail in ways that matter?</span></div><div><span class="k">Data</span><span class="v"><strong>12 scripted patient personas</strong> over live PSTN calls, with stereo recordings and timestamped transcripts</span></div><div><span class="k">Method</span><span class="v">Twilio Media Streams bridged to the OpenAI Realtime API through a hand-written FastAPI server</span></div><div><span class="k">Result</span><span class="v"><strong>10 findings, 3 of them safety or privacy failures</strong>, each verified against the audio before publication</span></div></div>
+
+      <div class="case-block reveal toc-watch" id="overview">
+        <span class="sublabel">Overview</span>
+        <p>An automated caller that dials a clinic's AI phone agent, plays a realistic patient from a scripted persona, records and transcribes both sides, and writes up what it finds. The point is not that it can hold a conversation; it is that it can hold the <em>awkward</em> ones on purpose, repeatedly, and produce evidence a reader can check against the audio.</p>
+      </div>
+
+      <div class="qa reveal toc-watch" id="question">
+        <span class="sublabel">The question</span>
+        <p class="q">Does this voice agent fail in ways that matter?</p>
+        <p class="a"><strong>Yes, and the worst one is a safety failure rather than a usability one.</strong> Across scripted scenarios the agent booked a routine next-day appointment for a caller describing cardiac red-flag symptoms, volunteered another patient's name to whoever happened to call from a given number, and overcommitted on insurance coverage. Ten findings in total, each drafted from the transcript and verified against the recording before it was written down.</p>
+      </div>
+
+      <div class="case-block reveal toc-watch" id="why">
+        <span class="sublabel">Why it matters</span>
+        <p>Voice agents are shipped against demos, and a demo is a cooperative caller. The failures that matter live in the calls nobody scripts: the rambler who buries the symptom, the caller who interrupts, the one whose request never gets addressed. Finding those needs an adversary that is patient, repeatable and cheap, which is a systems problem rather than a prompt-writing one.</p>
+      </div>
+
+      <div class="flow reveal">
+          <span class="node">Runner reads one scenario</span><span class="arr">&rarr;</span><span class="node">Twilio dials the line</span><span class="arr">&rarr;</span><span class="node">Media Stream WebSocket</span><span class="arr">&rarr;</span><span class="node">FastAPI bridge</span><span class="arr">&rarr;</span><span class="node">OpenAI Realtime plays the patient</span><span class="arr">&rarr;</span><span class="node">Transcripts + stereo recording</span><span class="arr">&rarr;</span><span class="node">Verified bug report</span>
+      </div>
+
+      <div class="case-block reveal toc-watch" id="architecture">
+        <span class="sublabel">Architecture and the decisions behind it</span>
+        <p>Every layer here was chosen against a faster alternative, and the reasoning is written down in the repository rather than reconstructed afterwards.</p>
+        <dl class="decisions">
+          <dt>Why speech-to-speech, not speech-to-text into a model into speech?</dt>
+          <dd>The thing being tested is latency, pacing and turn-taking. A chained pipeline adds roughly 1.5 to 3 seconds of dead air per turn and forces hand-rolled voice-activity detection, which would have made the test harness the slow party in the conversation. The tradeoff is losing the ability to swap a stronger text model in mid-turn, and that is the right trade here.</dd>
+          <dt>Why a 450-line bridge instead of a managed voice platform?</dt>
+          <dd>Vapi, Retell and Bland wrap this exact stack and would have been quicker to stand up, but they hide the audio path. Turn-taking thresholds, barge-in behaviour and codec handling become someone else's opaque defaults, and those were precisely the things that needed tuning.</dd>
+          <dt>Why pass the audio through untranscoded?</dt>
+          <dd>Both legs speak G.711 mu-law, so the bytes are forwarded as they arrive. Nothing is resampled, which removes a whole class of quality question from the findings: if the agent mishears, that is the agent.</dd>
+          <dt>Why timestamp on Twilio's media clock?</dt>
+          <dd>So a finding can cite the moment it happened. Every claim in the report points at a position in a stereo recording with one speaker per channel, which is the difference between a bug report and an impression.</dd>
+        </dl>
+      </div>
+
+      <div class="stats reveal toc-watch" id="results" role="list" aria-label="Key results">
+        <div class="stat" role="listitem"><span class="n">10</span><span class="l">documented findings, each verified against the recording</span></div>
+        <div class="stat" role="listitem"><span class="n">3</span><span class="l">of them safety or privacy failures rather than usability</span></div>
+        <div class="stat" role="listitem"><span class="n">~$0.13</span><span class="l">per call, all in, with the audio path fully owned</span></div>
+        <div class="stat" role="listitem"><span class="n">12</span><span class="l">scripted patient personas, from emergency triage to the off-topic rambler</span></div>
+      </div>
+
+      <div class="case-block reveal toc-watch" id="limits">
+        <span class="sublabel">Limitations and scope</span>
+        <p>This is a black-box test of someone else's system across a small number of calls, so it establishes that these failures happen, not how often. There is no claim about rates, no access to the agent's configuration, and no way to separate a prompt problem from a retrieval one. The findings are existence proofs, which for a safety failure is the part that matters.</p>
+      </div>
+
+    <p class="fineprint">Built as an engineering challenge against a public test line. Findings concern the behaviour of an AI agent, not any real patient; all personas are fictional. Repository access available by email.</p>
+      <p class="reveal" style="margin-top:1.6rem;"><a class="btn btn-ghost" href="case-studies.html">All projects</a></p>
+    </div>
+  </article>
+</main>
+
+<!-- Site footer, identical on every page: identity, navigation, contact. -->
+<footer class="site-footer">
+  <div class="wrap foot-inner">
+    <div>
+      <p class="foot-name">Thomas Lappas</p>
+      <p class="foot-tag">Data science, analytics engineering, and production systems, demonstrated through basketball.</p>
+    </div>
+    <nav class="foot-nav" aria-label="Footer">
+      <a href="./">Home</a>
+      <a href="case-studies.html">Projects</a>
+      <a href="research.html">Research</a>
+      <a href="skills.html">Capabilities</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="foot-links">
+      <a href="mailto:thomas.lappas1010@gmail.com">thomas.lappas1010@gmail.com</a>
+      <a href="https://github.com/Tlappas-23" rel="noopener">github.com/Tlappas-23</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/figure-zoom.js?v=20260910d" defer></script>
+<script src="assets/site.js?v=20260822a"></script>
+</body>
+</html>
