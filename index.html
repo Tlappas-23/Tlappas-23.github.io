@@ -52,7 +52,7 @@
         <div>
           <span class="label">Data Science · Analytics Engineering · Software Engineering</span>
           <h1>Validated models, shipped as working systems.</h1>
-          <p class="hero-lede">I am Thomas Lappas, a data scientist and analytics engineer with a master&#x27;s in business analytics from Villanova. I build models that hold up out of sample, then ship them as products people can use. Most of the depth here is basketball; the method is not about basketball.</p>
+          <p class="hero-lede">I am Thomas Lappas, a data scientist and analytics engineer. I build models that hold up out of sample, then ship them as products people can use. Most of the depth here is basketball; the method is not.</p>
           <div class="btn-row">
             <a class="btn btn-primary" href="case-studies.html">View the projects</a>
             <a class="btn btn-ghost" href="research.html">Explore the research</a>
@@ -60,12 +60,6 @@
         </div>
       </div>
 
-      <!-- Verified totals from the work, set like a box score. -->
-      <div class="glance" role="list" aria-label="At a glance">
-        <div role="listitem"><span class="n">5</span><span class="l">projects, including two deployed full-stack platforms</span></div>
-        <div role="listitem"><span class="n">6</span><span class="l">analyses on one database, adversarially reviewed</span></div>
-        <div role="listitem"><span class="n">147K+</span><span class="l">college player-seasons modeled in ProspectIQ</span></div>
-        <div role="listitem"><span class="n">10</span><span class="l">NBA seasons of schedule data evaluated out of sample</span></div>
       </div>
     </div>
   </section>
@@ -120,73 +114,7 @@
     </div>
   </section>
 
-  <!-- Research: six analyses on one database, browsable by question,
-       plus the live player lookup rendered from their tables. -->
-  <section class="section" aria-labelledby="research-h">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="label">Research</span>
-        <h2 id="research-h">Six questions, one database</h2>
-        <p>Six questions put to one five-season NBA database, listed below. The tool changes with the question, but the rule does not: nothing gets to grade its own work, whether that means naming the confounds first, shuffling the data for significance, or keeping feature selection inside the validation fold. Four came back a null or a tie and are published that way. A second pass over the finished suite weakened three headline claims, and each correction is documented on its page.</p>
-      </div>
 
-      <ul class="study-index reveal">
-        <li><a href="research-bench-clutch.html"><span>Which bench players are clutch, and is clutch performance even measurable?</span><span class="meta">Reliability analysis</span></a></li>
-        <li><a href="research-playoff-translation.html"><span>Does playing style predict who translates to the playoffs?</span><span class="meta">Null results</span></a></li>
-        <li><a href="research-player-trajectory.html"><span>Who is rising and who is falling next season?</span><span class="meta">Trajectory modeling</span></a></li>
-        <li><a href="research-style-embeddings.html"><span>Does a neural network beat PCA for player similarity?</span><span class="meta">Representation learning</span></a></li>
-        <li><a href="research-player-clustering.html"><span>What is a player&#x27;s role, asked four independent ways?</span><span class="meta">Clustering</span></a></li>
-        <li><a href="research-bench-usage.html"><span>Does leaning on your bench actually cost games?</span><span class="meta">Confound control</span></a></li>
-      </ul>
-
-      <!-- Live player lookup: type a name, pick a season, and the card is
-           rendered from the analyses&#x27; own database tables. -->
-      <div class="ps reveal" id="player-search">
-        <input class="ps-input" id="ps-input" type="text" autocomplete="off" spellcheck="false"
-               aria-label="Look up a player" placeholder="Look up any NBA player: try Alex Caruso">
-        <ul class="ps-sug" role="listbox" hidden></ul>
-        <div class="ps-card" aria-live="polite"></div>
-      </div>
-      <div class="btn-row reveal">
-        <a class="btn btn-primary" href="research.html">Read the research</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Capabilities: what I do, each anchored to where it is shown.
-       This absorbs the old About section; the standard it described
-       now leads the section in one paragraph. -->
-  <section class="section" aria-labelledby="cap-h">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="label">Capabilities</span>
-        <h2 id="cap-h">What I do, and where it is demonstrated</h2>
-        <p>Everything below is a capability with a receipt: each group names the work where it is shown, and the claims stay inside what that work supports.</p>
-      </div>
-      <div class="cap-grid reveal">
-        <div class="cap">
-          <h3>Modeling and statistics</h3>
-          <p>Hierarchical Bayesian modeling with a hand-rolled Gibbs sampler in the <a href="project-scouting-board.html">scouting board</a>; calibrated gradient boosting in <a href="project-prospectiq.html">ProspectIQ</a>; permutation inference and reliability analysis across the <a href="research.html">research suite</a>.</p>
-          <p class="cap-tools">Python · XGBoost · scikit-learn · statsmodels · SHAP · empirical Bayes</p>
-        </div>
-        <div class="cap">
-          <h3>Evaluation and reliability</h3>
-          <p>Leakage-free counterfactuals in the <a href="project-schedule-analysis.html">schedule analysis</a>; era-split and nested validation in <a href="project-prospectiq.html">ProspectIQ</a> and the <a href="research-playoff-translation.html">playoff translation analysis</a>; an adversarial review pass that weakened three of my own headline claims, published as such.</p>
-          <p class="cap-tools">out-of-sample designs · permutation testing · calibration · baseline benchmarking</p>
-        </div>
-        <div class="cap">
-          <h3>Analytics engineering</h3>
-          <p>A 97-table research database with documented provenance rules; an 860-column feature space whittled to 428 with every drop logged, in the <a href="research-player-trajectory.html">trajectory analysis</a>; deterministic, re-executable pipelines behind every number on this site.</p>
-          <p class="cap-tools">SQL · pandas · reproducible pipelines · data quality guardrails</p>
-        </div>
-        <div class="cap">
-          <h3>Software and product</h3>
-          <p>Two deployed platforms: <a href="project-prospectiq.html">ProspectIQ</a> (36 pages, 14 API routers) and the <a href="project-prediction-platform.html">prediction platform</a> (7 services, unattended daily cycle). Analysis that cannot be served is not finished.</p>
-          <p class="cap-tools">FastAPI · PostgreSQL · Next.js · TypeScript · Docker · Redis</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- Graduate foundations, compressed to one line per area. The
        capstone client stays unnamed. -->
@@ -208,41 +136,7 @@
     </div>
   </section>
 
-  <!-- Principles, one line each. Every claim is checkable against a
-       project or analysis on this site rather than a slogan. -->
-  <section class="section" aria-labelledby="phil-h">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="label">Principles</span>
-        <h2 id="phil-h">Rules the work actually follows</h2>
-        <p>Each one is checkable against a project or analysis on this site.</p>
-      </div>
-      <ul class="principle-list reveal">
-        <li><strong>Beat the baseline or sit out.</strong> A stat that failed its baseline was excluded from the scouting composite rather than quietly kept.</li>
-        <li><strong>Evaluation should not be able to cheat.</strong> Era splits, season holdouts, fold-identical CV, and selection nested inside folds.</li>
-        <li><strong>State the uncertainty.</strong> Rankings by posterior upside probability; splits that fail their permutation tests reported as noise.</li>
-        <li><strong>Reproducibility is a deliverable.</strong> Seeded, deterministic pipelines regenerate every table and chart from raw data.</li>
-        <li><strong>Systems should refuse to do the wrong thing.</strong> Freshness checks and circuit breakers stop the platform loudly instead of publishing quietly wrong output.</li>
-        <li><strong>Write down the trade-offs.</strong> Design decisions documented with what was given up, including one shipped inconsistency kept and flagged.</li>
-        <li><strong>Judge models in business units.</strong> Classification cutoffs chosen by campaign profit in dollars, not accuracy.</li>
-        <li><strong>Communicate to the decision-maker.</strong> The conference imbalance project answers every question twice, technically and in plain language.</li>
-        <li><strong>Leave out what does not belong.</strong> A targeting model excluded race, ethnicity, and gender on ethical and legal-risk grounds, stated in the deliverable's own recommendations.</li>
-      </ul>
-    </div>
-  </section>
 
-  <!-- Closing call to action. Email is the fastest way to reach me. -->
-  <section class="section" aria-labelledby="cta-h">
-    <div class="wrap reveal">
-      <span class="label">Get in touch</span>
-      <h2 id="cta-h" style="font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 700; margin-top: 0.6rem;">The fastest way to reach me is email.</h2>
-      <div class="btn-row">
-        <a class="btn btn-primary" href="mailto:thomas.lappas1010@gmail.com">thomas.lappas1010@gmail.com</a>
-        <a class="btn btn-ghost" href="https://github.com/Tlappas-23" rel="noopener">GitHub</a>
-        <a class="btn btn-ghost" href="contact.html">Contact details</a>
-      </div>
-    </div>
-  </section>
 
 </main>
 
@@ -251,7 +145,7 @@
   <div class="wrap foot-inner">
     <div>
       <p class="foot-name">Thomas Lappas</p>
-      <p class="foot-tag">Data science, analytics engineering, and production systems, demonstrated through basketball.</p>
+      <p class="foot-tag">Data science, analytics engineering, and production systems.</p>
     </div>
     <nav class="foot-nav" aria-label="Footer">
       <a href="./">Home</a>
@@ -268,6 +162,5 @@
 </footer>
 
 <script src="assets/site.js?v=20260822a"></script>
-<script src="assets/player-search.js?v=20260822a"></script>
 </body>
 </html>
