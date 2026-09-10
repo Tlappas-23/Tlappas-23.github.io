@@ -41,7 +41,7 @@
 
 <main id="main">
   <nav class="side-toc" aria-label="On this page">
-    <a href="#overview">Overview</a><a href="#question">The question</a><a href="#crisp">Step by step</a><a href="#data">Data</a><a href="#method">Method</a><a href="#validation">Validation</a><a href="#results">Results</a><a href="#meaning">What it means</a><a href="#limits">Limitations</a><a href="#architecture">Architecture</a>
+    <a href="#overview">Overview</a><a href="#question">The question</a><a href="#crisp">Step by step</a><a href="#data">Data</a><a href="#validation">Validation</a><a href="#results">Results</a><a href="#meaning">What it means</a><a href="#limits">Limitations</a><a href="#architecture">Architecture</a>
   </nav>
   <article class="case" id="schedule">
     <div class="wrap">
@@ -116,12 +116,6 @@
       </div>
 
 
-      <div class="case-block reveal toc-watch" id="method">
-        <span class="sublabel">Method and key decisions</span>
-        <p>The first decision was what the model is allowed to see, and it decides everything downstream. To any feature that correlates with being bad, a bad team's losses look like schedule effect, so every feature is restricted, by construction, to information knowable before tipoff: rest and fatigue stretches for both teams, haversine travel between consecutive arenas, timezone crossings, and strictly pre-game strength priors. The second decision was how to attribute. A residual version of this question, actual wins minus expected wins, hands out schedule swings as large as 18 wins because it bundles schedule, luck, and model error into one number. The counterfactual asks it cleanly: each team's summed win probability under its actual schedule minus the same team under a league-average schedule, strength held fixed in both scenarios. Under that design the answer shrinks to about four wins at the extremes, team quality lands in its own column, and a bad team reads as bad rather than schedule-victimized.</p>
-        <p>Model class followed the deliverable. Logistic regression was chosen over gradient boosting because the product is a set of readable prices, and because the counterfactual feeds the model an imaginary average schedule, an input a smooth parametric model handles stably and a tree ensemble does not. The prices came out looking like basketball (home court +0.59 log-odds, a back-to-back -0.25, an opponent's back-to-back +0.25), which is the sanity check that buys the rest of the table its credibility. Evaluation is leave-one-season-out rather than random folds because games within a season share rosters and context, and random folds would leak; each of ten seasons is scored by a model that never saw it.</p>
-      </div>
-
 
       <div class="case-block reveal toc-watch" id="generated">
         <span class="sublabel">How the results were generated</span>
@@ -137,7 +131,7 @@
 
       <div class="case-block reveal toc-watch" id="validation">
         <span class="sublabel">Validation and reliability</span>
-        <p>Every game is scored by a model that never saw its season: leave-one-season-out evaluation across ten seasons gives AUC 0.706 and log-loss 0.624 against a home-team-wins baseline of 0.569 accuracy. Features are restricted by construction to pre-tipoff information, so the attribution cannot leak outcomes into itself, and every quotable density split ships with a permutation test. This establishes that the attribution design is leakage-free and beats its baseline out of sample; the win figures remain model estimates under that design, not observed facts.</p>
+        <p>Every game is scored by a model that never saw its season, and every quotable split ships with a permutation test. What that establishes is a leakage-free attribution design that beats its baseline out of sample. What it does not establish is that the win figures are observed facts: they are model estimates under this design, and they move if the design moves.</p>
       </div>
 
       <div class="stats reveal toc-watch" id="results" role="list" aria-label="Key results">
@@ -152,10 +146,8 @@
         <span class="sublabel">Results</span>
         <ul class="findings">
           <li><strong>The "some team is systematically punished" story survives its test, but only just, and the first version of that test was wrong.</strong> Charlotte starts 28.1 4-in-6 stretches per 82 games and New York 22.2, a spread of 5.9. The original permutation drew its null from all 300 team-seasons pooled, which lets a team collect ten slates from ten different years; season means run from 19.5 to 33.9 across this window, so that between-season swing landed in the null and widened it to a mean spread of 7.4, making the observed 5.9 look unremarkable at p = 0.89. Holding the season fixed and reassigning the thirty schedules within it is the exchangeability the question actually implies, and under it the null mean is 4.7 and the spread reads p = 0.07. Borderline, not comfortably ordinary. The conclusion is unchanged at the 0.05 line; the confidence behind it is not.</li>
-          <li><strong>Coefficients behave like basketball.</strong> Home court +0.59 log-odds, playing on a back-to-back -0.25, opponent on a back-to-back +0.25, stable across held-out seasons.</li>
-          <li><strong>Knowing when a split is quotable is part of the job.</strong> Brooklyn defended 1.1 points of eFG% better when the opponent sat on a back-to-back, but the split rests on 16 games and a permutation p near 0.55, so the report calls it noise. The same rest effect the 16-game slice cannot see is priced at +0.25 log-odds by ten seasons of league-wide data: real, small, and invisible at n=16.</li>
-          <li><strong>Out of sample beats the baseline.</strong> AUC 0.706 and log-loss 0.624 across ten seasons, against a "home team wins" baseline of 0.569 accuracy.</li>
-        </ul>
+                    <li><strong>Knowing when a split is quotable is part of the job.</strong> Brooklyn defended 1.1 points of eFG% better when the opponent sat on a back-to-back, but the split rests on 16 games and a permutation p near 0.55, so the report calls it noise. The same rest effect the 16-game slice cannot see is priced at +0.25 log-odds by ten seasons of league-wide data: real, small, and invisible at n=16.</li>
+                  </ul>
       </div>
 
 
