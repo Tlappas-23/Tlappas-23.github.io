@@ -1,0 +1,161 @@
+<!doctype html>
+<!--
+  NBA Schedule Analysis, as its own page. One project, told front to back: the question,
+  why it matters, the data, the method, how the results were generated,
+  how they were validated, what they mean, and what they do not establish.
+  The technical deep dive stays one click away at the bottom.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Three film games on 76 years of Academy records joined to the IMDb co-star graph, with a pure game engine enforced by architecture tests and a ranker validated over 21 rolling-origin folds.">
+<meta property="og:title" content="Clean Sweep · Thomas Lappas">
+<meta property="og:description" content="Three film games on 76 years of Academy records joined to the IMDb co-star graph, with a pure game engine enforced by architecture tests and a ranker validated over 21 rolling-origin folds.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tlappas-23.github.io/project-clean-sweep.html">
+<meta property="og:image" content="https://tlappas-23.github.io/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>Clean Sweep · Thomas Lappas</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500..700&display=swap">
+<link rel="stylesheet" href="assets/style.css?v=20260910d">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="topbar-name" href="./">Thomas Lappas</a>
+    <nav class="topbar-nav" aria-label="Site">
+      <a href="./">Home</a>
+      <a href="case-studies.html" aria-current="page">Projects</a>
+      <a href="research.html">Research</a>
+      <a href="skills.html">Capabilities</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="side-toc" aria-label="On this page">
+    <a href="#overview">Overview</a><a href="#question">The question</a><a href="#crisp">The model</a><a href="#architecture">Architecture</a><a href="#results">Results</a><a href="#limits">Limitations</a>
+  </nav>
+  <article class="case" id="clean-sweep">
+    <div class="wrap">
+      <p class="crumb reveal"><a href="case-studies.html">Projects</a><span class="sep">/</span><span>Clean Sweep</span></p>
+      <div class="case-tags reveal">
+        <span class="tag tag-domain">Deployed · Playable</span>
+        <span class="tag">Python</span>
+        <span class="tag">FastAPI</span>
+        <span class="tag">React · TypeScript</span>
+        <a class="repo-link" href="https://tlappas-23.github.io/clean-sweep/">Play it</a>
+        <a class="repo-link" href="https://github.com/Tlappas-23/clean-sweep">Source</a>
+      </div>
+
+      <h1 class="reveal">Clean Sweep</h1>
+
+      <p class="dek reveal">Three games on one dataset: 76 years of Academy records joined to IMDb ratings, votes, billing and the co-star graph. <strong>The scoring had to be argued down from awards to quality</strong>, because a metric that ranked Fight Club below the average nominee was measuring hardware, not films.</p>
+
+      <div class="summary-strip reveal" aria-label="Study summary"><div><span class="k">Question</span><span class="v">Can a model tell a great film from a decorated one?</span></div><div><span class="k">Data</span><span class="v"><strong>76 years of Academy records</strong> joined to IMDb ratings, votes, billing and the co-star graph</span></div><div><span class="k">Method</span><span class="v">A five-signal quality score; a ranker validated by rolling-origin CV with nested tuning</span></div><div><span class="k">Result</span><span class="v"><strong>0.927 held-out ROC-AUC against 0.792 for the best one-number rule</strong>; tuning made it worse and was dropped</span></div></div>
+
+      <div class="case-block reveal toc-watch" id="overview">
+        <span class="sublabel">Overview</span>
+        <p>Three games on one dataset: 76 years of Academy records joined to IMDb ratings, vote counts, billing and the co-star graph. Six Degrees asks who connects two actors, The Oscars asks how good a ballot you can draft, and The Chain asks you to get from one film to another through shared casts. It is a real deployment rather than a demo: a static build on GitHub Pages talking to an API on Render, serving the whole catalogue, installable to a phone from the browser share menu.</p>
+      </div>
+
+      <div class="qa reveal toc-watch" id="question">
+        <span class="sublabel">The question</span>
+        <p class="q">Can a model tell a great film from a decorated one?</p>
+        <p class="a"><strong>Only once the scoring stopped rewarding decoration.</strong> The first version weighted ceremony results at 60 percent, which scored Fight Club at 32 and Blade Runner at 34 against an average nominee of 59. Films people actually love were losing to films nobody remembers, because the metric was measuring hardware rather than quality. Demoting the awards freed the other four signals and the scores started matching what audiences and critics already believed.</p>
+      </div>
+
+      <div class="case-block reveal toc-watch" id="why">
+        <span class="sublabel">Why it matters</span>
+        <p>A game is an unusually strict place to put a model. Every score is shown to someone who has an opinion about the film, so a ranking that is subtly wrong gets caught immediately by a player rather than surviving in a notebook. That is also what makes it a good place to demonstrate engineering: the model has to be right, and the thing around it has to stay up, load fast on a phone, and keep working when the API has gone to sleep.</p>
+      </div>
+
+      <div class="case-block reveal toc-watch" id="crisp">
+        <span class="sublabel">What the model had to get right</span>
+        <p>Four decisions, each with the chart that settled it.</p>
+      </div>
+
+      <div class="crisp-steps reveal">
+        <figure>
+          <div class="fig-panel"><img src="assets/clean-sweep-scoring.png" alt="Bar chart comparing film quality scores under two weightings, showing Fight Club, Blade Runner and Jurassic Park scoring below the average nominee when ceremony weight is 60 percent." width="1350" height="690" loading="lazy"></div>
+          <figcaption>Weighting awards at 60% scored beloved films below forgettable nominees. Fight Club came out at 32 and the average nominee at 59, which is a scoring bug dressed as an opinion.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/clean-sweep-rolling.png" alt="Rolling-origin validation across 21 folds, each bar a year the ranker was refit and rescored, mean 0.954." width="1350" height="645" loading="lazy"></div>
+          <figcaption>Refit and rescored 21 times, one year at a time, never scoring a year it had already seen. Mean 0.954, worst fold 0.799.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/clean-sweep-tuning.png" alt="Two bars anchored at 0.50 comparing hand-picked constants at 0.9562 against a nested hyperparameter search at 0.9540." width="1110" height="630" loading="lazy"></div>
+          <figcaption>Tuning lost 0.0022 AUC and picked a different winner in 8 of 21 folds, so the hand-picked constants shipped.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/clean-sweep-baselines.png" alt="Horizontal bars of held-out ROC-AUC for the ranker at 0.927 against four single-number rules, the best of which is acclaim at 0.792." width="1290" height="570" loading="lazy"></div>
+          <figcaption>Beats the best single-number rule by 0.135 AUC, 95% CI 0.072 to 0.200, so the model earns its complexity.</figcaption>
+        </figure>
+      </div>
+
+      <div class="case-block reveal toc-watch" id="architecture">
+        <span class="sublabel">Architecture and the decisions behind it</span>
+        <p>The load-bearing decision is that the game engine cannot touch the outside world, and a test enforces it rather than a comment asking nicely.</p>
+        <dl class="decisions">
+          <dt>Why a pure engine with no I/O at all?</dt>
+          <dd>Nine modules under <code>app/engine/</code> hold every rule of every game and are not allowed to import a database driver, a HTTP client or pandas. That makes the rules testable without fixtures, and it is why the deployed image is 77 MB rather than 530.</dd>
+          <dt>Why test the architecture instead of documenting it?</dt>
+          <dd>A rule nobody checks is a comment. <code>test_architecture.py</code> parses the source with <code>ast</code> and fails the build if an engine module imports anything it should not. The check was verified by injecting a <code>pandas</code> import and watching it break.</dd>
+          <dt>Why ship gzipped JSON Lines instead of Parquet?</dt>
+          <dd>Measured, not assumed. Loading the seed columnar built 1.1 million objects at once and cost 84 MB of transient memory, which is what made the container fall over on the free tier. Streaming row-by-row from JSON Lines took peak usage from 402 MB to 365 MB and kept pandas off the request path entirely.</dd>
+          <dt>Why keep a mode the client never shows?</dt>
+          <dd>The API stays a complete description of what the system can do; the client decides what it presents. Recast is still served and still tested, and one list in the frontend is the only thing that hides it, so the two halves can disagree without either becoming a lie.</dd>
+        </dl>
+      </div>
+
+      <div class="stats reveal toc-watch" id="results" role="list" aria-label="Key results">
+        <div class="stat" role="listitem"><span class="n">4,180</span><span class="l">films and 49,826 contenders served from the live catalogue</span></div>
+        <div class="stat" role="listitem"><span class="n">0.927</span><span class="l">held-out ROC-AUC, against 0.792 for the best single-number rule</span></div>
+        <div class="stat" role="listitem"><span class="n">21</span><span class="l">rolling-origin folds, each scoring a year the model had never seen</span></div>
+        <div class="stat" role="listitem"><span class="n">-0.0022</span><span class="l">AUC bought by nested hyperparameter tuning, so it was not shipped</span></div>
+      </div>
+
+      <div class="case-block reveal toc-watch" id="limits">
+        <span class="sublabel">Limitations and scope</span>
+        <p>The quality score is a composite of five measurable signals, and it inherits their blind spots: films with thin vote counts sit where their sparse data puts them, and anything released before ratings sites existed is judged on records written long after the fact. The ranker is validated against whether a film won its category, which is a proxy for quality and not the thing itself. It is a game, and it is scored honestly, but the target was never truth.</p>
+      </div>
+
+    <p class="fineprint">Data: the Academy's own records via the oscar_data project, and IMDb's public datasets. Built for portfolio demonstration. The API sleeps when nobody is playing, so the first move of the day takes a few seconds while it wakes.</p>
+      <p class="reveal" style="margin-top:1.6rem;"><a class="btn btn-ghost" href="case-studies.html">All projects</a></p>
+    </div>
+  </article>
+</main>
+
+<!-- Site footer, identical on every page: identity, navigation, contact. -->
+<footer class="site-footer">
+  <div class="wrap foot-inner">
+    <div>
+      <p class="foot-name">Thomas Lappas</p>
+      <p class="foot-tag">Data science, analytics engineering, and production systems, demonstrated through basketball.</p>
+    </div>
+    <nav class="foot-nav" aria-label="Footer">
+      <a href="./">Home</a>
+      <a href="case-studies.html">Projects</a>
+      <a href="research.html">Research</a>
+      <a href="skills.html">Capabilities</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="foot-links">
+      <a href="mailto:thomas.lappas1010@gmail.com">thomas.lappas1010@gmail.com</a>
+      <a href="https://github.com/Tlappas-23" rel="noopener">github.com/Tlappas-23</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/figure-zoom.js?v=20260910d" defer></script>
+<script src="assets/site.js?v=20260822a"></script>
+</body>
+</html>
