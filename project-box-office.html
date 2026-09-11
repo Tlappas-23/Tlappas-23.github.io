@@ -1,0 +1,172 @@
+<!doctype html>
+<!--
+  Box Office Before Release, as its own page. One project, told front to back:
+  the question, why it matters, the data, the method, how the results were
+  generated, how they were validated, what they mean, and what they do not
+  establish. The decision log and the source stay one click away.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Predict which films will not return their budget from what is public before release. A calibrated classifier beats the budget-tier prior in every tier, and who made a film does not predict what it earns.">
+<meta property="og:title" content="Box Office Before Release · Thomas Lappas">
+<meta property="og:description" content="Predict which films will not return their budget from what is public before release. A calibrated classifier beats the budget-tier prior in every tier, and who made a film does not predict what it earns.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tlappas-23.github.io/project-box-office.html">
+<meta property="og:image" content="https://tlappas-23.github.io/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>Box Office Before Release · Thomas Lappas</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500..700&display=swap">
+<link rel="stylesheet" href="assets/style.css?v=20260911a">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="topbar-name" href="./">Thomas Lappas</a>
+    <nav class="topbar-nav" aria-label="Site">
+      <a href="./">Home</a>
+      <a href="case-studies.html" aria-current="page">Projects</a>
+      <a href="research.html">Research</a>
+      <a href="skills.html">Capabilities</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="side-toc" aria-label="On this page">
+    <a href="#overview">Overview</a><a href="#question">The question</a><a href="#crisp">The model</a><a href="#architecture">Architecture</a><a href="#results">Results</a><a href="#limits">Limitations</a>
+  </nav>
+  <article class="case" id="box-office">
+    <div class="wrap">
+      <p class="crumb reveal"><a href="case-studies.html">Projects</a><span class="sep">/</span><span>Box Office Before Release</span></p>
+      <div class="case-tags reveal">
+        <span class="tag tag-domain">Calibrated classification</span>
+        <span class="tag">Python</span>
+        <span class="tag">scikit-learn</span>
+        <span class="tag">FastAPI</span>
+        <a class="repo-link" href="https://github.com/Tlappas-23/clean-sweep/tree/boxoffice-model/backend/boxoffice">Source and decision log</a>
+      </div>
+
+      <h1 class="reveal">Box Office Before Release</h1>
+
+      <p class="dek reveal">Can you tell which films will not pay before they open, from nothing that is not public on the day the trailer drops? <strong>Yes, within every budget tier, and the thing that predicts it is not who made the film.</strong> Five separate groups describing the director, cast, cinematographer, composer and writer all sit inside noise. Which company releases it does not.</p>
+
+      <div class="summary-strip reveal" aria-label="Study summary"><div><span class="k">Question</span><span class="v">Which films will fail to return their budget, and can you tell before release?</span></div><div><span class="k">Data</span><span class="v"><strong>2,505 studio releases, 2000 to 2026</strong>, from 42 distributors, with the worldwide gross corrected against an independent source</span></div><div><span class="k">Method</span><span class="v">Every feature answerable as of release day; 17 rolling-origin folds; a booster calibrated in-fold, scored against each budget tier's own base rate</span></div><div><span class="k">Result</span><span class="v"><strong>Beats the budget-tier prior in every tier</strong>, with every interval clear of zero; ranks the sub-$15m films from 67% profitable to 22%</span></div></div>
+
+      <div class="case-block reveal toc-watch" id="overview">
+        <span class="sublabel">Overview</span>
+        <p>A forecast of what a film will earn, built under one rule: every input has to be knowable on the day the marketing campaign starts. That rule is stricter than it sounds. A director's average gross is a legitimate feature, but the same average computed over their whole career includes films that had not opened yet, and the two columns have the same name. IMDb ratings, vote counts and Rotten Tomatoes all accumulate after release and are banned outright. The project started as a regression on revenue, found that budget alone explains most of it, and turned into the question a studio actually asks: which of these will not pay?</p>
+      </div>
+
+      <div class="qa reveal toc-watch" id="question">
+        <span class="sublabel">The question</span>
+        <p class="q">Does who makes a film predict what it earns?</p>
+        <p class="a"><strong>Not measurably, and that was tested seven ways rather than assumed.</strong> Director, cast, cinematographer, composer and writer were each encoded as a track record as of release day, and each was removed from the working model on identical folds with a paired test on the films the two versions disagreed about. Every interval contains zero. Then the obvious objections were built and tested too: Academy pedigree, the marketing synopsis, career length and gaps, and a version with every person's full filmography pulled in from outside the sample. All of them lost. What survives is what the film is, a sequel at this budget from this distributor, and that is enough to rank the riskiest tier of films three to one.</p>
+      </div>
+
+      <div class="case-block reveal toc-watch" id="why">
+        <span class="sublabel">Why it matters</span>
+        <p>A regression on box office rediscovers budget. This one did: budget alone lands 47% of forecasts within a factor of two, and thirty-seven more features add ten points. The lift is real, but the model was weakest exactly where a studio needs a warning, projecting nine times actual in the bottom decile. So the target changed. The outcome space was clustered without any pre-release variable in it, three stable kinds fell out, and the classifier predicts which kind a film becomes, scored against the base rate inside its own budget tier. Predicting that a $200m tentpole turns a profit is worth nothing when 81% of them do. Predicting which of the sub-$15m films is the 37% that works is the whole job.</p>
+      </div>
+
+      <div class="case-block reveal toc-watch" id="crisp">
+        <span class="sublabel">What the model had to get right</span>
+        <p>Six decisions, each with the chart that settled it.</p>
+      </div>
+
+      <div class="crisp-steps reveal">
+        <figure>
+          <div class="fig-panel"><img src="assets/boxoffice-1-sample.png" alt="Funnel from 37,486 TMDB theatrical titles in 2019 down to the 2,505 films in the sample, beside a list of four sampling filters of which only the distributor is accepted." width="2101" height="989" loading="lazy"></div>
+          <figcaption>TMDB calls 37,486 films theatrical in 2019 alone. Sorting by revenue, votes or popularity all select on the outcome; a distributor is attached months before opening, so it defines the frame.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/boxoffice-2-baselines.png" alt="Three bars: predicting the median film lands 31.6% within a factor of two, budget alone 46.9%, all 38 pre-release features 57.0%." width="1816" height="1008" loading="lazy"></div>
+          <figcaption>Budget alone lands 46.9% of forecasts within a factor of two. All 38 pre-release features reach 57.0% and clear budget in every one of the 17 folds.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/boxoffice-3-ablation-design.png" alt="Two panels of horizontal bars for nine feature groups: added to a budget-only model almost all raise error; removed from the full model, form and studio cost the most." width="2207" height="1048" loading="lazy"></div>
+          <figcaption>Added to budget one at a time, almost every group hurts; removed from the full model, form and studio carry the weight. The disagreement is the finding: these features only mean anything in combination.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/boxoffice-4-what-signals-buy.png" alt="Nine feature groups as horizontal bars with 95% confidence whiskers; form, studio and genre are highlighted as clearing zero, the five people-based groups are grey with intervals crossing zero." width="2377" height="1165" loading="lazy"></div>
+          <figcaption>Three of nine groups clear the line: form, studio and genre. All five describing who made the film, director, cast, cinematographer, composer and writer, have intervals containing zero.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/boxoffice-5-reliability.png" alt="Reliability diagram: the calibrated model's predicted probability of profit against the share that were profitable tracks the diagonal, the budget-tier prior sits below it." width="1267" height="1165" loading="lazy"></div>
+          <figcaption>When the model says 60%, about 60% turn a profit. The raw booster put a third of films above 0.99 and was wrong on 8% of them; regularised and calibrated on held-out slices of the training years, it sits on the diagonal.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-panel"><img src="assets/boxoffice-6-decision-curve.png" alt="Decision curve: share of unprofitable films caught against the precision of the flag, with the model's curve above the budget-tier prior's at every catch rate." width="1541" height="1126" loading="lazy"></div>
+          <figcaption>Flag a film as not profitable below a threshold: at every catch rate the model's flags are about twelve points more precise than budget tier alone.</figcaption>
+        </figure>
+      </div>
+
+      <div class="case-block reveal toc-watch" id="architecture">
+        <span class="sublabel">Architecture and the decisions behind it</span>
+        <p>The load-bearing decision is that a feature is a function of the release date, and a test enforces it rather than a comment asking nicely.</p>
+        <dl class="decisions">
+          <dt>Why an as-of encoding instead of a career average?</dt>
+          <dd>A plain <code>groupby</code> gives a director's average over every film, including the ones after this one. <code>AsOf</code> sorts by release date and lets each row see only strictly earlier rows, and the case that makes it hard, two films opening the same morning, is tested directly: both see the history as of that day and neither sees the other. Fourteen post-release columns are banned by name and a test proves each one trips the guard.</dd>
+          <dt>Why does the sampling frame matter more than the model?</dt>
+          <dd>Every convenient way to cut TMDB's catalogue down selects on the outcome. Revenue is the target; vote count and popularity measure who eventually saw the film. The distributor is known months out, so 42 of them define the sample and nothing about the answer leaks into who is in it.</dd>
+          <dt>Why was the target corrected, and why before the features?</dt>
+          <dd>Two rounds of feature work made the model worse, which usually means the label is wrong. Against an independent file whose own arithmetic checked out, TMDB understated worldwide gross on 104 of 1,909 shared films; on thirty of them the worldwide figure was exactly the domestic one. The target is also the input to every career prior, so a corrected gross had to be applied before the priors were built, not after.</dd>
+          <dt>Why calibrate, and why is the opponent the budget tier?</dt>
+          <dd>The library-default booster scored 69% accuracy with a log loss worse than the prior, which is what overconfidence looks like on paper. Regularised hard and calibrated by isotonic regression on held-out slices of the training years, it emits a probability that means what it says. And the opponent is each tier's own class frequencies rather than a coin, because a model that says profit to every tentpole and loss to every small film is already right 65% of the time.</dd>
+          <dt>Why ship the library defaults?</dt>
+          <dd>A hand-set configuration shipped for months and lost to the defaults on folds it was never chosen against. A randomised search then picked a winner on 2010 to 2018 that was the worst of three on 2019 to 2026, which is what fitting the selection looks like from outside. The least-fitted option generalised best, and it is defined once in <code>train.py</code> so six copies cannot drift apart again.</dd>
+          <dt>Why keep seven negative results?</dt>
+          <dd>Because they are the finding. Prestige, the synopsis, career structure, widened histories, a neural net, the writer credit and the summed breakout were each a reasonable idea, built properly, scored on the same folds, and lost. Each stays in the repository as a module anyone can re-run, so the next person to propose Oscar features can see the number that already settled it.</dd>
+        </dl>
+      </div>
+
+      <div class="stats reveal toc-watch" id="results" role="list" aria-label="Key results">
+        <div class="stat" role="listitem"><span class="n">+9.7</span><span class="l">points over budget alone, pooled across 1,426 films, 95% CI +7.0 to +12.3</span></div>
+        <div class="stat" role="listitem"><span class="n">67% v 22%</span><span class="l">profitable share of the model's most and least confident quarter of sub-$15m films, against a 40% base rate</span></div>
+        <div class="stat" role="listitem"><span class="n">3 of 3</span><span class="l">budget tiers where the calibrated classifier beats the tier's own prior, every interval clear of zero</span></div>
+        <div class="stat" role="listitem"><span class="n">0 of 5</span><span class="l">people-based feature groups distinguishable from noise, after seven attempts to make them so</span></div>
+      </div>
+
+      <div class="case-block reveal toc-watch" id="limits">
+        <span class="sublabel">Limitations and scope</span>
+        <p>It never calls a write-off. Fifty-nine of the 1,426 scored films are in that class and neither model nor prior ever predicts it as the most likely outcome; the model separates them three to one on probability and never past the point of a call. A class that rare on a sample this size is detectable and not predictable. Two thousand films is small, and the significance tests say so directly: a one-point effect is unresolvable at this size, which is why the people results are stated as "inside noise" rather than "zero". "Profitable" means the worldwide gross returned the production budget at a multiple the clustering found; prints and advertising, exhibitor splits and ancillary revenue are in no public dataset. And the sample is studio films, so it will not price a microbudget breakout.</p>
+      </div>
+
+    <p class="fineprint">Data: TMDB for the catalogue and credits, OMDb for the domestic gross, IMDb's public datasets for crew and Academy records, and an independent box office file for correcting the target. Built for portfolio demonstration; the decision log is an executed notebook in the repository, and every published number is pinned by a test against the artifact that produced it.</p>
+      <p class="reveal" style="margin-top:1.6rem;"><a class="btn btn-ghost" href="case-studies.html">All projects</a></p>
+    </div>
+  </article>
+</main>
+
+<!-- Site footer, identical on every page: identity, navigation, contact. -->
+<footer class="site-footer">
+  <div class="wrap foot-inner">
+    <div>
+      <p class="foot-name">Thomas Lappas</p>
+      <p class="foot-tag">Data science, analytics engineering, and production systems, demonstrated through basketball.</p>
+    </div>
+    <nav class="foot-nav" aria-label="Footer">
+      <a href="./">Home</a>
+      <a href="case-studies.html">Projects</a>
+      <a href="research.html">Research</a>
+      <a href="skills.html">Capabilities</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="foot-links">
+      <a href="mailto:thomas.lappas1010@gmail.com">thomas.lappas1010@gmail.com</a>
+      <a href="https://github.com/Tlappas-23" rel="noopener">github.com/Tlappas-23</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/figure-zoom.js?v=20260910d" defer></script>
+<script src="assets/site.js?v=20260822a"></script>
+</body>
+</html>
